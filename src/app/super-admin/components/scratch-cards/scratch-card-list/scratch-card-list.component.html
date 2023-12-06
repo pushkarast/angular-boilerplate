@@ -1,0 +1,545 @@
+<div class="flex justify-between mb-5">
+    <h1>
+        Manage Scratch Cards:
+    </h1>
+    <div>
+        <button routerLink="../add-new-scratch-card"  
+            class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+            Add New </button>
+    </div>
+</div>
+
+<!-- <div class="grid grid-cols-4 items-center gap-3 w-full mb-5">
+    <form [formGroup]="getList">
+        <div class="md:col-span-1  col-span-12">
+            <label for="feedbackStatus" class="text-stone-600 text-sm font-bold" >Filter by Status</label>
+        
+            <select id="status" formControlName="statusFilter" (change)="setFilter($event)"
+                class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                >
+                <option name="None" value="null" >None</option>
+                <option name="Approved" value="1">New</option>
+                <option name="Not Approved" value="2">Open</option>
+                <option name="Not Approved" value="3">Used</option>
+                <option name="Not Approved" value="4">Expired</option>
+            </select>
+        </div>
+    </form>
+</div> -->
+
+
+
+<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Id</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Thmbnail Image</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Offer Image</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Type</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Selected Customer</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Selected Astrologer</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Discount on Amount</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Expire At</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Rate Per Min</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Min</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Total/Recharge Discount</th>
+                            <!-- <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Status</th> -->
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="scratchCardsList?.length!==0;else noData"
+                        class=" bg-white divide-y divide-gray-200 ">
+                        <tr *ngFor="let item of scratchCardsList?.scratchCardsList" class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words text-left">
+                                {{item?.id}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words text-left">
+                                <img src={{item?.thumbnail}}  alt="offerImage" class="w-[50px] h-[50px]">
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words text-left">
+                                <img src={{item?.bgImage}}  alt="offerImage" class="w-[50px] h-[50px]">
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words text-left">
+                                {{item?.offerType}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                               <div *ngIf="item?.customerDetail; else templateName">
+
+                                    <button
+                                    (click)="openDetailsModal(template1);viewMoreList(item?.customerDetail)"
+                                    class="p-1 text-blue-500 rounded  text-left"
+                                    >
+                                        View More...
+                                    </button>
+                               </div>
+                               <ng-template #templateName>
+                                    N/A
+                                </ng-template>
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words whitespace-nowrap">
+
+                                <button *ngIf="item?.offerType!=='Discount on recharge'; else noAStroData"
+                                (click)="openAstroListModal(template2);viewMoreAstroList(item?.astroDetail)"
+                                class="p-1 text-blue-500 rounded  text-left"
+                                >
+                                    View More...
+                                </button>
+                                <ng-template #noAStroData>
+                                    N/A
+                                </ng-template>
+                            </td>
+                             <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left ">
+                                <!-- <div *ngIf="item?.rechargeDetail; else templateName3">
+                                    <div *ngFor="let i of item?.rechargeDetail">
+                                        {{i?.Amount}} 
+                                   </div>
+                                </div> -->
+                                <button *ngIf="item?.rechargeDetail; else noAmountData"
+                                    (click)="openRechargeListModal(template3);viewMoreRechargeList(item?.rechargeDetail)"
+                                    class="p-1 text-blue-500 rounded  text-left"
+                                    >
+                                        View More...
+                                </button>
+                                <ng-template #noAmountData>
+                                    N/A
+                                </ng-template>
+                             </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words text-left">
+                                {{item?.expireTime | date:"short"}}                            
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words text-left">
+                                {{item?.ratePerMin }}                       </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words text-left" >
+                                {{item?.min }}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words text-left">
+                                {{item?.offerPrice}}
+                            </td>
+                            <!-- <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left"
+                            
+                                >
+                                {{item?.status}}
+                            </td> -->
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                <div class="flex text-white">
+                                    <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                        (click)="openStatusModal(Template,item?.id)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1" (click)="deleteScratchCard(item?.id)"
+                                        >
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<mat-paginator [length]="scratchCardsList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getScratchCardsList()"
+    (page)="onPaginateChange($event)">
+</mat-paginator>
+
+<ng-template #Template let-c="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit</h4>
+        <button type="button" class="btn-close" aria-label="Close" ></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="updateScratchCardData" (ngSubmit)="updateScratchCard()">
+
+
+            <div class="relative z-999999 mb-3 w-full group">
+                <ng-select [items]="option" placeholder="Type"
+                    bindLabel="name" bindValue="value" class="w-full" formControlName="Type">
+                </ng-select>
+            </div>
+            <div *ngIf="updateScratchCardData.controls['Type'].value == '0' || updateScratchCardData.controls['Type'].value == '1'">
+                <div class="relative z-999999 mb-3 w-full group">
+                    <ng-select [items]="freeOrPaidOption" placeholder="Free/Paid" 
+                    bindLabel="name" bindValue="value" class="w-full" formControlName="freeCheck">
+                    </ng-select>                
+                </div>
+                <div class="relative z-0 mb-3 w-full group">
+                    <p class="text-sm">Rate Per Min</p>
+                    <input formControlName="RatePerMin" required class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1" type="number" placeholder="00" (change)="setTotalValue($event)" [readonly]="toggleButton" />
+                </div>
+                <div class="relative z-0 mb-3 w-full group">
+                    <p class="text-sm">Min</p>
+                    <input formControlName="Min" required class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1" type="number" placeholder="00" (change)="setTotalValue($event)" />
+                </div>
+                <div class="relative z-0 mb-3 w-full group">
+                    <p class="text-sm">Total</p>
+                    <input formControlName="total" class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1" type="number" placeholder="00" readonly />
+                </div>
+            </div>
+
+            <div *ngIf="updateScratchCardData.controls['Type'].value == '2'">
+                <div class="relative z-9999 mb-3 w-full group" *ngIf="updateScratchCardData.controls['minOrSepecificAmt'].value == '0'">
+                    <ng-select [items]="minAmtOrSepecificAmt" required placeholder="Set Min Amount/ Select Specific Amount" bindLabel="name" bindValue="value"
+                        formControlName="minOrSepecificAmt" class="w-full " 
+                        >
+                    </ng-select>               
+                </div>
+                <div class="relative z-9999 mb-3 w-full group" *ngIf="updateScratchCardData.controls['minOrSepecificAmt'].value == '1'">
+                    <ng-select [items]="minAmtOrSepecificAmt" required placeholder="Set Min Amount/ Select Specific Amount" bindLabel="name" bindValue="value"
+                        formControlName="minOrSepecificAmt" class="w-full " 
+                        >
+                    </ng-select>               
+                </div>
+                <div class="relative z-9999 mb-3 w-full group">
+                    <ng-select [items]="discountList" placeholder="Select Minimum Amount" bindLabel="name" bindValue="name"
+                         formControlName="rechargeId" class="w-full"
+                        (click)="getDiscountDatas()">
+                    </ng-select>                
+                </div>
+                <div class="relative z-0 mb-3 w-full group">
+                    <p class="text-sm">Discount %</p>
+                    <input formControlName="discPer" required class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1" type="number" placeholder="00" />
+                </div>
+            </div>
+
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        </form>
+    </div>
+
+</ng-template>
+
+<ng-template #template1>
+    <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+    id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableLabel" aria-hidden="true">
+    <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+      <div
+        class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+        <!-- <div
+          class="flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+          <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalScrollableLabel">
+            Modal title
+          </h5>
+          <button type="button"
+            class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+            data-bs-dismiss="modal" aria-label="Close"></button>
+        </div> -->
+        <div class="modal-header flex justify-between p-0 m-0">
+            <div>
+              <p class="font-bold text-xl">Customers List</p>
+            </div>
+            <div class="float-right">
+              <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+            </div>
+          </div>
+        <div class="flex-auto overflow-y-auto relative p-4">
+          <table class="min-w-full divide-y divide-gray-200 table-fixed">
+            <thead class="bg-gray-100">
+            <tr>
+                <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Customer Name
+                </th>
+                <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Status
+                </th>
+            </tr>
+            </thead>
+            <tbody
+            *ngIf="viewMoreCustomerList?.length !== 0; else noData"
+            class="bg-white divide-y divide-gray-200"
+            >
+            <tr *ngFor="let i of viewMoreCustomerList" class="hover:bg-gray-100">
+
+                <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                <p>{{ i?.FirstName }} {{ i?.LastName }}</p>
+                </td>
+                <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                {{
+                    i?.status=='1' ? 'New' : 
+                        i?.status=='2' ? 'Open' :
+                            i?.status=='3' ? 'Used' :
+                                i?.status=='4' ? 'Expired' : 
+                                    'N/A'
+                }} 
+                </td>
+            </tr>
+            </tbody>
+            <ng-template #noData>
+            <tbody>
+                <tr>
+                <td colspan="12" class="text-center" style="font-size: 14px">
+                    No data available
+                </td>
+                </tr>
+            </tbody>
+            </ng-template>
+          </table>
+        </div>
+        <div
+          class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+          <button type="button"
+            class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+            data-bs-dismiss="modal" (click)="closeModal()">
+            Close
+          </button>
+          <!-- <button type="button"
+            class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+            Save changes
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template2>
+    <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+    tabindex="-1"  aria-hidden="true">
+    <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+      <div
+        class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+        <!-- <div
+          class="flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+          <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalScrollableLabel">
+            Modal title
+          </h5>
+          <button type="button"
+            class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+            data-bs-dismiss="modal" aria-label="Close"></button>
+        </div> -->
+        <div class="modal-header flex justify-between p-0 m-0">
+            <div>
+              <p class="font-bold text-xl">Astrologers List</p>
+            </div>
+            <div class="float-right">
+              <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+            </div>
+          </div>
+        <div class="flex-auto overflow-y-auto relative p-4">
+          <table class="min-w-full divide-y divide-gray-200 table-fixed">
+            <thead class="bg-gray-100">
+            <tr>
+                <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Astrologer Name
+                </th>
+            </tr>
+            </thead>
+            <tbody
+            *ngIf="viewMoreAstrologerList?.length !== 0; else noData"
+            class="bg-white divide-y divide-gray-200"
+            >
+            <tr *ngFor="let i of viewMoreAstrologerList" class="hover:bg-gray-100">
+
+                <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                <p>{{ i?.FullName }} </p>
+                </td>
+            </tr>
+            </tbody>
+            <ng-template #noData>
+            <tbody>
+                <tr>
+                <td colspan="12" class="text-center" style="font-size: 14px">
+                    No data available
+                </td>
+                </tr>
+            </tbody>
+            </ng-template>
+          </table>
+        </div>
+        <div
+          class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+          <button type="button"
+            class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+            data-bs-dismiss="modal" (click)="closeModal()">
+            Close
+          </button>
+          <!-- <button type="button"
+            class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+            Save changes
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template3>
+    <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+    tabindex="-1"  aria-hidden="true">
+    <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+      <div
+        class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+        <div class="modal-header flex justify-between p-0 m-0">
+            <div>
+              <p class="font-bold text-xl">Offer Amount</p>
+            </div>
+            <div class="float-right">
+              <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+            </div>
+          </div>
+        <div class="flex-auto overflow-y-auto relative p-4">
+          <table class="min-w-full divide-y divide-gray-200 table-fixed">
+            <thead class="bg-gray-100">
+            <tr>
+                <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Amount 
+                </th>
+            </tr>
+            </thead>
+            <tbody
+            *ngIf="rechargeListMore?.length !== 0; else noData"
+            class="bg-white divide-y divide-gray-200"
+            >
+            <tr *ngFor="let i of rechargeListMore" class="hover:bg-gray-100">
+
+                <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                <p>{{ i?.Amount }} </p>
+                </td>
+            </tr>
+            </tbody>
+            <ng-template #noData>
+            <tbody>
+                <tr>
+                <td colspan="12" class="text-center" style="font-size: 14px">
+                    No data available
+                </td>
+                </tr>
+            </tbody>
+            </ng-template>
+          </table>
+        </div>
+        <div
+          class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+          <button type="button"
+            class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+            data-bs-dismiss="modal" (click)="closeModal()">
+            Close
+          </button>
+          <!-- <button type="button"
+            class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+            Save changes
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- <ng-template #template1>
+    <div class="modal-header flex justify-between p-0 m-0">
+      <div>
+        <p class="font-bold text-xl">Customers List</p>
+      </div>
+      <div class="float-right">
+        <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+      </div>
+    </div>
+    <div class="modal-content">
+      <div class="p-5">
+        <div class="flex flex-col">
+            <div class="">
+                <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                  <div class="inline-block min-w-full align-middle">
+                    <div class="overflow-hidden">
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed">
+                            <thead class="bg-gray-100">
+                            <tr>
+                                <th
+                                scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                                >
+                                Customer Name
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody
+                            *ngIf="viewMoreCustomerList?.length !== 0; else noData"
+                            class="bg-white divide-y divide-gray-200"
+                            >
+                            <tr *ngFor="let i of viewMoreCustomerList" class="hover:bg-gray-100">
+
+                                <td
+                                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                                >
+                                <p>{{ i?.FirstName }} {{ i?.LastName }}</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <ng-template #noData>
+                            <tbody>
+                                <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                                </tr>
+                            </tbody>
+                            </ng-template>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </ng-template> -->

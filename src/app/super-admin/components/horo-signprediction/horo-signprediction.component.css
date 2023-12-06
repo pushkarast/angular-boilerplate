@@ -1,0 +1,16 @@
+.container {
+    padding-left: 10px;
+    border: 1px solid black;
+}
+
+::ng-deep bs-datepicker-container {
+    left: 50px !important;
+}
+
+
+::ng-deep input:focus-visible {
+    outline: none;
+}
+ng-select select-dropdown > div {
+    z-index: 2;
+}

@@ -1,0 +1,223 @@
+<!-- <h1 class="m-5">
+    Online Time Report:
+</h1> -->
+<div class=" mx-auto">
+    <form [formGroup]="onlineData">
+        <div class="flex justify-center  w-full m-5">
+            <div class="grid grid-cols-4 items-center gap-3 w-full">
+                <div class="md:col-auto col-span-12">
+                    Online Time Report:
+                </div>
+                <div class="md:col-auto col-span-12">
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd
+                        [showCustomRangeLabel]="true" [(ngModel)]="selected" [alwaysShowCalendars]="true"
+                        [ranges]="ranges" [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+                        formControlName="StartDate" [showClearButton]="true" placeholder="Select date range "
+                        (change)="choosedDate($event)" />
+                </div>
+                <div class="md:col-span-1  col-span-12">
+                    <ng-select [items]="filter" placeholder="Filter By" bindLabel="name" bindValue="value"
+                        formControlName="mode" class="w-full" (change)="getOnlineDetailData()">
+                    </ng-select>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden ">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                        <thead class="bg-gray-100 ">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Online Date</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Online Time</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Offline Date</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Offline Time</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Onine Duration</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Mode</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="resultList?.result?.length!==0;else noData"
+                            class=" bg-white divide-y divide-gray-200 ">
+                            <tr *ngFor="let item of resultList?.result"
+                                class="hover:bg-gray-100 cursor-pointer">
+                                <td 
+                                    class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.online_date}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.online_time}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                                    [ngClass]="
+                                        !item?.offline_date
+                                        ? 'animate-pulse text-green-600'
+                                        : ''
+                                    "
+                                >
+                                    {{item?.offline_date ? item?.offline_date : "Online"}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                                    [ngClass]="
+                                        !item?.offline_date
+                                        ? 'animate-pulse text-green-600'
+                                        : ''
+                                    "
+                                >
+                                    {{item?.offline_time ? item?.offline_time : "Online"}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                    [ngClass]="
+                                        !item?.offline_date
+                                        ? 'animate-pulse text-green-600'
+                                        : ''
+                                    "
+                                >
+                                    {{item?.offline_date ? item?.onlineDuration : "Online"}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{
+                                        item?.orderMode == "1" ? "CALL" : 
+                                            item?.orderMode == "2" ? "CHAT" : 
+                                                item?.orderMode == "3" ? "Emergency CHAT" :
+                                                    item?.orderMode == "4" ? "Emergency CALL" : 
+                                                        "Video Call"
+                                    }}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <ng-template #noData>
+                            <tbody>
+                                <tr>
+                                    <td colspan="12" class="text-center text-red-500" style="font-size: 14px ">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<mat-paginator [length]="resultList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getData()"
+    (page)="onPaginateChange($event)">
+</mat-paginator>
+
+
+
+
+<!-- <ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Call ID: {{modalData?.order?.id}}</h4>
+    </div>
+    <div class="modal-content">
+        <div class="p-2">
+            <table class="table-auto text-center">
+                <tr>
+                    <th class="border-r-2">Call Date</th>
+                    <td> {{modalData?.order?.orderInitiate | date:"longDate"}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Time</th>
+                    <td>{{modalData?.order?.orderInitiate | date:"shortTime"}}</td>
+                </tr>
+
+                <tr>
+                    <th class="border-r-2">Customer Name</th>
+                    <td>{{modalData?.customerInfo?.firstname+" "+modalData?.customerInfo?.lastname}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Mobile</th>
+                    <td>{{modalData?.customerInfo?.mobileno}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Name</th>
+                    <td> {{modalData?.astroname}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Status</th>
+                    <td [ngClass]="modalData?.order?.orderStatus=='Completed'?'text-green-500'
+                    :modalData?.order?.orderStatus=='Cancelled'?'text-red-500':
+                    modalData?.order?.orderStatus=='Refunded'?'text-blue-500':'text-yellow-500'">
+                        {{modalData?.order?.orderStatus}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Rate</th>
+                    <td>{{modalData?.charges?.astroRate}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Duration</th>
+                    <td>{{modalData?.order?.orderDuration}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Total Charges</th>
+                    <td> {{modalData?.charges?.totalCharges}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Company Share</th>
+                    <td> {{modalData?.charges?.compAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Share</th>
+                    <td> {{modalData?.charges?.astroAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">PG(%)</th>
+                    <td>{{modalData?.charges?.pgPer}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">PG Amount</th>
+                    <td>{{modalData?.charges?.pgAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">TDS(%)</th>
+                    <td>{{modalData?.charges?.TDSPer}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">TDS Amount</th>
+                    <td>{{modalData?.charges?.TDSAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Net Share</th>
+                    <td>{{modalData?.charges?.astroTotalAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Remarks</th>
+                    <td>{{modalData?.order?.remarks ?modalData?.order?.remarks:"No Remarks"}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Recording URL</th>
+                    <td *ngIf="modalData?.order?.recordinURL;else noData">
+                        <a href={{modalData?.order?.recordinURL}} target="_blank"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-2 rounded text-xs ">View
+                            Recording</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</ng-template>
+
+<div class="md:col-span-1  col-span-12 mt-4">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-2 rounded" (click)="exportexcel()">Export
+        to
+        Excel</button>
+</div> -->

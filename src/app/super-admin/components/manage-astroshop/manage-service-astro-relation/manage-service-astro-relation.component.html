@@ -1,0 +1,235 @@
+<div class="flex justify-center mt-5 w-full">
+  <div class="grid grid-cols-3 items-center gap-3 w-full">
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <button
+        [routerLink]="['../manage-shop-service']"
+        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+      >
+        Go Back
+      </button>
+    </div>
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <p class="text-center font-extrabold text-2xl">{{ serviceData?.name }}</p>
+    </div>
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <div class="w-full">
+        <button
+          (click)="openModal(template)"
+          class="float-right inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+        >
+          Add Astrologer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [formGroup]="updateAstroService">
+  <div
+    formArrayName="items"
+    *ngFor="let item of updateAstroService.get('items').controls; let i = index"
+  >
+    <div [formGroupName]="i">
+      <div class="flex relative justify-between mb-5 p-2 w-full border">
+        <div class="grid grid-cols-6 items-center gap-3 w-full">
+          <div class="md:col-span-1 col-span-12">
+            <img [src]="items.at(i).get('image').value" [alt]="items.at(i).get('image').value" class="h-20 rounded-full">
+            <p class="font-bold ">
+              {{ this.items.at(i).get("fullname").value }}
+            </p>
+            
+          </div>
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="servicePrice"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Service Price
+            </label>
+          </div>
+          <div *ngIf="serviceData?.type=='0'" class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              maxlength="6"
+              (input)="handleCommissionChange(i)"
+              formControlName="astroCommission"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Astrologer Percentage
+            </label>
+          </div>
+          <div *ngIf="serviceData?.type=='0'" class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              readonly
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="magCommission"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Own Percentage
+            </label>
+          </div>
+
+          <div *ngIf="serviceData?.type=='1'" class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="quantity"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              No. of seats
+            </label>
+          </div>
+
+          <div *ngIf="serviceData?.type=='1'" class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="datetime-local"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="scheduledOn"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Schedule On
+            </label>
+          </div>
+
+          <div class="md:col-span-1 col-span-12">
+            <ng-select
+              class=""
+              [items]="status"
+              formControlName="status"
+              placeholder="Status"
+              bindLabel="name"
+              bindValue="value"
+              class="w-full"
+            >
+            </ng-select>
+          </div>
+          <div *ngIf="serviceData?.type=='0'" class="md:col-span-1 flex justify-center col-span-12">
+            <button
+              type="submit"
+              (click)="updateAstroServiceData(i)"
+              class="m-1 w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Update
+            </button>
+            <button
+              type="submit"
+              (click)="deleteAstrologer(i)"
+              class="m-1 w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            >
+              Delete
+            </button>
+            
+          </div>
+          <div *ngIf="serviceData?.type=='1'" class="md:col-span-1 flex justify-center col-span-12">
+            <ng-container *ngIf="!items.at(i).get('scheduledStamp').value|| items.at(i).get('scheduledStamp').value>items.at(i).get('currentStamp').value">
+              <button
+                type="submit"
+                (click)="updateAstroServiceData(i)"
+                class="m-1 w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Update
+              </button>
+              <button
+                type="submit"
+                (click)="deleteAstrologer(i)"
+                class="m-1 w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+              >
+                Delete
+              </button>
+            </ng-container>
+            <ng-container *ngIf="items.at(i).get('scheduledStamp').value&&items.at(i).get('scheduledStamp').value<items.at(i).get('currentStamp').value">
+              <button
+                type="submit"
+                class="m-1 w-full text-white bg-green-700 hover:bg-greeb-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Completed
+
+              </button>
+            </ng-container>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-between">
+    <!-- <div
+            class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button (click)="addItem()">Add Permission</button>
+        </div>
+        <div
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button type="submit" (click)="submit()">Submit</button>
+        </div> -->
+  </div>
+</div>
+
+<mat-paginator [length]="pagination?.totalPage" [pageSize]="1" hidePageSize="true"
+    (page)="onPaginateChange($event)">
+</mat-paginator> 
+
+<ng-template #template>
+  <div class="modal-header flex justify-between p-0 m-0">
+    <div>
+      <p class="font-bold text-lg">Add Astrologer To Service</p>
+    </div>
+    <div class="float-right">
+      <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="p-5">
+      <div class="md:col-span-1 col-span-12">
+        <ng-select
+          class=""
+          [multiple]="true"
+          [items]="astroList"
+          [(ngModel)]="selectedAstrologer"
+          placeholder="Astrologers"
+          bindLabel="fullname"
+          bindValue="astroid"
+          class="w-full"
+        >
+        </ng-select>
+      </div>
+      <div class="flex justify-end w-full">
+        <button
+          type="submit"
+          (click)="updateAstrologers()"
+          class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

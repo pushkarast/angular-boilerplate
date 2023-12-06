@@ -1,0 +1,478 @@
+<div>
+    <h1>
+        Manage Horoscopes:
+    </h1>
+</div>
+<div class="flex justify-end">
+    <button (click)="openModal(template,null)"
+        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">Add
+        new</button>
+</div>
+<div class="flex justify-between mb-5">
+
+    <div class="m-5 w-full">
+        <form [formGroup]="horoFilter" class="flex">
+            <!-- <ng-select [items]="rashiOptions" placeholder="Select Rashi" bindLabel="name" bindValue="value"
+                formControlName="rashi" (change)="setData('rashi',$event)" class="w-full m-2"></ng-select> -->
+            <ng-select [items]="types" placeholder="Select Type" bindLabel="name" bindValue="value"
+                formControlName="type" class="w-full m-2" (change)="setData('type',$event)"></ng-select>
+            <ng-select [items]="status" placeholder="Status" bindLabel="name" bindValue="value" formControlName="status"
+                class="w-full m-2" (change)="setData('status',$event)"></ng-select>
+            <div class="w-full mt-4">
+                <input type="date" class="w-full" formControlName="date" [ngModel]="now | date:'yyyy-MM-dd'"
+                    (change)="setData('date',$event)"
+                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Rashi</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Type</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Status</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Updated Date</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class=" bg-white divide-y divide-gray-200 ">
+                        <tr *ngFor="let horoData of horoscopeList" class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{horoData?.rashi}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{horoFilter.get('type')?.value}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{horoData?.status==1?"Active":"InActive"}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{horoData?.updated_at | date :'mediumDate'}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                <div class="flex text-white">
+                                    <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                        (click)="openModal(template,horoData?.rashi)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                        (click)="deleteHoroscope(horoData?.id,horoFilter.get('type')?.value)"
+                                        *ngIf="getPermisson('delete')">
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div class="uppercase font-bold">Edit Horoscope for {{rashiInfo.get('rashi')?.value}}: </div>
+        <div class="float-right">
+            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="p-5">
+            <form [formGroup]="rashiInfo" (submit)="onSubmit()" novalidate>
+                <div class="grid grid-cols-2 items-center gap-3 w-full">
+                    <div class="relative">
+                        <ng-select [items]="rashiOptions" placeholder="Select Rashi* " bindLabel="name"
+                            bindValue="value" formControlName="rashi" (change)="setData('rashi',$event)"
+                            class="w-full m-1" [disabled]="true" [readonly]="!add"></ng-select>
+                        <small class="absolute top-[65px] left-[5px] text-danger" *ngIf="(rashiInfo.controls['rashi']?.touched && !rashiInfo.controls['rashi'].value)
+                                ">This Field Required</small>
+                    </div>
+                    <div class="md:col-span-1 col-span-12 -bottom-2 relative mb-6">
+                        <ng-select [items]="types" placeholder="Type*" bindLabel="name" bindValue="value"
+                            formControlName="type" class="w-full m-2" (change)="setData('type',$event)"
+                            [readonly]="!add"></ng-select>
+                        <small class="absolute top-[65px] left-[5px]  text-danger" *ngIf="(rashiInfo.controls['type']?.touched && !rashiInfo.controls['type'].value)
+                            ">This Field Required</small>
+                    </div>
+
+                </div>
+                <div class="flex items-center gap-3 w-full relative">
+                    <div class="relative w-full">
+                        <ng-select [items]="status" placeholder="Status*" bindLabel="name" bindValue="value"
+                            formControlName="status" class="w-full m-2"
+                            [readonly]="getPermisson('delete')?false:true"></ng-select>
+                        <small class="absolute top-[65px] left-[5px]  text-danger" *ngIf="(rashiInfo.controls['status']?.touched && !rashiInfo.controls['status'].value)
+        ">This Field Required</small>
+                    </div>
+                    <div class="grid grid-cols-1 items-center gap-3 w-full"
+                        *ngIf="horoFilter.get('type')?.value=='Weekly'">
+                        <div class="col-span-1 relative mb-1 w-full">
+                            <ng-select [items]="weekOptions" placeholder="Week*" bindLabel="name" bindValue="value"
+                                formControlName="week" class="w-full m-2" [readonly]="!add"></ng-select>
+                            <small class="absolute top-[65px] left-[5px]  text-danger" *ngIf="(rashiInfo.controls['week']?.touched && !rashiInfo.controls['week'].value)
+                                ">This Field Required</small>
+                        </div>
+                    </div>
+                    <div *ngIf="horoFilter.get('type')?.value!='Daily'" class="relative w-full">
+                        <ng-select [items]="monthOptions" placeholder="Month" bindLabel="name" bindValue="value"
+                            formControlName="month" class="w-full m-2" [readonly]="!add"
+                            (change)="setWeekOption()"></ng-select>
+                        <small class="absolute top-[65px] left-[5px]  text-danger" *ngIf="(rashiInfo.controls['month']?.touched && !rashiInfo.controls['month'].value)
+                            ">This Field Required</small>
+                    </div>
+
+                    <div class="grid grid-cols-1 items-center gap-3 w-full"
+                        *ngIf="horoFilter.get('type')?.value!='Daily'">
+                        <div class="col-span-1 relative z-0 mb-1 w-full">
+                            <input type="number" name="year"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="year" [readonly]="!add" (change)="setWeekOption()" />
+                            <label for="year"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Year</label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 items-center gap-3 w-full"
+                        *ngIf="horoFilter.get('type')?.value=='Daily'">
+                        <div class="col-span-1 relative z-0 mb-1 w-full">
+                            <input type="date" name="date"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="date" [ngModel]="now | date:'yyyy-MM-dd'"
+                                [readonly]="!add" />
+                            <label for="date"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Date</label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 items-center gap-3 w-full">
+                    <div class="grid grid-cols-1 items-center gap-3 w-full">
+                        <div class="col-span-1 relative z-0 mb-1 w-full">
+                            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                <input type="text" name="Lucky Color"
+                                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " formControlName="luckyColorName" />
+                                <label for="luckycolor"
+                                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lucky
+                                    Color Name</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 items-center gap-3 w-full">
+                        <div class="md:col-span-1 col-span-12 relative z-0 mb-6">
+                            <label for="luckycolor"
+                                class="text-sm text-gray-500 dark:text-gray-400 duration-300 transform 6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-focus:scale-75 -translate-y-6">Lucky
+                                Color</label>
+                            <input type="color" name="Lucky Color"
+                                class="px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="luckyColorCode" value="#ffff" />
+
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 items-center gap-3 w-full">
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input type="text" name="luckyNumbers"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="luckyNumbers" />
+                            <label for="luckyNumbers"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lucky
+                                Color Number</label>
+                        </div>
+
+                    </div>
+                    <div class="grid grid-cols-1 items-center gap-3 w-full"
+                        *ngIf="horoFilter.get('type')?.value=='Weekly'">
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input type="text" name="luckyDays"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="luckyday" />
+                            <label for="luckyday"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lucky
+                                Day</label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 items-center gap-3 w-full"
+                        *ngIf="horoFilter.get('type')?.value=='Annually'">
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input type="text" name="luckyDays"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="luckyDays" />
+                            <label for="luckyday"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lucky
+                                Days</label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 items-center gap-3 w-full"
+                        *ngIf="horoFilter.get('type')?.value=='Daily' || horoFilter.get('type')?.value=='Monthly' ">
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input type="text" name="tip"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="tip" />
+                            <label for="luckyday"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Tip</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 items-center gap-3 w-full" *ngIf="horoFilter.get('type')?.value=='Weekly'">
+                    <div class="grid grid-cols-1 items-center gap-3 w-full">
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input type="text" name="tipOfTheWeek"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="tipOfTheWeek" />
+                            <label for="luckyday"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Tip of the week</label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 items-center gap-3 w-full">
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input type="text" name="adviceOfTheWeek"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="adviceOfTheWeek" />
+                            <label for="luckyday"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Advice of the week</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1" *ngIf="horoFilter.get('type')?.value=='Annually'">
+                    <div class="grid grid-cols-4 items-center gap-3 w-full">
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="Lucky Color"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="rulingPlanet" />
+                                    <label for="luckycolor"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Ruling Planet</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="Lucky Color"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="symbol" />
+                                    <label for="luckycolor"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Symbol</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                <input type="text" name="element"
+                                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " formControlName="element" />
+                                <label for="element"
+                                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                    Element</label>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                <input type="text" name="luckyStones"
+                                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " formControlName="luckyStones" />
+                                <label for="luckyStones"
+                                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Lucky
+                                    Stones
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="grid grid-cols-4 items-center gap-3 w-full">
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="unluckyStones"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="unluckyStones" />
+                                    <label for="unluckyStones"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Unlucky Stones</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="businessPartner"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="businessPartner" />
+                                    <label for="businessPartner"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Business Partner</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="Lucky Color"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="luckyAlphabets" />
+                                    <label for="luckycolor"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Lucky Alphabets</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="bestProfession"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="bestProfession" />
+                                    <label for="bestProfession"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Best Profession</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-4 items-center gap-3 w-full">
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="bestBoss"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="bestBoss" />
+                                    <label for="bestBoss"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Best Boss</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="goodPoints"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="goodPoints" />
+                                    <label for="goodPoints"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                        Good Points</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="col-span-1 relative z-0 mb-1 w-full">
+                                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                    <input type="text" name="badPoints"
+                                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " formControlName="badPoints" />
+                                    <label for="badPoints"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+
+                                        Bad Points</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 items-center gap-3 w-full">
+                            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                                <input type="text" name="soulMates"
+                                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " formControlName="soulMates" />
+                                <label for="soulMates"
+                                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Soul
+                                    Mates
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="grid grid-cols-1 items-center gap-3 w-full z-1">
+                    <div class=" md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                        <h4>Love</h4>
+                        <ckeditor [editor]="Editor" id='ckeditor' (change)="setCkvalues($event,'Love')"
+                            [data]="rashiInfo.get('Love')?.value" [config]="config">
+                        </ckeditor>
+                    </div>
+                    <div class=" md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                        <h4>Carrer</h4>
+                        <ckeditor [config]="config" [editor]="Editor" id="long" (change)="setCkvalues($event,'Career')"
+                            [data]="rashiInfo.get('Career')?.value">
+                        </ckeditor>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 items-center gap-3 w-full z-1">
+                    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                        <h4>Finance</h4>
+                        <ckeditor [config]="config" [editor]="Editor" (change)="setCkvalues($event,'Finance')"
+                            id='ckeditor' [data]="rashiInfo.get('Finance')?.value">
+                        </ckeditor>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 items-center gap-3 w-full z-1">
+                    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                        <h4>Travel</h4>
+                        <ckeditor [config]="config" [editor]="Editor" (change)="setCkvalues($event,'Travel')"
+                            id='ckeditor' [data]="rashiInfo.get('Travel')?.value">
+                        </ckeditor>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 items-center gap-3 w-full z-1">
+                    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                        <h4>Wellness</h4>
+                        <ckeditor [config]="config" [editor]="Editor" (change)="setCkvalues($event,'Wellness')"
+                            id='ckeditor' [data]="rashiInfo.get('Wellness')?.value">
+                        </ckeditor>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 items-center gap-3 w-full z-1">
+                    <div class=" md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                        <h4>Long Description</h4>
+                        <ckeditor [config]="config" [editor]="Editor" (change)="setCkvalues($event,'long_desc')"
+                            id='ckeditor' [data]="rashiInfo.get('long_desc')?.value">
+                        </ckeditor>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 items-center gap-3 w-full z-1">
+                    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                        <h4>Short Description</h4>
+                        <ckeditor [config]="config" [editor]="Editor" (change)="setCkvalues($event,'short_desc')"
+                            id='ckeditor' [data]="rashiInfo.get('short_desc')?.value">
+                        </ckeditor>
+                    </div>
+                </div>
+                <div class="float-right p-3">
+                    <button type="submit" data-te-ripple-init data-te-ripple-color="light" *ngIf="getPermisson('write')"
+                        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>

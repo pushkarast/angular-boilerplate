@@ -1,0 +1,91 @@
+<div class="flex justify-between mb-5">
+    <h1>
+        Manage Policies Content:
+    </h1>
+
+</div>
+<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Policy for</th>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                Edit</td>
+                        </tr>
+                    </thead>
+                    <tbody class=" bg-white divide-y divide-gray-200 ">
+                        <tr class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                ShubhMuhrat Main Content
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-white break-words">
+                                <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                    (click)="openModal(0,template)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let contentData of list" class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{contentData?.Title}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-white break-words">
+                                <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                    (click)="openModal(contentData.Id,template)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #template>
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div></div>
+        <div class="float-right">
+            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <div class="flex flex-col p-2">
+        <form [formGroup]="data">
+            <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="relative z-0 w-full group">
+                    <label for="name" class="text-sm text-black">Title
+                    </label>
+                    <input type="text" id="name" class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                        formControlName="title" />
+                </div>
+            </div>
+            <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                <editor apiKey="begnna8r9a7fbs9rvbqbo6q8klj3f5b9a53d5vpkzw7v1ngq" [init]="config" formControlName="Descp" [(ngModel)]="content">
+                </editor>
+            </div>
+            <div class="overflow-x-auto shadow-md sm:rounded-lg" *ngIf="currentid==0">
+                <editor apiKey="begnna8r9a7fbs9rvbqbo6q8klj3f5b9a53d5vpkzw7v1ngq" [init]="config" formControlName="Descp2"  [(ngModel)]="content2">
+                </editor>
+            </div>
+            <div class="m-5 p align-right ">
+                <button type="submit" (click)="updateContent()"
+                    class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

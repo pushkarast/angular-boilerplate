@@ -1,0 +1,75 @@
+<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg my-5">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Customer Name</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Customer Mobile No</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Repeated Count
+                            </th>
+                            <th *ngIf="!isAdmin()" scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Total company share
+                            </th>
+                            <th scope="col" *ngIf="!isAdmin()" 
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Total Astrologer share
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                View
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class=" bg-white divide-y divide-gray-200 " *ngFor="let item of custList?.data">
+                        <tr class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{item?.fullname}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{hideNumber(item?.mobileno)}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{item?.count}}
+                            </td>
+                            <td *ngIf="!isAdmin()"  class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{item?.companyTotal}}
+                            </td>
+                            <td *ngIf="!isAdmin()"  class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{item?.astroTotal}}
+                            </td>
+                            <td *ngIf="!isAdmin()" class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                    (click)="redirectToCustomerProfile(item?.customerId)">
+                                    View
+                                </button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+                <mat-paginator [length]="custList?.totalLength" [pageSize]="20" hidePageSize="true"
+                    (page)="onPaginateChange($event)">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

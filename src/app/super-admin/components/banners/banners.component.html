@@ -1,0 +1,148 @@
+<div class="flex justify-between mb-5">
+    <h1>
+        Manage Banners:
+    </h1>
+    <div>
+        <button (click)="openModal(template)"
+            class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">Add
+            New Banner</button>
+    </div>
+</div>
+
+<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Banner Image</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Status</th>
+                                <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                For IOS</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Entry Date</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="bannerList?.length!==0;else noData"
+                        class=" bg-white divide-y divide-gray-200 ">
+                        <tr *ngFor="let banners of bannerList" class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                <img [src]="banners?.newImage"  [alt]="banners?.newImage" class="h-20">
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{banners?.Status==1?'Active':'De-Active'}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{banners?.isIOS==1?'Yes':'No'}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{banners?.createdat| date:"longDate"}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                <div class="flex text-white">
+                                    <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                        (click)="openModal(template,banners?.BannerId)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                        (click)="deleteBanner(banners?.BannerId)">
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <mat-paginator [length]="blogList?.totalBlogs" [pageSize]="1" hidePageSize="true" (page)="pagination($event)">
+</mat-paginator> -->
+
+<ng-template #template>
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+            <p class="font-bold text-lg">Add Banner</p>
+        </div>
+        <div class="float-right">
+            <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="p-5">
+            <form [formGroup]="addBannerForm" (submit)="uploadBanner()">
+                <div class="flex space-x-3 justify-center">
+                    <div >
+                    <p class='text-center mb-5'>{{fileViewer}}</p>
+                    <input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px"
+                        multiple (change)="fileupload($event)" />
+                    <a href="#" onclick="document.getElementById('upload').click(); return false"
+                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Banner Image (Size:1350px X 642px)</a>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-5  w-full">
+
+                    <div class="grid grid-cols-4 items-center gap-3 w-full">
+                        <div class="md:col-span-1  col-span-12 ">
+                            <ng-select class="" [items]="bannerType"  placeholder="Filter By" bindLabel="name" bindValue="value"
+                                formControlName="bannerType" class="w-full" >
+                            </ng-select>
+                            
+                        </div>
+                        <div class="md:col-span-1  col-span-12 -bottom-2 relative z-0 mb-6">
+                            <ng-container *ngIf="addBannerForm?.get('bannerType')?.value=='1'">
+                            <input type="text" name="category_name"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="link" />
+                            <label for="category_name"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                               Link
+                            </label>
+                        </ng-container>
+                    <ng-container *ngIf="addBannerForm?.get('bannerType')?.value=='2'">
+                            <ng-select class="" [items]="astroList"  placeholder="Astrologers" bindLabel="fullname" bindValue="astroid"
+                                formControlName="astrologer" class="w-full" >
+                            </ng-select>
+                        </ng-container>
+                        </div>
+                        <div class="md:col-span-1  col-span-12 ">
+                            <ng-select class="" [items]="status"  placeholder="Status" bindLabel="name" bindValue="value"
+                                formControlName="status" class="w-full" >
+                            </ng-select>
+                            
+                        </div>
+                        <div class="md:col-auto col-span-12">
+                            <ng-select class="" [items]="yesNo"  placeholder="For IOS?" bindLabel="name" bindValue="value"
+                                formControlName="forIOS" class="w-full" >
+                            </ng-select>
+                        </div>
+        
+                    </div>
+                </div>
+                <div class="flex justify-end w-full">
+                    <button type="submit"
+                        class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+                </div>
+            </form>
+        </div>
+       
+    </div>
+</ng-template>

@@ -1,0 +1,210 @@
+<form [formGroup]="filterData">
+    <div class="flex gap-3 justify-evenly">
+        <div class="md:col-span-1 col-span-12 w-full">
+            <ng-select [items]="option" placeholder="Sort By" bindLabel="name" bindValue="value"
+                formControlName="filter" class="w-full" (change)="filter()">
+            </ng-select>
+        </div>
+        <div class="md:col-auto col-span-12  w-full">
+            <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd [showCustomRangeLabel]="true"
+                [(ngModel)]="selected" [alwaysShowCalendars]="true" [ranges]="ranges" [linkedCalendars]="true"
+                [isInvalidDate]="isInvalidDate" formControlName="StartDate" [showClearButton]="true"
+                placeholder="Select date range " (change)="choosedDate($event)" />
+        </div>
+        <div class="md:col-auto col-span-12  w-full">
+            <input type="text" class="border-gray-200 py-1 px-2 w-full border-2" placeholder="Search ..."
+                (input)="search($event)" />
+        </div>
+    </div>
+</form>
+
+<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Call Date Time
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Call ID
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Order ID
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Call Status
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Hangup Cause
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Caller Name
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Caller Mobile
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Recording URL
+                            </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="data?.data?.length !== 0; else noData" class="bg-white divide-y divide-gray-200">
+                        <tr *ngFor="let teleData of data?.data" class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap relative">
+                                <span *ngIf="teleData?.sendtoAdmin=='1'"
+                                    class="animate-bounce bg-red-500 text-white py-1 px-2 rounded-full absolute left-5 top-0 transform -translate-x-3 -translate-y-3">Check
+                                    This</span>
+                                {{ teleData?.updateAt | date : "medium" }}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{ teleData?.dialId}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{ teleData?.order_id }}
+                            </td>
+                            <td class="capitalize py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                [ngClass]=" 
+                            teleData?.servetel_status == 'answered'
+                                ? 'text-green-400'
+                                : teleData?.servetel_status == 'missed'
+                                ? 'text-red-400'
+                                : 'text-amber-400'">
+                                {{ teleData?.servetel_status? teleData?.servetel_status :" Call Not Initiated"}} <div
+                                    class="text-black text-xs">
+                                </div>
+                            </td>
+                            <td class="capitalize py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                [ngClass]="callDisconnetarr.includes(teleData?.hangup_cause)?'text-red-500':''">
+                                {{ teleData?.hangup_cause? teleData?.hangup_cause :" Call Not Initiated"}} <div
+                                    class="text-black text-xs">
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                {{ teleData?.name}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                {{ teleData?.mobileno}}
+                            </td>
+                            <td>
+                                <a *ngIf="teleData?.recordingUrl; else noData" [href]="teleData?.recordingUrl"
+                                    target="_blank"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-2 rounded text-xs">View
+                                    Recording</a>
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                                <div class="p-2 bg-gray-400 rounded-sm hover:bg-gray-500"
+                                    (click)="openModal(template,teleData?.id)">
+                                    View Detail
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template let-c="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Call Detail View <strong *ngIf="callData?.dialId">(Dial Id:
+                {{callData?.dialId}}
+                )</strong></h4>
+        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button> -->
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="callData">
+            <div class="relative z-0 my-6 w-full">
+                <div class="border-b-2">
+                    <div class="col-span-12 relative z-0 mb-6 w-full">
+                        <p><strong>Caller Name:</strong> {{callData?.name}}</p>
+                    </div>
+                    <div class="col-span-12 relative z-0 mb-6 w-full">
+                        <p><strong>Caller DateTime:</strong> {{ callData?.updateAt | date : "medium" }}</p>
+                    </div>
+                    <div class="col-span-12 relative z-0 mb-6 w-full">
+                        <p><strong>Caller Status:</strong>
+                            {{callData?.servetel_status?callData?.servetel_status:"Not Initiated"}}</p>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <div class="col-span-12 relative z-0 mb-6 w-full">
+
+                    <strong>Welcome Note:</strong>
+
+                    <span class="px-4">
+                        <span *ngIf="callData?.welcomeNote=='0'"><mat-icon
+                                class="text-red-500 text-md pt-1">speaker_notes_off</mat-icon> Not Given </span>
+                        <span *ngIf="callData?.welcomeNote=='1'"><mat-icon
+                                class="text-green-500 text-md pt-1">speaker_notes</mat-icon> Given</span>
+                    </span>
+                </div>
+                <div class="col-span-12 relative z-0 mb-6 w-full">
+                    <strong>Concerns Noticed:</strong>
+                    <span *ngIf="callData?.concerns;else noData" class="flex flex-row">
+                        <div *ngFor="let concern of callData?.concerns">
+                            <div class="border-2 py-3 px-2 rounded-md border-slate-300 mx-2">
+                                {{concern}} <mat-icon
+                                    [class]="'text-sm pt-2 '+maticonList[concern]?.color">{{maticonList[concern]?.name}}</mat-icon>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-span-12 relative z-0 mb-6 w-full">
+                    <strong> Astrologer Review: </strong>
+                    <span *ngIf="callData?.astro_review;else noData">
+                        {{callData?.astro_review=='0'?"Satisfied":
+                        ( callData?.astro_review=='1'?"UnSatisfied":"IssueFound" )}}
+                    </span>
+                </div>
+                <div class="col-span-12 relative z-0 mb-6 w-full">
+                    <strong>Telecaller Feedback: </strong>
+                    <span *ngIf="callData?.feedback;else noData">
+                        {{callData?.feedback}}
+                    </span>
+                </div>
+                <td class="col-span-12 relative z-0 mb-6 w-full float-right" *ngIf="callData?.sendtoAdmin=='1'">
+                    <div class="p-2 bg-green-500 rounded-sm hover:bg-green-400 float-right"
+                        (click)="markAsread(callData?.id)">
+                        Mark As Read
+                    </div>
+                </td>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<mat-paginator [length]="data?.totalPage" [pageSize]="20" hidePageSize="true" (page)="onPaginateChange($event)"
+    [pageIndex]="page-1">
+</mat-paginator>
+<div>
+    <input #gotTo class="border-gray-200 p-1 border-2 w-20" placeholder="Page No."
+        (keydown.enter)="handleGoto(gotTo.value)">
+    <button (click)="handleGoto(gotTo.value)"
+        class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+</div>

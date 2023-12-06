@@ -1,0 +1,562 @@
+<div class="flex justify-between items-center mb-5">
+  <div class="flex justify-center mt-5 w-full">
+    <div class="grid grid-cols-3 items-center gap-3 w-full">
+      <div class="md:col-span-1 col-span-12"><h1></h1></div>
+      <div class="md:col-span-1 col-span-12">
+        <!-- <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd
+            [showCustomRangeLabel]="true" [(ngModel)]="selected" [alwaysShowCalendars]="true"
+            [ranges]="ranges" [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+            [showClearButton]="true" placeholder="Select date range " (change)="choosedDate($event)"
+             /> -->
+      </div>
+      <div class="md:col-span-1 col-span-12">
+        <input
+          type="text"
+          class="border-gray-200 w-full py-1 px-2 border-2 rounded-lg"
+          placeholder="Search ..."
+          (input)="searchProduct($event)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-col">
+  <div class="overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="inline-block min-w-full align-middle">
+      <div class="overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200 table-fixed">
+          <thead class="bg-gray-100">
+            <tr>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Order Id
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Order Date & Time
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Customer Name
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Recommended By
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Total Amount Paid
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Payment Status
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Payment Status
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Order Status
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Shipping Status
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Tracking Url
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Print Shipping Address
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            *ngIf="orderList?.length !== 0; else noData"
+            class="bg-white divide-y divide-gray-200"
+          >
+            <tr *ngFor="let order of orderList" class="hover:bg-gray-100">
+              <td
+                class="py-4 px-6 cursor-pointer text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <p
+                >
+                  {{ order?.OrderId }} <br>
+                  <span (click)="openDetailsModal(template1, order?.OrderId)" *ngIf="order?.OrderStatus !== 'Declined'" class="text-blue-600 underline">View details</span>
+                </p>
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ order?.OrderDate }} {{ order?.OrderTime }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <p>{{ order?.customerName }}</p>
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <p>{{ order?.recomAstroName }}</p>
+              </td>
+              
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ order?.TotalCharges }}/-
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ order?.OrderStatus }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ order?.PaymentId }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <p
+                  [ngClass]="
+                    order?.lastStatus?.Admin == 'Order Placed'
+                      ? 'animate-pulse text-green-600'
+                      : ''
+                  "
+                >
+                  {{
+                    order?.OrderStatus !== "Declined"
+                      ? order?.lastStatus?.Admin
+                      : ""
+                  }}
+                </p>
+                <div
+                  *ngIf="
+                    order?.lastStatus?.Admin == 'Order Placed' &&
+                    order?.OrderStatus !== 'Declined'
+                  "
+                >
+                  <button
+                    (click)="updateOrderStatus(1, order?.OrderId)"
+                    class="p-1 text-green-500 rounded m-1"
+                  >
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button
+                    (click)="updateOrderStatus(2, order?.OrderId)"
+                    class="p-1 text-red-500 rounded m-1"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <p
+                  [ngClass]="
+                    order?.lastStatus?.shipStaus == 'New Return Request' ||
+                    order?.lastStatus?.shipStaus == 'New Refund Request'
+                      ? 'animate-pulse text-red-600'
+                      : ''
+                  "
+                >
+                  {{ order?.lastStatus?.shipStaus }}
+                </p>
+                <div
+                  *ngIf="
+                    order?.lastStatus?.shipStaus == 'New Return Request' &&
+                    order?.OrderStatus !== 'Declined'
+                  "
+                >
+                  <button
+                    (click)="updateOrderStatus(6, order?.OrderId)"
+                    class="p-1 text-green-500 rounded m-1"
+                  >
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button
+                    (click)="updateOrderStatus(7, order?.OrderId)"
+                    class="p-1 text-red-500 rounded m-1"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+                <div
+                  *ngIf="
+                    order?.lastStatus?.shipStaus == 'New Refund Request' &&
+                    order?.OrderStatus !== 'Declined'
+                  "
+                >
+                  <button
+                    (click)="getReturnDetails(order?.OrderId,template3)"
+                    class="p-1 text-blue-500 rounded m-1"
+                  >
+                    View Details
+                  </button>
+                </div>
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ order?.trackUrl }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <div
+                  *ngIf="order?.OrderStatus !== 'Declined'"
+                  class="flex text-white justify-center"
+                >
+                  <button
+                    class="p-1 bg-green-400 hover:bg-green-800 rounded m-1"
+                  >
+                    <mat-icon>print</mat-icon>
+                  </button>
+                  <!-- <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                          (click)="deleteBanner(banners?.BannerId)">
+                                          <mat-icon>delete_outline</mat-icon>
+                                      </button> -->
+                </div>
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <div class="flex text-white">
+                  <button
+                    (click)="
+                      openModal(
+                        template,
+                        order?.lastStatus?.Value,
+                        order?.trackUrl,
+                        order?.OrderId
+                      )
+                    "
+                    class="p-1 bg-blue-400 hover:bg-blue-500 rounded m-1"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <!-- <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                          (click)="deleteBanner(banners?.BannerId)">
+                                          <mat-icon>delete_outline</mat-icon>
+                                      </button> -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <ng-template #noData>
+            <tbody>
+              <tr>
+                <td colspan="12" class="text-center" style="font-size: 14px">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-paginator
+  [length]="paginationData?.totalData"
+  [pageSize]="20"
+  hidePageSize="true"
+  (page)="pagination($event)"
+>
+</mat-paginator>
+<!-- <mat-paginator [length]="blogList?.totalBlogs" [pageSize]="1" hidePageSize="true" (page)="pagination($event)">
+  </mat-paginator> -->
+
+<ng-template #template>
+  <div class="modal-header flex justify-between p-0 m-0">
+    <div>
+      <p class="font-bold text-lg">Update Order Status</p>
+    </div>
+    <div class="float-right">
+      <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="p-5">
+      <form [formGroup]="updateOrder" (submit)="submitUpdate()">
+        <div class="flex justify-center mt-5 w-full">
+          <div class="grid grid-cols-1 items-center gap-3 w-full">
+            <div class="md:col-span-1 col-span-12">
+              <ng-select
+                class=""
+                [items]="deliveryStatus"
+                placeholder="Status"
+                bindLabel="name"
+                bindValue="value"
+                formControlName="value"
+                class="w-full"
+              >
+              </ng-select>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+              <input
+                type="text"
+                name="category_name"
+                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                formControlName="trackingUrl"
+              />
+              <label
+                for="category_name"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Tracking URL
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end w-full">
+          <button
+            type="submit"
+            class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template1>
+  <div class="modal-header flex justify-between p-0 m-0">
+    <div>
+      <p class="font-bold text-xl">Order Details</p>
+    </div>
+    <div class="float-right">
+      <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="p-5">
+      <div class="flex">
+        <div>
+          <img
+            [src]="orderDetails?.product?.newImage"
+            [alt]="orderDetails?.product?.newImage"
+            class="w-[150px] h-[150px]"
+          />
+        </div>
+        <div class="pl-10 flex items-center">
+          <div>
+            <span class="font-bold"
+              >Order ID:
+              <span class="font-normal">{{ orderDetails?.OrderId }}</span></span
+            ><br />
+            <span class="font-bold"
+              >Order Date:
+              <span class="font-normal"
+                >{{ orderDetails?.OrderDate }}
+                {{ orderDetails?.OrderTime }}</span
+              ></span
+            ><br />
+            <span class="font-bold"
+              >Product Name:
+              <span class="font-normal">{{
+                orderDetails?.product?.ProductName
+              }}</span></span
+            ><br />
+            <span class="font-bold"
+              >Product Type:
+              <span class="font-normal uppercase">{{
+                orderDetails?.product?.ProductType
+              }}</span></span
+            ><br />
+            <span class="font-bold"
+              >Total Paid Price:
+              <span class="font-normal"
+                >{{ orderDetails?.TotalCharges }}/-</span
+              ></span
+            ><br />
+          </div>
+        </div>
+      </div>
+
+      <div class="border-2 rounded-md border-gray-400 p-2 mt-10">
+        <span class="font-bold"
+          >Customer Name:
+          <span class="font-normal"
+            >{{ orderDetails?.address?.FirstName }}
+            {{ orderDetails?.address?.LastName }}</span
+          ></span
+        ><br />
+        <div class="flex justify-between">
+          <span class="font-bold"
+            >Mobile:
+            <span class="font-normal"
+              >{{ orderDetails?.address?.phoneNo }}
+            </span></span
+          >
+          <span class="font-bold"
+            >Email:
+            <span class="font-normal"
+              >{{ orderDetails?.address?.email }}
+            </span></span
+          >
+        </div>
+        <span class="font-bold"
+          >Address:
+          <span class="font-normal"
+            >{{ orderDetails?.address?.Address }},{{
+              orderDetails?.address?.CityName
+            }},{{ orderDetails?.address?.StateName }},{{
+              orderDetails?.address?.Pincode
+            }}</span
+          ></span
+        >
+      </div>
+
+      <div class="flex justify-end mt-5 w-full">
+        <button
+          type="submit"
+          (click)="getInvoicePDF(orderDetails?.OrderId)"
+          class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Download Invoice
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template3>
+  <div class="modal-header flex justify-between p-0 m-0">
+    <div>
+      <p class="font-bold text-xl">Return Details</p>
+    </div>
+    <div class="float-right">
+      <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="p-5">
+      <!-- <div class="flex">
+        <div>
+          <img
+            [src]="orderDetails?.product?.newImage"
+            [alt]="orderDetails?.product?.newImage"
+            class="w-[150px] h-[150px]"
+          />
+        </div>
+        <div class="pl-10 flex items-center">
+          <div>
+            <span class="font-bold"
+              >Order ID:
+              <span class="font-normal">{{ orderDetails?.OrderId }}</span></span
+            ><br />
+            <span class="font-bold"
+              >Order Date:
+              <span class="font-normal"
+                >{{ orderDetails?.OrderDate }}
+                {{ orderDetails?.OrderTime }}</span
+              ></span
+            ><br />
+            <span class="font-bold"
+              >Product Name:
+              <span class="font-normal">{{
+                orderDetails?.product?.ProductName
+              }}</span></span
+            ><br />
+            <span class="font-bold"
+              >Product Type:
+              <span class="font-normal uppercase">{{
+                orderDetails?.product?.ProductType
+              }}</span></span
+            ><br />
+            <span class="font-bold"
+              >Total Paid Price:
+              <span class="font-normal"
+                >{{ orderDetails?.TotalCharges }}/-</span
+              ></span
+            ><br />
+          </div>
+        </div>
+      </div> -->
+
+      <div class="border-2 rounded-md border-gray-400 p-2 mt-10">
+        <span class="font-bold"
+          >Courier Company Name:
+          <span class="font-normal"
+            >{{ returnDetails?.companyName }}</span
+          ></span
+        ><br />
+          <span class="font-bold"
+            >Tracking ID:
+            <span class="font-normal"
+              >{{ returnDetails?.trackingId }}
+            </span></span
+          ><br>
+          <span class="font-bold"
+            >Reason:
+            <span class="font-normal"
+              >{{ returnDetails?.remark }}
+            </span></span
+          >
+      </div>
+      <div class="mt-10">
+        <img
+          [src]="returnDetails?.image"
+          [alt]="returnDetails?.image"
+          class="w-full"
+        />
+      </div>
+
+      <div class="flex justify-end mt-5 w-full">
+        <button
+          type="submit"
+          (click)="updateOrderStatus(9, returnDetails?.OrderId)"
+          class="m-1 text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Accept Return
+        </button>
+        <button
+          type="submit"
+          (click)="updateOrderStatus(10, returnDetails?.OrderId)"
+          class="m-1 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Decline Return
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

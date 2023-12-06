@@ -1,0 +1,250 @@
+<h1 class="mb-5">
+    Manage OnBoard Astrologers:
+</h1>
+<div class="flex justify-between">
+    <div class="w-52">
+        <ng-select [items]="option" placeholder="Sort By" bindLabel="name" bindValue="value" class="w-full"
+            (change)="setFilter($event)" [(ngModel)]="filter">
+        </ng-select>
+    </div>
+    <div>
+        <input type="text" class="w-full border-2 border-slate-300 px-2 py-1 rounded" placeholder="Search..."
+            (input)="search($event)">
+    </div>
+</div>
+
+<div class="my-5 ">
+    <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden ">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                        <thead class="bg-gray-100 ">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Full Name</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Mobile Number</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Email Id </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Account Status</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Online Status</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Signature Verified</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Verify Profile Images</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="astroList?.length!==0;else noData"
+                            class=" bg-white divide-y divide-gray-200 text-left">
+                            <tr *ngFor="let astrologer of astroList?.astrolist" class="hover:bg-gray-100">
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{astrologer?.astroinfo?.fullname}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{hideNumber(astrologer?.astroinfo?.mobileno)}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{astrologer?.astroinfo?.emailid}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium whitespace-nowrap text-white"
+                                    *ngIf="astrologer?.astroinfo?.status;else noData">
+                                    <span
+                                        class="inline-block whitespace-nowrap rounded-[0.27rem] m-1 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none "
+                                        *ngIf="astrologer?.astroinfo?.status;"
+                                        [ngClass]="astrologer?.astrosetting?.callenable==1?' bg-green-400':' bg-red-400 animate-pulse'">
+                                        Call
+                                    </span>
+                                    <span
+                                        class="inline-block whitespace-nowrap m-1 rounded-[0.27rem]  px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none"
+                                        *ngIf="astrologer?.astroinfo?.status;"
+                                        [ngClass]="astrologer?.astrosetting?.chatenable==1?' bg-green-400':' bg-red-400 animate-pulse'">
+                                        Chat
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                                    [ngClass]="astrologer?.astroinfo?.isonboard?'text-green-500':'text-red-500'">
+                                    {{astrologer?.astroinfo?.isonboard?"Active":"InActive"}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                                    [ngClass]="astrologer?.astroinfo?.issignverified?'text-green-500':'text-red-500'">
+                                    {{astrologer?.astroinfo?.issignverified?"Verified":"Not Verified"}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                                    [ngClass]="astrologer?.allImageVerified?'text-green-500':'text-red-500'">
+                                    {{astrologer?.allImageVerified?"Verified":"Not Verified"}}
+                                </td>
+                                <td>
+                                    <button mat-icon-button [matMenuTriggerFor]="menu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item routerLink="../astro-view/astro-profile"
+                                            [queryParams]="{astroid:astrologer?.astroinfo?.astroid}">
+                                            <mat-icon>remove_red_eye</mat-icon>
+                                            <span>View</span>
+                                        </button>
+                                        <button mat-menu-item disabled="true" *ngIf="!isAdmin()"
+                                            (click)="openModal(template,astrologer?.astroinfo?.astroid)">
+                                            <mat-icon> border_color</mat-icon>
+                                            <span>View/Verify Signature</span>
+                                        </button>
+                                        <button mat-menu-item *ngIf="!isAdmin()"
+                                            (click)="openImagesModal(template2,astrologer?.astroinfo?.astroid)">
+                                            <mat-icon>add_a_photo</mat-icon>
+                                            <span>View/Verify Profile Images</span>
+                                        </button>
+                                        <button mat-menu-item routerLink="../astrosetting" *ngIf="!isAdmin()"
+                                            [queryParams]="{astroid:astrologer?.astroinfo?.astroid}">
+                                            <mat-icon>settings</mat-icon>
+                                            <span>Astrologer Settings</span>
+                                        </button>
+
+                                    </mat-menu>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <ng-template #noData>
+                            <tbody>
+                                <td colspan="12"
+                                    class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap pl-[50px]"
+                                    style="font-size: 14px">
+                                    No data
+                                </td>
+                            </tbody>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #template>
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div></div>
+        <div class="float-right">
+            <!-- <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button> -->
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="p-5">
+            <form>
+                <div class="grid grid-cols-1 items-center gap-3 w-full">
+                    <img [src]="astroList?.image" alt="Signature Image" />
+                </div>
+                <div class="float-right p-3">
+                    <button type="submit" data-te-ripple-init data-te-ripple-color="light"
+                        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+                        U
+                    </button>
+                    <button type="submit" data-te-ripple-init data-te-ripple-color="light"
+                        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+<mat-paginator [length]="astroList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="fetchAstrologer()"
+    (page)="pagination($event)" [pageIndex]=" this.astroData.get('page')?.value-1">
+</mat-paginator>
+
+<ng-template #template2>
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+            <p class="font-bold text-lg">Verify Astrologer Profile Images</p>
+        </div>
+        <div class="float-right">
+            <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="p-5">
+            <form>
+                <div class="flex justify-center mt-2 w-full">
+                    <!-- <div class="grid grid-cols-2 items-center gap-3 w-full"> -->
+                    <section class="flex flex-col items-center bg-white">
+                        <!-- <h1 class="mt-10 text-4xl font-bold text-gray-800">Verify Astrologer Profile Images</h1> -->
+                        <div *ngIf="imagesList?.length !== 0; else noData"
+                            class="mt-10 grid max-w-md grid-cols-1 gap-6 px-2 sm:max-w-lg sm:px-20 md:max-w-screen-xl md:grid-cols-2 md:px-10 lg:grid-cols-3 lg:gap-8">
+
+                            <div *ngFor="let item of imagesList">
+                                <article class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl " *ngIf="item?.image">
+                                    <a href="#">
+                                        <div class="relative flex items-end overflow-hidden rounded-xl">
+                                            <img [src]="item?.image" alt="Hotel Photo" class="w-[150] h-[150]" />
+                                            <div
+                                                class="absolute bottom-3 left-3 inline-flex items-center rounded-lg bg-white p-2 shadow-md">
+                                                <svg *ngIf="item?.isVerified==true" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                    stroke-width="2"
+                                                    class="mr-2 h-6 w-6 shrink-0 text-green-600 ng-star-inserted">
+                                                    <path _ngcontent-evj-c90="" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                                <svg *ngIf="item?.isVerified==false" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 50 50" width="50px" height="50px" fill="none"
+                                                    stroke="currentColor" stroke-width="2"
+                                                    class="mr-2 h-6 w-6 shrink-0 text-red-600 ng-star-inserted">
+                                                    <path _ngcontent-evj-c90="" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 13.390466 13.390466 4 25 4 z M 32.990234 15.986328 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.990234 15.986328 z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="relative flex items-end overflow-hidden rounded-xl" *ngIf="item?.image==null">
+                                        No Image
+                                      </div> -->
+
+                                        <div class="mt-1 p-2" *ngIf="item?.image">
+                                            <div class="mt-3 flex items-end justify-between">
+                                                <button (click)="updateImageStatus(item?.index,true)"
+                                                    class="shrink-0 rounded-full bg-green-600 px-8 py-3 font-medium text-white focus:bg-green-700 focus:outline-none hover:bg-green-700">Accept</button>
+                                                <button (click)="updateImageStatus(item?.index,false)"
+                                                    class="shrink-0 rounded-full bg-red-600 px-8 py-3 font-medium text-white focus:bg-red-700 focus:outline-none hover:bg-red-700">Reject</button>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </article>
+                            </div>
+
+
+                        </div>
+                        <ng-template #noData>
+                            <div>
+                                No data available
+                            </div>
+                        </ng-template>
+                    </section>
+                </div>
+                <!-- </div> -->
+                <!-- <div class="flex justify-end w-full">
+            <button
+              type="submit"
+              class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              submit
+            </button>
+          </div> -->
+            </form>
+        </div>
+    </div>
+</ng-template>

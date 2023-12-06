@@ -1,0 +1,1028 @@
+<div class="w-full ">
+    <div
+        class="w-full text-sm font-medium justify-around text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px justify-around">
+            <li class="mr-2 " 
+                (click)="setTabOption(1)" 
+                [ngClass]="TabOption == 1 ? 'text-blue-600 border-b-2 border-blue-600' : ''">
+                <div class="flex justify-between items-center">
+                    <mat-icon class="mr-2" [ngStyle]="{'color': 'blue'}">create</mat-icon> 
+                    <p class="p-1">Create New Scratch Card</p>
+                </div>
+            </li>
+            <li class="mr-2 " 
+                (click)="setTabOption(2)" [ngClass]="TabOption == 2 ? 'text-blue-600 border-b-2 border-blue-600' : ''">
+                <div class="flex justify-between items-center">
+                    <mat-icon class="mr-2" [ngStyle]="{'color': 'orange'}">person_add</mat-icon> 
+                    <p class="p-1">Select Customers</p>
+                </div>
+            </li>
+            <li class="mr-2 " 
+                (click)="setTabOption(3)" [ngClass]="TabOption == 3 ? 'text-blue-600 border-b-2 border-blue-600' : ''" *ngIf="scratchCardData.controls['Type'].value != '2' ">
+                <div class="flex justify-between items-center">
+                    <mat-icon class="mr-2" [ngStyle]="{'color': 'green'}"> list_alt</mat-icon>   
+                    <p class="p-1">Select Astrologers</p> 
+                </div>
+            </li>
+            <li class="mr-2 " 
+                (click)="setTabOption(4)" 
+                [ngClass]="TabOption == 4 ? 'text-blue-600 border-b-2 border-blue-600' : ''">
+                <div class="flex justify-between items-center">
+                    <mat-icon class="mr-2" [ngStyle]="{'color': 'red'}">live_tv</mat-icon> 
+                    <p class="p-1">Preview</p> 
+                </div>
+            </li>
+            <li class="mr-2" *ngIf="TabOption==2 || TabOption==3 || TabOption==4 " 
+                (click)="manageBackTab()" 
+                >
+                <div class="flex justify-between items-center mb-2">
+                    <button  
+                    class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+                    Back </button>
+                </div>
+            </li>
+            <li class="mr-0" *ngIf="TabOption==1 || TabOption==2 || TabOption==3 " 
+                (click)="manageNextTab()" 
+                >
+                <div class="flex justify-between items-center mb-2">
+                    <button   
+                    class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+                    Next </button>
+                </div>
+            </li>
+            </ul>
+    </div>
+    <!-- <div class="my-1">
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </div> -->
+</div>
+
+
+
+<!-- <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 ">
+<ul class="flex flex-wrap -mb-px">
+<li class="flex mr-20" 
+    (click)="setTabOption(3)" 
+    [ngClass]="TabOption == 3 ? 'text-blue-600 border-b-2 border-blue-600' : ''">
+    <div class="flex justify-between items-center">
+        <mat-icon class="mr-2">create</mat-icon> 
+        <p class="p-1">Create New Scratch Card</p>
+    </div>
+</li>
+<li class="flex mr-20" 
+    (click)="setTabOption(1)" [ngClass]="TabOption == 1 ? 'text-blue-600 border-b-2 border-blue-600' : ''">
+    <div class="flex justify-between items-center">
+        <mat-icon class="mr-2" [ngStyle]="{'color': 'blue'}">person_add</mat-icon> 
+        <p class="p-1">Select Customers</p>
+    </div>
+</li>
+<li class="flex mr-20" 
+    (click)="setTabOption(2)" [ngClass]="TabOption == 2 ? 'text-blue-600 border-b-2 border-blue-600' : ''" *ngIf="scratchCardData.controls['Type'].value != '2' ">
+    <div class="flex justify-between items-center">
+        <mat-icon class="mr-2" [ngStyle]="{'color': 'green'}"> list_alt</mat-icon>   
+        <p class="p-1">Select Astrologers</p> 
+    </div>
+</li>
+<li class="flex mr-20" 
+    (click)="setTabOption(4)" 
+    [ngClass]="TabOption == 4 ? 'text-blue-600 border-b-2 border-blue-600' : ''">
+    <div class="flex justify-between items-center">
+        <mat-icon class="mr-2" [ngStyle]="{'color': 'red'}">live_tv</mat-icon> 
+        <p class="p-1">Preview</p> 
+    </div>
+</li>
+</ul>
+</div> -->
+<div class="my-1">
+<div class="flex justify-center m-0" >
+    <!-- <h1 class="border-b py-4 text-2xl font-semibold">Scratch Card Panel</h1> -->
+    <div class="rounded-xl border p-5 shadow-md w-full bg-white">
+
+
+
+  
+ 
+  
+      <!-- select astrologer -->
+      <div class="mx-auto" *ngIf="TabOption==3;">
+        <div class="border-b pt-4 pb-8">
+          <!-- <h1 class="py-2 text-xl font-semibold">Select Astrologers</h1> -->
+          <!-- <p class="font- text-slate-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p> -->
+          <div class="m-2 ">
+            <form [formGroup]="getAstroData">
+                <div class="rounded-xl border border-gray-200 p-6 shadow-lg bg-slate-100">
+                <h2 class="text-stone-700 text-xl font-bold">Apply filters</h2>
+                <!-- <p class="mt-1 text-sm">Use filters to further refine search</p> -->
+                <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div class="flex flex-col">
+                    <label for="name" class="text-stone-600 text-sm font-medium" >Name/MobileNo/EmailId</label>
+                    <input type="text" id="name" formControlName="search" placeholder="search..." (input)="search($event)" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                    </div>
+            
+                    <div class="flex flex-col">
+                        <label for="callChatCount" class="text-stone-600 text-sm font-medium" >Call/Chat less than</label>
+                        <input type="number" id="callChatCount" formControlName="callChatCount" placeholder="enter a number...." (input)="searchCallChatCount($event)" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                    </div>
+                    <div class="flex flex-col">
+                        <ng-select [items]="accountStatusAstro" placeholder="Astrologer Account Status" bindLabel="name" bindValue="value"
+                            formControlName="accountStatusAstro" class="w-full"
+                            (click)="getAstrologers()">
+                        </ng-select>                    
+                    </div>
+                </div>
+            
+                <div class="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
+                    <!-- <button class="active:scale-95 rounded-lg bg-gray-200 px-8 py-2 font-medium text-gray-600 outline-none focus:ring hover:opacity-90" (click)="resetFn()">Reset</button> -->
+                    <button class="active:scale-95 rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90" (click)="resetFn()">Reset</button>
+                </div>
+                </div>
+            </form>
+            <!-- <mat-paginator [length]="astrologersList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getAstrologers()"
+                (page)="onPaginateChange($event)" >
+            </mat-paginator> -->
+          </div>
+          
+        </div>
+
+        <div class="grid gap-3 grid-cols-2">
+            <!-- select from -->
+            <div class="flex flex-col mt-6 ">
+                <div class="text-rose-800 font-bold	">
+                    Select From
+                </div>
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-800">
+                                    <tr>
+                                        <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <div class="flex items-center gap-x-3">
+                                                <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="selectAllAstrologerOption" (change)="selectAllAstro($event)">
+                                                <span>Name</span>
+                                            </div>
+                                        </th>
+        
+                                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>Status</span>
+        
+                                                <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z" fill="currentColor" stroke="currentColor" stroke-width="0.3" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>MobileNo</span>
+        
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <!-- <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Total Offers</th> -->
+            
+                                        <!-- <th scope="col" class="relative py-3.5 px-4">
+                                            <span class="sr-only">Action</span> -->
+                                        <!-- </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
+                                    *ngFor="let item of astrologersList?.astrologerList"
+                                    >
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center gap-x-3">
+                                                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" value={{item?.AstroId}} id="selectAstro" (change)="addNewAstrologers($event)"> -->
+                                                <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="item.checked" value={{item?.AstroId}}  (change)="addNewAstrologers($event)">
+    
+                                                <div class="flex items-center gap-x-2">
+                                                    <img class="object-cover w-10 h-10 rounded-full" src="{{item?.profileImg}}" alt="">
+                                                    <div>
+                                                        <h2 class="font-medium text-gray-800 dark:text-white ">{{item?.FullName}}</h2>
+                                                        <p class="text-sm font-normal text-gray-600 dark:text-gray-400">{{item?.EmailId}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                <span class="h-1.5 w-1.5 rounded-full" [ngClass]="item?.Status==0 ? 'bg-red-400' : 'bg-emerald-500'" ></span>
+                                                <h2 class="text-sm font-normal " [ngClass]="item?.Status==0 ? 'text-red-400' : 'text-emerald-500'"> {{item?.Status==0 ? 'In-Active' : 'Active'}}</h2>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.MobileNo}}</td>
+                                        <!-- <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.totalOfferCount}}</td> -->
+                                    </tr>
+    
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <mat-paginator [length]="astrologersList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getAstrologers()"
+                    (page)="onPaginateChange($event)" >
+                </mat-paginator>
+            </div>
+            <!-- selected astrologers -->
+            <div class="flex flex-col mt-6">
+                <div class=" font-bold">
+                    <div class="float-left text-green-800">
+                        Selected Astrologers
+                    </div>
+                    <div class="float-right text-red-500 ">
+                        <input type="checkbox" class=" border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="selectAllSelectedAstrologerOption" (change)="selectAllMarkedAstrologers($event)"> Clear All
+                    </div>
+                </div>
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-800">
+                                    <tr>
+                                        <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <div class="flex items-center gap-x-3">
+                                                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="selectAllAstrologerOption" (change)="selectAllAstro($event)"> -->
+                                                <span>Name</span>
+                                            </div>
+                                        </th>
+        
+                                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>Status</span>
+        
+                                                <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z" fill="currentColor" stroke="currentColor" stroke-width="0.3" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>MobileNo</span>
+        
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <!-- <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Email address</th> -->
+            
+                                        <!-- <th scope="col" class="relative py-3.5 px-4">
+                                            <span class="sr-only">Email Address</span>
+                                        </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
+                                    *ngFor="let item of getSelectedAstrologerList?.result"
+                                    >
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center gap-x-3">
+                                                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" value={{item?.AstroId}} id="selectAstro" (change)="addNewAstrologers($event)"> -->
+                                                <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="item.checked" value={{item?.AstroId}}  (change)="removeFromSelectedAstrologer($event)">
+    
+                                                <div class="flex items-center gap-x-2">
+                                                    <img class="object-cover w-10 h-10 rounded-full" src="{{item?.profileImg}}" alt="">
+                                                    <div>
+                                                        <h2 class="font-medium text-gray-800 dark:text-white ">{{item?.FullName}}</h2>
+                                                        <p class="text-sm font-normal text-gray-600 dark:text-gray-400">@authurmelo</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+        
+                                                <h2 class="text-sm font-normal text-emerald-500">Active</h2>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.MobileNo}}</td>
+                                        <!-- <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.EmailId}}</td> -->
+                                    </tr>
+    
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <mat-paginator [length]="getSelectedAstrologerList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="showMarkedAstrologer()"
+                (page)="onPaginateChangeSelecAstro($event)" >
+                </mat-paginator>
+            </div>
+        </div>
+
+
+        <!-- <mat-paginator [length]="astrologersList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getAstrologers()"
+            (page)="onPaginateChange($event)" >
+        </mat-paginator> -->
+      </div>
+
+      <!-- create scratch card -->
+      <div class="mx-auto rounded-xl sm:bg-gray-200 sm:px-8 sm:shadow mt-2" *ngIf="TabOption==1;">
+        <div class="pt-4">
+          <h1 class="py-2 text-2xl font-semibold">Create New Scratch Card</h1>
+        </div>
+        <hr class="mt-4 mb-8" />
+  
+        <div class="mb-10  gap-y-8 ">
+
+            <form [formGroup]="scratchCardData" (submit)="createScratchCardNew()">
+            <div class="grid gap-y-6 gap-x-3 sm:grid-cols-2 lg:px-8">
+
+                <label class=" block" for="thumbnailImg">
+                    <img class=" w-24 h-24 rounded-full shadow-lg ml-8 text-sm" [src]="scratchCardData.controls['prevScThumbnail'].value" 
+                    alt="Thumbnail Image" />
+
+                    <div class="flex mt-4 space-x-3 md:mt-6 ">
+                        <input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" 
+                        multiple (change)="fileupload($event)" accept=".webp" required/>
+
+                    <a href="#" onclick="document.getElementById('upload').click(); return false"
+                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Upload Thumbnail Image</a>
+                    </div>  
+                </label>
+
+                <label class=" block" for="thumbnailImg">
+                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg ml-4" [src]="scratchCardData.controls['prevSrc'].value" 
+                    alt="Bonnie image" />
+                    <div class="flex mt-4 space-x-3 md:mt-6">
+                        <input type="file"  accept=".webp" required id="uploadOfferImg" name="uploadOfferImg" style="visibility: hidden; width: 1px; height: 1px"
+                        multiple (change)="fileuploadOfferImg($event)" />
+                    <a href="#" onclick="document.getElementById('uploadOfferImg').click(); return false"
+                        class="inline-flex px-4 py-2 items-center text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Upload Offer Image</a>
+                    </div> 
+                </label>
+
+                <label class="block " for="Type">
+                    <ng-select [items]="option" required placeholder="Type" bindLabel="name" bindValue="value"
+                        formControlName="Type" class="w-full " (click)="setAboutOfferContents(); setDefaultImages($event)"
+                        >
+                    </ng-select> 
+                    <small class="text-danger" *ngIf="
+                    scratchCardData.controls['Type'].invalid &&
+                      (isFormSubmitted ||
+                      scratchCardData.controls['Type'].touched)
+                    "> Required</small>             
+                </label>
+
+                <label class="block " for="Type" *ngIf="scratchCardData.controls['Type'].value == '0' || scratchCardData.controls['Type'].value == '1' ">
+                    <ng-select [items]="freeOrPaidOption" required placeholder="Free/Paid" bindLabel="name" bindValue="value"
+                        formControlName="freeCheck" class="w-full " (click)="setDefaultImages($event)" 
+                        >
+                    </ng-select> 
+                    <small class="text-danger" *ngIf="
+                    scratchCardData.controls['freeCheck'].invalid &&
+                      (isFormSubmitted ||
+                      scratchCardData.controls['freeCheck'].touched)
+                    "> Required</small>             
+                </label>
+
+                <label class="block" for="RatePerMin" *ngIf="scratchCardData.controls['Type'].value == '0' || scratchCardData.controls['Type'].value == '1' ">
+                <p class="text-sm">Rate Per Min</p>
+                <input formControlName="RatePerMin" required class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1" type="number" min="0" placeholder="00" (change)="setTotalValue($event)" [readonly]="toggleButton" value="0" />
+                <small class="text-danger" *ngIf="
+                scratchCardData.controls['RatePerMin'].invalid &&
+                  (isFormSubmitted ||
+                  scratchCardData.controls['RatePerMin'].touched)
+                "> Required</small>
+                </label>
+
+                <label class="block" for="Min" *ngIf="scratchCardData.controls['Type'].value == '0' || scratchCardData.controls['Type'].value == '1' ">
+                <p class="text-sm">Minutes</p>
+                <input formControlName="Min" required class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1" min="0" type="number" placeholder="00" (change)="setTotalValue($event)"/>
+                <small class="text-danger" *ngIf="
+                scratchCardData.controls['Min'].invalid &&
+                  (isFormSubmitted ||
+                  scratchCardData.controls['Min'].touched)
+                "> Required</small>
+                </label>
+
+                <label class="block " for="total" *ngIf="scratchCardData.controls['Type'].value == '0' || scratchCardData.controls['Type'].value == '1' ">
+                <p class="text-sm">Total</p>
+                <input formControlName="total" class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1" type="number" placeholder="00" readonly />
+                </label>
+
+                <label class="block " for="discPer" *ngIf="scratchCardData.controls['Type'].value == '2' ">
+                <p class="text-sm">Discount %</p>
+                <input formControlName="discPer" class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1" type="number" placeholder="00"  (click)="setAboutOfferContents()" />
+                </label>
+
+
+                <label class="block " for="expireAt">
+                    <p class="text-sm">Expire At</p>
+                    <input type="datetime-local" name="expireAt" id="expireAt"
+                    class="w-full rounded-md border bg-white py-2 px-2 outline-none ring-blue-600 focus:ring-1"
+                    formControlName="expireAt" required>   
+                    <small class="text-danger" *ngIf="
+                    scratchCardData.controls['expireAt'].invalid &&
+                      (isFormSubmitted ||
+                      scratchCardData.controls['expireAt'].touched)
+                    "> Required</small>           
+                </label> 
+
+
+
+                <label class="block" for="minOrSepecificAmt" *ngIf="scratchCardData.controls['Type'].value == '2'">
+                    <ng-select [items]="minAmtOrSepecificAmt" required placeholder="Set Min Amount/ Select Specific Amount" bindLabel="name" bindValue="value"
+                        formControlName="minOrSepecificAmt" class="w-full " 
+                        >
+                    </ng-select> 
+                    <small class="text-danger" *ngIf="
+                    scratchCardData.controls['minOrSepecificAmt'].invalid &&
+                      (isFormSubmitted ||
+                      scratchCardData.controls['minOrSepecificAmt'].touched)
+                    "> Required</small> 
+                </label>
+
+                <label class="block " for="discPer" *ngIf="scratchCardData.controls['minOrSepecificAmt'].value == '0' && scratchCardData.controls['Type'].value == '2'">
+                    <ng-select [items]="discountList" placeholder="Select Minimum Amount" bindLabel="name" bindValue="name"
+                         formControlName="rechargeId" class="w-full"
+                        (click)="getDiscountDatas()">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                    scratchCardData.controls['rechargeId'].invalid &&
+                      (isFormSubmitted ||
+                      scratchCardData.controls['rechargeId'].touched)
+                    "> Required</small>  
+                </label>
+
+                <label class="block " for="discPer" *ngIf="scratchCardData.controls['minOrSepecificAmt'].value == '1' && scratchCardData.controls['Type'].value == '2' ">
+                    <ng-select [items]="discountList" placeholder="Specific Amount (one or more than one)" bindLabel="name" bindValue="value"
+                         formControlName="rechargeId" class="w-full"
+                        (click)="getDiscountDatas()">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                    scratchCardData.controls['rechargeId'].invalid &&
+                      (isFormSubmitted ||
+                      scratchCardData.controls['rechargeId'].touched)
+                    "> Required</small>  
+                </label>
+
+                <div class=" block sm:col-span-2 z-1">
+                    <div class="">
+                        <h4>About Offer</h4>
+                        <ckeditor [editor]="Editor" id="long" [data]="aboutOfferContent"
+                            (ready)="onReady($event)" (change)="setDescr($event,'aboutOffer')">
+                            
+                        </ckeditor>
+                    </div>
+                </div><br>
+
+                <!-- <div class=" justify-end w-full">
+                    <button type="submit"  
+                        class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
+                </div> -->
+            </div>
+            </form>
+        </div>
+  
+      </div>
+
+      <!-- select customer-->
+      <div class="mx-auto" *ngIf="TabOption==2;">
+        <div class="border-b pt-4 pb-8">
+          <!-- <h1 class="py-2 text-2xl font-semibold ">Select Customers</h1> -->
+          <!-- <p class="font- text-slate-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p> -->
+          <div class="m-2 ">
+            
+            <form [formGroup]="getCustomerData">
+                <div class="rounded-xl border border-gray-200 bg-slate-100 p-6 shadow-lg">
+                <h2 class="text-stone-700 text-xl font-bold">Apply filters</h2>
+                <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div class="flex flex-col">
+                    <label for="name" class="text-stone-600 text-sm font-medium" >Name/MobileNo</label>
+                    <input type="text" id="name" formControlName="search" placeholder="search..." (input)="search($event)" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                    </div>
+            
+                    <div class="flex flex-col">
+                        <ng-select [items]="moneySpentFilter" placeholder="Money Spent" bindLabel="name" bindValue="value"
+                            formControlName="moneySpent" class="w-full"
+                            (click)="getCustomers($event, 'moneySpent')">
+                        </ng-select>
+                    </div>
+                    <div class="flex flex-col">
+                        <ng-select [items]="rechargeTimesFilter" placeholder="Recharge Times" bindLabel="name" bindValue="value"
+                            formControlName="rechargeTimes" class="w-full"
+                            (click)="getCustomers($event, 'rechargeTimes' )">
+                        </ng-select>
+                    </div>
+                    <div class="flex flex-col">
+                        <ng-select [items]="scratchCardCustFilterType" placeholder="Type" bindLabel="name" bindValue="value"
+                            formControlName="type" class="w-full"
+                            (click)="getCustomers($event, 'type')">
+                        </ng-select>
+                    </div>
+                </div>
+            
+                <div class="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
+                    <button class="active:scale-95 rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90" (click)="resetCustomerFilter()">Reset</button>
+                </div>
+                </div>
+            </form>
+            
+          </div>
+        </div>
+        <div class="grid gap-3 grid-cols-2">
+            <div class="flex flex-col mt-6 ">
+                <div class="text-rose-800 font-bold	">
+                    Select From
+                </div>
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-800">
+                                    <tr>
+                                        <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <div class="flex items-center gap-x-3">
+                                                <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="selectAllCustomerOption"  (change)="selectAllCustomers($event)">
+                                                <span>Name</span>
+                                            </div>
+                                        </th>
+        
+                                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>Status</span>
+        
+                                                <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z" fill="currentColor" stroke="currentColor" stroke-width="0.3" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>MobileNo</span>
+        
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Total Offers</th>
+            
+                                        <!-- <th scope="col" class="relative py-3.5 px-4">
+                                            <span class="sr-only">Gender</span>
+                                        </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
+                                    *ngFor="let item of customersList?.customerList"
+                                    >
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center gap-x-3">
+                                                <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="item.checked" value={{item?.CustomerId}}  (change)="addNewCustomers($event)">
+    
+                                                <div class="flex items-center gap-x-2">
+                                                    <img class="object-cover w-10 h-10 rounded-full" src="{{item?.profileImg}}" alt="">
+                                                    <div>
+                                                        <h2 class="font-medium text-gray-800 dark:text-white ">{{item?.FirstName + "  " + item?.LastName}}</h2>
+                                                        <!-- <p class="text-sm font-normal text-gray-600 dark:text-gray-400">@authurmelo</p> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+        
+                                                <h2 class="text-sm font-normal text-emerald-500">Active</h2>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.MobileNo}}</td>
+                                        <!-- <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                            <button
+                                            type="button"
+                                            class="inline-block rounded-full border-2 border-success px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                                            data-te-ripple-init>
+                                            Add
+                                            </button>
+                                        </td> -->
+                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap"
+                                           
+                                        >
+                                            {{item?.totalOfferCount}}
+                                        </td>
+
+                                    </tr>
+    
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <mat-paginator class="mb-10" [length]="customersList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getAstrologers()"
+                    (page)="onPaginateChange($event)" >
+                </mat-paginator>
+            </div>
+
+            <div class="flex flex-col mt-6">
+                <div class=" font-bold">
+                    <div class="float-left text-green-800">
+                        Selected Customers
+                    </div>
+                    <div class="float-right text-red-500 ">
+                        <input type="checkbox" class=" border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="selectAllSelectedCustomerOption" (change)="selectAllMarkedCustomers($event)"> Clear All
+                    </div>
+                </div>
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-800">
+                                    <tr>
+                                        <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <div class="flex items-center gap-x-3">
+                                                <span>Name</span>
+                                            </div>
+                                        </th>
+        
+                                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>Status</span>
+        
+                                                <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z" fill="currentColor" stroke="currentColor" stroke-width="0.3" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>MobileNo</span>
+        
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
+                                    *ngFor="let item of getSelectedCustomerList?.result"
+                                    >
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center gap-x-3">
+                                                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" value={{item?.AstroId}} id="selectAstro" (change)="addNewAstrologers($event)"> -->
+                                                <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="item.checked" value={{item?.CustomerId}}  (change)="removeFromSelectedCustomers($event)">
+    
+                                                <div class="flex items-center gap-x-2">
+                                                    <img class="object-cover w-10 h-10 rounded-full" src="{{item?.profileImg}}" alt="">
+                                                    <div>
+                                                        <h2 class="font-medium text-gray-800 dark:text-white ">{{item?.FirstName + "  " + item?.LastName}}</h2>
+                                                        <p class="text-sm font-normal text-gray-600 dark:text-gray-400">@authurmelo</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+        
+                                                <h2 class="text-sm font-normal text-emerald-500">Active</h2>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.MobileNo}}</td>
+                                        <!-- <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.Gender}}</td> -->
+    
+                                    </tr>
+    
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <mat-paginator class="mb-10" [length]="getSelectedCustomerList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="showMarkedCustomer()"
+                    (page)="onPaginateChangeSelecCust($event)" >
+                </mat-paginator>
+            </div>
+
+        </div>
+
+
+      </div>
+
+      <!-- show preview -->
+      <div class="mx-auto" *ngIf="TabOption==4;">
+        <div class="m-2 ">
+            <div class="flex flex-col justify-center mt-10 bg-slate-200 p-3" >
+                <form [formGroup]="scratchCardData" (submit)="createScratchCardNew()">
+
+                <div
+                    class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
+                    <div class="w-full md:w-1/3 bg-white grid place-items-center">
+                        <img [src]="scratchCardData.controls['prevSrc'].value" alt="tailwind logo" class="rounded-xl" />
+                </div>
+                    <!-- <div class="w-full md:w-1/3 bg-white grid place-items-center">
+
+                        <img [src]="scratchCardData.controls['prevScThumbnail'].value" alt="tailwind logo" class="rounded-xl"  />
+                    </div> -->
+                        <div class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3 " style="border-left: 2px dashed black;
+                        height: 250px;">
+                            <h3 class="font-black text-gray-800 md:text-3xl text-xl" *ngIf="scratchCardData.controls['Type'].value=='0' || scratchCardData.controls['Type'].value=='1'">
+                                {{scratchCardData.controls['RatePerMin'].value == 0 ? "Free ": scratchCardData.controls['RatePerMin'].value  > 0 ? "Extra Discount" : ""}} {{scratchCardData.controls['Type'].value == '0' ? "Call" : scratchCardData.controls['Type'].value == '1' ? "Chat" :  ""}}
+                            </h3>
+                            <h3 class="font-black text-gray-800 md:text-3xl text-xl" *ngIf="scratchCardData.controls['Type'].value=='2' ">
+                                Extra Discount
+                            </h3>
+                            <div *ngIf="scratchCardData.controls['Type'].value == '1' || scratchCardData.controls['Type'].value == '0'">
+                                <p class="md:text-lg text-gray-500 text-base" >{{scratchCardData.controls['Min'].value}} minutes</p>
+    
+                                    <div class="text-xl mr-3 text-gray-800 flex overflow-hidden"> 
+                                        Astrologer:
+                                        <div *ngFor="let item of prevAstrologerName">
+                                            <span class="font-normal text-gray-600 text-base">
+                                                {{item.name}},
+                                            </span>
+                                        </div>
+                                    </div>
+                                <p class="md:text-lg text-gray-500 text-base">Time Left: {{prevTimeLeft }} days</p>
+
+                            </div>
+                            <div *ngIf="scratchCardData.controls['Type'].value == '2' ">
+                                <p class="md:text-lg text-gray-500 text-base mb-6" >{{scratchCardData.controls['discPer'].value}}% Extra</p>
+                                <p class="md:text-lg text-gray-500 text-base">Time Left: {{prevTimeLeft }} days</p>
+
+                            </div>
+                        </div>
+
+                </div>
+                <div class=" justify-end w-full">
+                    <button type="submit"  
+                        class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
+                </div>
+                </form>
+            </div>
+
+          </div>
+
+          <div class="grid gap-3 grid-cols-2">
+            <!-- selected Customer -->
+            <div class="flex flex-col mt-6 ">
+                <div class=" font-bold">
+                    <div class="float-left text-green-800">
+                        Selected Customers
+                    </div>
+                    <div class="float-right text-red-500 ">
+                        <input type="checkbox" class=" border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="selectAllSelectedCustomerOption" (change)="selectAllMarkedCustomers($event)"> Clear All
+                    </div>
+                </div>
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-800">
+                                    <tr>
+                                        <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <div class="flex items-center gap-x-3">
+                                                <span>Name</span>
+                                            </div>
+                                        </th>
+        
+                                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>Status</span>
+        
+                                                <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z" fill="currentColor" stroke="currentColor" stroke-width="0.3" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>MobileNo</span>
+        
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
+                                    *ngFor="let item of getSelectedCustomerList?.result"
+                                    >
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center gap-x-3">
+                                                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" value={{item?.AstroId}} id="selectAstro" (change)="addNewAstrologers($event)"> -->
+                                                <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="item.checked" value={{item?.CustomerId}}  (change)="addNewCustomers($event)">
+    
+                                                <div class="flex items-center gap-x-2">
+                                                    <img class="object-cover w-10 h-10 rounded-full" src="{{item?.profileImg}}" alt="">
+                                                    <div>
+                                                        <h2 class="font-medium text-gray-800 dark:text-white ">{{item?.FirstName + "  " + item?.LastName}}</h2>
+                                                        <p class="text-sm font-normal text-gray-600 dark:text-gray-400">@authurmelo</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+        
+                                                <h2 class="text-sm font-normal text-emerald-500">Active</h2>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.MobileNo}}</td>
+                                        <!-- <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.Gender}}</td> -->
+    
+                                    </tr>
+    
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <mat-paginator class="mb-10" [length]="getSelectedCustomerList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="showMarkedCustomer()"
+                    (page)="onPaginateChangeSelecCust($event)" >
+                </mat-paginator>
+            </div>
+            <!-- selected astrologers -->
+            <div class="flex flex-col mt-6">
+                <div class=" font-bold">
+                    <div class="float-left text-green-800">
+                        Selected Astrologers
+                    </div>
+                    <div class="float-right text-red-500 ">
+                        <input type="checkbox" class=" border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="selectAllSelectedAstrologerOption" (change)="selectAllMarkedAstrologers($event)"> Clear All
+                    </div>
+                </div>
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-800">
+                                    <tr>
+                                        <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <div class="flex items-center gap-x-3">
+                                                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="selectAllAstrologerOption" (change)="selectAllAstro($event)"> -->
+                                                <span>Name</span>
+                                            </div>
+                                        </th>
+        
+                                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>Status</span>
+        
+                                                <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                                    <path d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z" fill="currentColor" stroke="currentColor" stroke-width="0.3" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>MobileNo</span>
+        
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+        
+                                        <!-- <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Email address</th> -->
+            
+                                        <!-- <th scope="col" class="relative py-3.5 px-4">
+                                            <span class="sr-only">Email Address</span>
+                                        </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
+                                    *ngFor="let item of getSelectedAstrologerList?.result"
+                                    >
+                                    <tr>
+                                        <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center gap-x-3">
+                                                <!-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" value={{item?.AstroId}} id="selectAstro" (change)="addNewAstrologers($event)"> -->
+                                                <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" [(ngModel)]="item.checked" value={{item?.AstroId}}  (change)="addNewAstrologers($event)">
+    
+                                                <div class="flex items-center gap-x-2">
+                                                    <img class="object-cover w-10 h-10 rounded-full" src="{{item?.profileImg}}" alt="">
+                                                    <div>
+                                                        <h2 class="font-medium text-gray-800 dark:text-white ">{{item?.FullName}}</h2>
+                                                        <p class="text-sm font-normal text-gray-600 dark:text-gray-400">@authurmelo</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+        
+                                                <h2 class="text-sm font-normal text-emerald-500">Active</h2>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.MobileNo}}</td>
+                                        <!-- <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{item?.EmailId}}</td> -->
+                                    </tr>
+    
+        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <mat-paginator [length]="getSelectedAstrologerList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="showMarkedAstrologer()"
+                (page)="onPaginateChangeSelecAstro($event)" >
+                </mat-paginator>
+            </div>
+        </div>
+        <!-- <div class="lg:m-10">
+            <form class="">
+            <h1 class="mb-6 text-xl font-semibold lg:text-2xl">Register</h1>
+          
+            <div class="grid gap-3 md:grid-cols-2">
+              <div> 
+                <label class=""> Rate Per Min </label>
+                <input type="text" placeholder="Your Name" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+              </div>
+              <div>
+                <label class=""> Min </label>
+                <input type="text" placeholder="Last  Name" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+              </div>
+            </div>
+            <div>
+              <label class=""> Total </label>
+              <input type="text" placeholder="Username" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+            </div>
+            <div>
+              <label class=""> Scratch Till </label>
+              <input type="email" placeholder="Info@example.com" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+            </div>
+            <div>
+              <label class=""> Expire At </label>
+              <input type="password" placeholder="******" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+            </div>
+            <div class="grid gap-3 lg:grid-cols-2">
+              <div>
+                <label class=""> Gender </label>
+                <div class="relative w-56 mt-2 bg-gray-100 rounded-lg">
+                  <input class="peer hidden" type="checkbox" name="select-1" id="select-1" />
+                  <label for="select-1" class="flex w-full cursor-pointer rounded-lg select-none border p-2 px-3 text-sm text-gray-700 ring-blue-400 peer-checked:ring">Select Option </label>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute right-5 top-3 h-4 text-gray-600 transition peer-checked:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                  <ul class="max-h-0 select-none flex-col overflow-hidden rounded-b-lg shadow-md transition-all duration-300 peer-checked:max-h-56 peer-checked:py-3">
+                    <li class="cursor-pointer px-3 py-2 text-sm text-gray-500 hover:bg-blue-500 hover:text-white">Male</li>
+                    <li class="cursor-pointer px-3 py-2 text-sm text-gray-500 hover:bg-blue-500 hover:text-white">Female</li>
+                    <li class="cursor-pointer px-3 py-2 text-sm text-gray-500 hover:bg-blue-500 hover:text-white">Other</li>
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <label class=""> Phone: <span class="text-sm text-gray-400">(optional)</span> </label>
+                <input type="text" placeholder="+543 5445 0543" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" />
+              </div>
+            </div>
+          
+            <div class="checkbox">
+              <input type="checkbox" id="chekcbox1" checked="" />
+              <label for="checkbox1">I agree to the <a href="#" target="_blank" class="text-blue-600"> Terms and Conditions </a> </label>
+            </div>
+          
+            <div>
+              <button type="button" class="mt-5 w-full rounded-md bg-blue-600 p-2 text-center font-semibold text-white">Submit</button>
+            </div>
+          </form>
+          
+          </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="fixed bottom-0 w-full bg-lime-600">
+    selected customer
+</div> -->
+

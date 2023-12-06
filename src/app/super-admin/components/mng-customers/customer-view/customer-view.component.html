@@ -1,0 +1,192 @@
+<!-- <div class="bg-white border border-gray-200 border-t-2 rounded-lg shadow sm:p-6 md:p-8 xs:grid-cols-1"> -->
+<!-- <div class="w-full flex justify-between">
+        <div class="flex">
+            <section class="py-0 leading-6 text-blue-900 sm:py-16 lg:py-24">
+                <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                  <div class="mx-auto max-w-xl text-center">
+                    <h2 class="text-3xl font-bold leading-9 sm:text-4xl sm:leading-tight">Impressive Results in 2 Years</h2>
+                  </div>
+              
+                  <div class="mt-8 grid grid-cols-1 gap-6 divide-blue-200 sm:grid-cols-2 md:gap-8 lg:mt-16 lg:grid-cols-4 lg:divide-x">
+                    <div class="border-b border-blue-200 py-10 px-6 lg:border-b-0">
+                      <div class="flex items-center">
+                        <h3 class="relative ml-2 inline-block text-4xl font-bold leading-none">
+                          <span class="absolute -top-4 h-2 w-full bg-blue-200"></span>
+                          328
+                        </h3>
+                        <span class="ml-3 text-base font-medium capitalize">Great Achievements</span>
+                      </div>
+                    </div>
+              
+                    <div class="border-b border-blue-200 py-10 px-6 lg:border-b-0">
+                      <div class="flex items-center">
+                        <h3 class="relative ml-2 inline-block text-4xl font-bold leading-none">
+                          <span class="absolute -top-4 h-2 w-full bg-blue-200"></span>
+                          16
+                        </h3>
+                        <span class="ml-3 text-base font-medium capitalize">Graduations sponsored</span>
+                      </div>
+                    </div>
+              
+                    <div class="border-b border-blue-200 py-10 px-6 lg:border-b-0">
+                      <div class="flex items-center">
+                        <h3 class="relative ml-2 inline-block text-4xl font-bold leading-none">
+                          <span class="absolute -top-4 h-2 w-full bg-blue-200"></span>
+                          41+
+                        </h3>
+                        <span class="ml-3 text-base font-medium capitalize">jobs created</span>
+                      </div>
+                    </div>
+              
+                    <div class="border-b border-blue-200 py-10 px-6 lg:border-b-0">
+                      <div class="flex items-center">
+                        <h3 class="relative ml-2 inline-block text-4xl font-bold leading-none">
+                          <span class="absolute -top-4 h-2 w-full bg-blue-200"></span>
+                          99%
+                        </h3>
+                        <span class="ml-3 text-base font-medium capitalize">Happy Customers</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+            </section>
+        </div>
+        <div class="">
+            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://new-myastroguruji.s3.ap-south-1.amazonaws.com/astro-profile/1690432581374-Astro-Gyan-my-astroguruji.webp"  />
+        </div>
+        <div><button routerLink="../astrosetting"
+            [queryParams]="{astroid:astroid,prof:true}">
+                <mat-icon class="motion-safe:animate-spin">settings</mat-icon>
+            </button></div>
+    </div> -->
+<!-- <div class="w-full flex justify-between">
+      <div class="flex">
+          <div>
+              <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://new-myastroguruji.s3.ap-south-1.amazonaws.com/astro-profile/1690444826089-Urvi%20My%20Astroguruji.webp"
+                  alt="Astrologer image" />
+          </div>
+          <div class="text-center mx-10">
+              <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">astroData?.FullName
+              </h5>
+              <h5 class="text-sm text-gray-500 dark:text-gray-400">+91 astroData?.MobileNo
+              </h5>
+          </div>
+      </div>
+    </div> -->
+
+<div class="w-full ">
+  <div
+    class="w-full text-sm font-medium justify-around text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px justify-around">
+      <li class="mr-2 ">
+        <div class="flex justify-between items-center">
+          <span class="material-symbols-outlined " [ngStyle]="{'color': 'black'}">
+            person
+          </span>
+          <p (click)="setTabOption(1)" routerLink="customer-profile" [queryParams]="{id:customerId}"
+            class=" cursor-pointer border-opacity-0 inline-block p-2 border-b-1 rounded-t-lg "
+            [ngClass]="
+                        qParamsType == 'profile' ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+            Customer Profile
+          </p>
+        </div>
+      </li>
+      <li class="mr-2">
+        <div class="flex justify-between items-center">
+          <span class="material-symbols-outlined" [ngStyle]="{'color': 'green'}">
+            call_log
+          </span>
+          <p (click)="setTabOption(2)" routerLink="call-history" [queryParams]="{id:customerId}"
+            class=" cursor-pointer border-opacity-0 inline-block p-2 border-b-1 rounded-t-lg"
+            [ngClass]="
+                        qParamsType == 'callLog' ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+            Call Logs(call/chat/video-call)
+          </p>
+        </div>
+      </li>
+      <li class="mr-2">
+        <div class="flex justify-between items-center">
+          <span class="material-symbols-outlined" [ngStyle]="{'color': 'green'}">
+            currency_rupee
+          </span>
+          <p (click)="setTabOption(3)" routerLink="txn-history" [queryParams]="{id:customerId}"
+            class=" cursor-pointer border-opacity-0 inline-block p-2 border-b-1 rounded-t-lg"
+            [ngClass]="
+                        qParamsType == 'txn' ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+            Transaction History
+          </p>
+        </div>
+      </li>
+      <li class="mr-2">
+        <div class="flex justify-between items-center">
+          <span class="material-icons" [ngStyle]="{'color': 'red'}">card_giftcard</span>
+          <p (click)="setTabOption(4)" routerLink="customer-offers" [queryParams]="{id:customerId}"
+            class=" cursor-pointer border-opacity-0 inline-block p-2 border-b-1 rounded-t-lg"
+            [ngClass]="
+                        qParamsType == 'offer' ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+            Offer Details
+          </p>
+        </div>
+      </li>
+      <li class="mr-2">
+        <div class="flex justify-between items-center">
+          <span class="material-symbols-outlined" [ngStyle]="{'color': 'black'}">
+            feedback
+          </span>
+          <p (click)="setTabOption(5)" routerLink="customer-feedbacks" [queryParams]="{id:customerId}"
+            class=" cursor-pointer border-opacity-0 inline-block p-2 border-b-1 rounded-t-lg"
+            [ngClass]="
+                        qParamsType == 'feedback' ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+            Feedbacks
+          </p>
+        </div>
+      </li>
+      <li class="mr-2">
+        <div class="flex justify-between items-center">
+          <span class="material-symbols-outlined">
+            info_i
+          </span>
+          <p (click)="setTabOption(6)" routerLink="txn-history" [queryParams]="{id:customerId}"
+            class=" cursor-pointer border-opacity-0 inline-block p-2 border-b-1 rounded-t-lg"
+            [ngClass]="
+            selectedTab == 6 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+            Custom Recharge
+          </p>
+        </div>
+      </li>
+      <li class="mr-2">
+        <div class="flex justify-between items-center">
+          <span class="material-symbols-outlined">
+            account_balance_wallet
+          </span>
+          <p (click)="setTabOption(7)" routerLink="modify-wallet" [queryParams]="{id:customerId}"
+            class=" cursor-pointer border-opacity-0 inline-block p-2 border-b-1 rounded-t-lg"
+            [ngClass]="
+            selectedTab == 7 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+            Modify User Wallet
+          </p>
+        </div>
+      </li>
+      <li class="mr-2">
+        <div class="flex justify-between items-center">
+          <span class="material-symbols-outlined">
+            browse_activity
+            </span>
+          <p (click)="setTabOption(8)" routerLink="customer-activity" [queryParams]="{id:customerId}"
+            class=" cursor-pointer border-opacity-0 inline-block p-2 border-b-1 rounded-t-lg"
+            [ngClass]="
+            selectedTab == 8 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+            Activity
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="my-1">
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+<!-- </div> -->

@@ -1,0 +1,7 @@
+{
+    "api": {
+        "commonApiRoot": "https://new-api.myastroguruji.com",
+        "stagCommonRoot": "https://new-api.myastroguruji.com"
+    },
+    "skey": "myastroguruji" 
+}

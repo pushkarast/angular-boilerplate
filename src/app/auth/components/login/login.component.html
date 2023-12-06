@@ -1,0 +1,20 @@
+<div class="min-h-screen bg-main flex justify-center items-center">
+
+	<div class="py-12 px-12 bg-white rounded-2xl shadow-xl z-20">
+		<form [formGroup]="userInfo" (submit)="submitLogin()"> 
+			<div>
+				<h1 class="text-3xl w-80 font-bold text-center mb-6 cursor-pointer">My AstroGuruji</h1>
+			</div>
+			<div class="space-y-4">
+				<input type="text" placeholder="Email Address"
+					class="block text-sm py-3 px-4 rounded-lg w-full border outline-none" formControlName="email" />
+				<input type="text" placeholder="Password"
+					class="block text-sm py-3 px-4 rounded-lg w-full border outline-none" formControlName="password" />
+			</div>
+			<div class="text-center mt-6">
+				<button type="submit" class="py-3 w-full text-xl text-white bg-main rounded-2xl">Login</button>
+			</div>
+		</form>
+	</div>
+
+</div>

@@ -1,0 +1,198 @@
+<div class="bg-white border border-gray-200 border-t-2 rounded-lg shadow sm:p-6 md:p-8 xs:grid-cols-1">
+    <div class="w-full flex justify-between">
+        <div class="flex">
+            <div>
+                <img class="w-24 h-24 mb-3 rounded-full shadow-lg" [src]='astroData?.profileImg'
+                    alt="Astrologer image" />
+            </div>
+            <div class="text-center mx-10">
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{astroData?.FullName}}
+                </h5>
+                <h5 class="mb-1 text-l font-medium text-gray-900 dark:text-white">{{astroData?.DisplayName}}
+                </h5>
+                <h5 class="text-sm text-gray-500 dark:text-gray-400">{{astroData?.EmailId}}
+                </h5>
+                <h5 class="text-sm text-gray-500 dark:text-gray-400">+91 {{hideNumber(astroData?.MobileNo)}}
+                </h5>
+            </div>
+        </div>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table *ngIf="!isAdmin()" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Mode
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Online Status
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Today's Earnings
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Overall Earnings
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                                        <!-- <div 
+                                [ngClass]='onlineData?.ChatEnable == "1" ? "text-green-600" : "text-red-600" '>
+                                 {{onlineData?.ChatEnable == "1" ? "Online" : "Offline"}} <br>
+                            </div> -->
+                            <!-- <div 
+                                [ngClass]='onlineData?.CallEnable == "1" ? "text-green-600" : "text-red-600" '>
+                                    Call     :{{onlineData?.CallEnable == "1" ? "Online" : "Offline"}} <br>
+                            </div>
+                            <div 
+                                [ngClass]='onlineData?.VCEnable == "1" ? "text-green-600" : "text-red-600" '>
+                                Vcall  :{{onlineData?.VCEnable == "1" ? "Online" : "Offline"}}<br>
+                            </div>  -->
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Chat
+                        </th>
+                        <td class="px-6 py-4">
+                        <div 
+                            [ngClass]='onlineData?.ChatEnable == "1" ? "text-green-600 animate-pulse " : "text-red-600 " '>
+                            {{onlineData?.ChatEnable == "1" ? "Online" : "Offline"}} <br>
+                        </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            {{earnings?.astroDailyEarnings?.chatEarnings}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{earnings?.astroTotalEarnings?.chatEarnings}}
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Call
+                        </th>
+                        <td class="px-6 py-4">
+                            <div 
+                                [ngClass]='onlineData?.CallEnable == "1" ? "text-green-600 animate-pulse " : "text-red-600" '>
+                                {{onlineData?.CallEnable == "1" ? "Online" : "Offline"}} <br>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            {{earnings?.astroDailyEarnings?.callEarnings}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{earnings?.astroTotalEarnings?.callEarnings}}
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Video Call
+                        </th>
+                        <td class="px-6 py-4">
+                            <div 
+                                [ngClass]='onlineData?.VCEnable == "1" ? "text-green-600 animate-pulse " : "text-red-600" '>
+                                {{onlineData?.VCEnable == "1" ? "Online" : "Offline"}} <br>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            {{earnings?.astroDailyEarnings?.videoCallEarnings}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{earnings?.astroTotalEarnings?.videoCallEarnings}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div><button routerLink="../astrosetting"
+            [queryParams]="{astroid:astroid,prof:true}">
+                <mat-icon class="motion-safe:animate-spin">settings</mat-icon>
+            </button></div>
+    </div>
+    <div class="w-full mt-10">
+        <div
+            class="w-full text-sm font-medium justify-around text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+            <ul class="flex flex-wrap -mb-px justify-around">
+                <li class="mr-2">
+                    <p (click)="setTabOption(1)" routerLink="astro-profile" [queryParams]="{astroid:astroid}"
+                        class=" cursor-pointer border-opacity-0 inline-block p-4 border-b-1 rounded-t-lg"
+                        [ngClass]="
+                    selectedTab==1 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+                        Astrologer Profile
+                    </p>
+                </li>
+                <li class="mr-2">
+                    <p (click)="setTabOption(2)" routerLink="call_chatHistory" [queryParams]="{astroid:astroid}"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-opacity-0 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        [ngClass]="
+                        selectedTab==2  ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' ">
+                        Chat/Call History Report
+                    </p>
+                </li>
+                <li class="mr-2" *ngIf="!isAdmin()">
+                    <p (click)="setTabOption(3)"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-opacity-0 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        [ngClass]="
+                        selectedTab==3 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' "
+                        aria-current="page">
+                        Astromall History Report
+                    </p>
+                </li>
+                <li class="mr-2">
+                    <p (click)="setTabOption(4)" routerLink="asroRecord" [queryParams]="{astroid:astroid}"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-opacity-0 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        [ngClass]="selectedTab==4 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' "
+                        aria-current="page">
+                        Astrologer Records
+                    </p>
+                </li>
+                <li class="mr-2" *ngIf="!isAdmin()">
+                    <p (click)="setTabOption(5)" routerLink="astrologer-promo-videos"
+                        [queryParams]="{astroid:astroid,prof:true}"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-opacity-0 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        [ngClass]="selectedTab==5 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' "
+                        aria-current="page">
+                        Manage Promotional Videos
+                    </p>
+                </li>
+                <li class="mr-2">
+                    <p (click)="setTabOption(6)" routerLink="repeated-users" [queryParams]="{astroid:astroid,prof:true}"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-opacity-0 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        [ngClass]="selectedTab==6 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' "
+                        aria-current="page">
+                        Repeated User Info
+                    </p>
+                </li>
+                <li class="mr-2" *ngIf="!isAdmin()">
+                    <p (click)="setTabOption(7)" routerLink="../astrosetting"
+                        [queryParams]="{astroid:astroid,prof:true}"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-opacity-0 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        [ngClass]="selectedTab==7 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' "
+                        aria-current="page">
+                        Astrosetting
+                    </p>
+                </li>
+                <li class="mr-2">
+                    <p (click)="setTabOption(8)" routerLink="online-details" [queryParams]="{astroid:astroid}"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-opacity-0 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        [ngClass]="selectedTab==8 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' "
+                        aria-current="page">
+                        Astrologer Online Detail
+                    </p>
+                </li>
+                <li class="mr-2">
+                    <p (click)="setTabOption(9)" routerLink="astro-xp"
+                        [queryParams]="{astroid:astroid}"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-opacity-0 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        [ngClass]="selectedTab==9 ? 'border-opacity-60 text-blue-600 border-b-2 border-blue-600' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' "
+                        aria-current="page">
+                        Total XPs
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="my-1">
+            <main>
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,453 @@
+<div class="flex justify-center mt-5 w-full">
+  <div class="grid grid-cols-3 items-center gap-3 w-full">
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <button
+        [routerLink]="['../manage-shop-service']"
+        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+      >
+        Go Back
+      </button>
+    </div>
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <p class="text-center font-extrabold text-2xl">{{ serviceData?.name }}</p>
+    </div>
+  </div>
+</div>
+
+
+<ng-container *ngFor="let item of activeAstroList">
+  <div class="flex relative justify-between mb-5 p-2 w-full border">
+    <div class="grid grid-cols-4 items-center gap-3 w-full">
+      <div class="md:col-span-1 col-span-12">
+        <img
+          [src]="item?.image"
+          [alt]="item?.image"
+          class="h-20 rounded-full"
+        />
+        <p class="font-bold">
+          {{ item?.name }}
+        </p>
+      </div>
+      <div class="md:col-span-1 col-span-12">
+        <p class="text-xl">{{ item?.scheduledOn | date : "medium" }}</p>
+      </div>
+      <div class="md:col-span-1 col-span-12">
+        <button
+          (click)="getPackageDetails(template, {id:item?.id,astroid:item?.astroid})"
+          class="bg-blue-600 p-2 text-white rounded-lg"
+        >
+          Add/Edit Landing Page
+        </button>
+      </div>
+      <div class="md:col-span-1 col-span-12">
+        <button
+          (click)="copyLandingPageUrl({astro:item?.slug,slug:item?.serviceSlug,landing:item?.landingPage})"
+          class="bg-green-600 p-2 text-white rounded-lg"
+        >
+          Copy Landing Page URL
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #template>
+  <div class="modal-header flex justify-between p-0 m-0">
+    <div>
+      <p class="font-bold text-lg">Add Service</p>
+    </div>
+    <div class="float-right">
+      <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+    </div>
+  </div>
+<div class="p-5">
+  <form [formGroup]="addLandingPage" (submit)="updateLandingPage()">
+    <div class="flex justify-center mt-5 w-full">
+      <div class="grid grid-cols-1 items-center gap-3 w-full">
+        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+          <input
+            type="text"
+            name="category_name"
+            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            formControlName="templeName"
+          />
+          <label
+            for="category_name"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            Temple Name
+          </label>
+        </div>
+        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+          <textarea
+            type="text"
+            name="category_name"
+            class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            cols="3"
+            formControlName="aboutPuja"
+          ></textarea>
+          <label
+            for="category_name"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            About Puja
+          </label>
+        </div>
+        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+          <textarea
+            type="text"
+            name="category_name"
+            class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            cols="3"
+            formControlName="aboutPujaTemple"
+          ></textarea>
+          <label
+            for="category_name"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            About Puja's Temple
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center mt-5 w-full">
+      <div class="grid grid-cols-2 items-center gap-3 w-full">
+        <div  class="md:col-span-1 col-span-12">
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="benefitTitle1"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Benefit Title 1
+            </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              cols="3"
+              formControlName="benefitDesc1"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Benefit 1
+            </label>
+          </div>
+        </div> 
+        <div  class="md:col-span-1 col-span-12">
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="benefitTitle2"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Benefit Title 2
+            </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              cols="3"
+              formControlName="benefitDesc2"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Benefit 2
+            </label>
+          </div>
+        </div>
+        <div  class="md:col-span-1 col-span-12">
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="benefitTitle3"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Benefit Title 3
+            </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              cols="3"
+              formControlName="benefitDesc3"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Benefit 3
+            </label>
+          </div>
+        </div>
+        <div  class="md:col-span-1 col-span-12">
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="benefitTitle4"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Benefit Title 4
+            </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              cols="3"
+              formControlName="benefitDesc4"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Benefit 4
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center mt-5 w-full">
+      <div class="grid grid-cols-2 items-center gap-3 w-full">
+        <div  class="md:col-span-1 col-span-12">
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="faqTitle1"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              FAQ Title 1
+            </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              cols="3"
+              formControlName="faq1"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              FAQ 1
+            </label>
+          </div>
+        </div> 
+        <div  class="md:col-span-1 col-span-12">
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="faqTitle2"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+             FAQ Title  2
+            </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              cols="3"
+              formControlName="faq2"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+            FAQ 2
+            </label>
+          </div>
+        </div>
+        <div  class="md:col-span-1 col-span-12">
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="faqTitle3"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+             FAQ Title  3
+            </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              cols="3"
+              formControlName="faq3"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+            FAQ 3
+            </label>
+          </div>
+        </div>
+        <div  class="md:col-span-1 col-span-12">
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="faqTitle4"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+             FAQ Title  4
+            </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block h-32 py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              cols="3"
+              formControlName="faq4"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+            FAQ 4
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center mt-5 w-full">
+      <div class="grid grid-cols-2 items-center gap-3 w-full">
+        <div class="md:col-span-1 col-span-12 relative z-0 mb-6 w-full">
+          <label
+            for="formFile"
+            class="mb-2 inline-block text-neutral-700 dark:text-neutral-200"
+          >
+            Promotion Image/Gif (Size:900px X 200px)</label
+          >
+          <input
+            class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+            type="file"
+            id="formFile"
+            (change)="fileupload($event)"
+            accept=".webp"
+          />
+        </div>
+        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+          <input
+            type="text"
+            name="category_name"
+            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" "
+            formControlName="redirectLink"
+          />
+          <label
+            for="category_name"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >
+            Promotion Image Redirection Link
+          </label>
+        </div>
+    </div>
+    </div>
+    <div class="flex justify-center mt-5 w-full">
+      <div class="grid grid-cols-2 items-center gap-3 w-full">
+        <div class="md:col-span-1 col-span-12 relative z-0 mb-6 w-full">
+          <label
+            for="formFile"
+            class="mb-2 inline-block text-neutral-700 dark:text-neutral-200"
+          >
+            Background Video (Size:1400px X 800px)</label
+          >
+          <input
+            class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+            type="file"
+            id="formFile"
+            (change)="fileupload($event,false)"
+          />
+        </div>
+
+    </div>
+    </div>
+    <div class="flex justify-end w-full">
+      <button
+        type="submit"
+        class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        {{ "Upload" }}
+      </button>
+    </div>
+    
+  </form>
+</div>
+</ng-template>

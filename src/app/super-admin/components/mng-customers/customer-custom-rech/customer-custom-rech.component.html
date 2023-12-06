@@ -1,0 +1,58 @@
+<div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Custom Recharge</h5>
+    </a>
+    <div class="w-full">
+        <form [formGroup]="rechargeForm" *ngIf="!isOTP">
+            <div class="md:col-span-1 col-span-12 relative">
+                <ng-select [items]="option" placeholder="Select Option" bindLabel="name" bindValue="value"
+                    class="w-full" formControlName="type">
+                </ng-select>
+            </div>
+            <div class="md:col-span-1 col-span-12 relative z-0 m-3">
+                <input type="text" name="mobileNo" [disabled]="true"
+                    class=" block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " formControlName="mobileNo" />
+                <label for="mobileNo"
+                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Mobile*
+                </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 relative z-0 m-3" *ngIf="rechargeForm.get('type')?.value==1">
+                <input type="text" name="Amount"
+                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " formControlName="Amount" />
+                <label for="Amount"
+                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Amount*
+                </label>
+            </div>
+            <div class="md:col-span-1 col-span-12 relative z-0 m-3" *ngIf="rechargeForm.get('type')?.value==1">
+                <input type="text" name="Amount"
+                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " formControlName="paymentId" />
+                <label for="Amount"
+                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Payment Id (Optional)
+                </label>
+            </div>
+            <button (click)="submitMobile()"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Submit
+            </button>
+        </form>
+        <form *ngIf="isOTP">
+            <span class="py-5 text-lg">
+                Enter OTP recieved:
+            </span>
+            <ng-otp-input *ngIf="isOTP" (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input>
+            <div class="mt-4">
+                <button (click)="recharge()"
+                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>

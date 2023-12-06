@@ -1,0 +1,122 @@
+<h1 class="mb-5">
+    Astrologer Monthly Report:
+</h1>
+<div class="flex justify-between">
+    <div>
+        <form class="container border-2 border-slate-300  py-1 rounded ">
+            <input [(ngModel)]="modelDate" class="border-2 border-slate-300 py-1 px-2 w-full bg-red-300"
+                autocomplete="off" class="form-control" name="date" bsDatepicker
+                [bsConfig]="{dateInputFormat: 'MMMM/YYYY'}" (onShown)="onOpenCalendar($event)"
+                placeholder="Select Month and Year" (bsValueChange)="getDate($event)">
+        </form>
+    </div>
+    <div>
+        <input type="text" class="w-full border-2 border-slate-300 px-2 py-1 rounded" placeholder="Search..."
+            (input)="search($event)">
+    </div>
+
+</div>
+
+
+<div class="my-3">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Full Name</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Mobile Number</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Email Id </th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Account Status</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                OnBoard Status</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Month Total Amount</th>
+                            <th *ngIf="TabOption==1" scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Is Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="reportList?.length!==0;else noData" class=" bg-white divide-y divide-gray-200 ">
+                        <tr *ngFor="let report of reportList?.data" class="hover:bg-gray-100">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{report?.astroinfo?.fullname}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{report?.astroinfo?.mobileno}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{report?.astroinfo?.emailid}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                                [ngClass]="report?.astroinfo?.status?'text-green-500':'text-red-500'">
+                                {{report?.astroinfo?.status?"Active":"InActive"}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                                [ngClass]="report?.astroinfo?.isonboard?'text-green-500':'text-red-500'">
+                                {{report?.astroinfo?.isonboard?"Active":"InActive"}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{report?.totalAmount}}
+                            </td>
+
+                            <td class="py-4 px-6 text-sm font-medium text-green-500 hover:text-red-600 whitespace-nowrap cursor-pointer"
+                                *ngIf="report?.paidStatus?.is_paid=='1' && TabOption==1"
+                                (click)="changeStatus(report?.paidStatus?.id)">
+                                <span class='material-icons '>check_circle</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-red-500  hover:text-green-600 whitespace-nowrap cursor-pointer "
+                                *ngIf="report?.paidStatus?.is_paid=='0' && TabOption==1"
+                                (click)="changeStatus(report?.paidStatus?.id)">
+                                <span class='material-icons'>not_interested</span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="flex justify-between">
+    <div class="md:col-span-1 col-span-12 mt-2" *ngIf="TabOption==1">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded" (click)="exportexcel()">Export to
+            Excel</button>
+    </div>
+
+    <div class="md:col-span-1 col-span-12 mt-2" *ngIf="TabOption==2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded" (click)="astroMallexportexcel()">Export to
+            Excel</button>
+    </div>
+
+    <mat-paginator [length]="reportList?.totalPage" [pageSize]="30" hidePageSize="true"
+        onchange="getData()" [showFirstLastButtons]="true" [length]="reportData.get('page')?.value-1"
+        (page)="pagination($event)">
+    </mat-paginator>
+</div>

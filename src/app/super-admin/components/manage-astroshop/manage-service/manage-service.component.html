@@ -1,0 +1,289 @@
+<div class="flex justify-center mt-5 w-full">
+  <div class="grid grid-cols-3 items-center gap-3 w-full">
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <h1>Manage Service Order:</h1>
+    </div>
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <div class="w-full">
+        <ng-select
+          [items]="option"
+          placeholder="Sort By"
+          bindLabel="name"
+          bindValue="value"
+          class="w-full"
+          (change)="handleFilter($event)"
+        >
+        </ng-select>
+      </div>
+    </div>
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <input
+        type="text"
+        class="border-gray-200 w-full py-1 px-2 border-2 rounded-lg"
+        placeholder="Search ..."
+        (input)="searchProduct($event)"
+      />
+    </div>
+  </div>
+</div>
+<div class="flex flex-col">
+  <div class="overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="inline-block min-w-full align-middle">
+      <div class="overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200 table-fixed">
+          <thead class="bg-gray-100">
+            <tr>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Orderid
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Date & Time
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Service Name
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Category Name
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Customer Name
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Astrologer Name
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Status
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Service Status
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Service Reminder
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Price
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Given Time
+              </th>
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Selected Time
+              </th>
+
+              <th
+                scope="col"
+                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+              >
+                Recordings
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            *ngIf="serviceList?.length !== 0; else noData"
+            class="bg-white divide-y divide-gray-200"
+          >
+            <tr
+              *ngFor="let service of serviceList"
+              class="hover:bg-gray-100 cursor-pointer"
+            >
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ service?.OrderId }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ service?.OrderDate }} {{ service?.OrderTime}}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ service?.serviceName }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ service?.categoryName }}
+              </td>
+
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ service?.customerName }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ service?.astroName }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium whitespace-nowrap"
+                [ngClass]="
+                  service?.OrderStatus == 'Success'
+                    ? 'text-success-600'
+                    : 'text-red-600'
+                "
+              >
+                {{ service?.OrderStatus }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <ng-container *ngIf="service?.OrderStatus == 'Success'">
+                  <span
+                    *ngIf="service?.serviceDetails?.serviceStatus == '1'"
+                    class="px-3 py-2 rounded-lg bg-blue-700 text-white"
+                  >
+                    Service Booked By User,Form Pending
+                  </span>
+                  <span
+                    *ngIf="service?.serviceDetails?.serviceStatus == '2'"
+                    class="px-3 py-2 rounded-lg bg-blue-700 text-white"
+                  >
+                    Form Updated By User,Time Pending
+                  </span>
+                  <span
+                    *ngIf="service?.serviceDetails?.serviceStatus == '3'"
+                    class="px-3 py-2 rounded-lg bg-blue-700 text-white"
+                  >
+                    Time Updated By Astrologer,Time Selection Pending
+                  </span>
+                  <span
+                    *ngIf="service?.serviceDetails?.serviceStatus == '4'"
+                    class="px-3 py-2 rounded-lg bg-blue-700 text-white"
+                  >
+                    Time Selected By User,Puja Pending
+                  </span>
+                  <span
+                    *ngIf="service?.serviceDetails?.serviceStatus == '5'"
+                    class="px-3 py-2 rounded-lg bg-yellow-700 text-white"
+                  >
+                    Puja Started
+                  </span>
+                  <span
+                    *ngIf="service?.serviceDetails?.serviceStatus == '6'"
+                    class="px-3 py-2 rounded-lg bg-green-700 text-white"
+                  >
+                    Puja Completed
+                  </span>
+                </ng-container>
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <ng-container *ngIf="service?.OrderStatus=='Success'&&(service?.serviceDetails?.serviceStatus == '1'||service?.serviceDetails?.serviceStatus == '2'||service?.serviceDetails?.serviceStatus == '3')">
+                  <span (click)="giveManualReminder({type:2,serviceStatus:service?.serviceDetails?.serviceStatus,customerid:service?.CustomerId,astroid:service?.AstroId})" class="px-3 py-2 w-40 rounded-lg bg-red-700 text-white">
+                    Notification/SMS
+                  </span>
+                  <br /><br />
+                  <span
+                  (click)="giveManualReminder({type:1,serviceStatus:service?.serviceDetails?.serviceStatus,customerid:service?.CustomerId,astroid:service?.AstroId})"
+                    class="px-12 w-40 py-2 mt-2 rounded-lg bg-red-700 text-white"
+                  >
+                    OBD
+                  </span>
+                </ng-container>
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{ service?.TotalCharges }}/-
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{
+                  service?.serviceDetails?.time1 | date : "dd-MM-YYYY hh:mm a"
+                }}
+                <br />
+                {{ service?.serviceDetails?.time2 | date : "dd-MM-YYYY hh:mm a"
+                }}<br />
+                {{ service?.serviceDetails?.time3 | date : "dd-MM-YYYY hh:mm a"
+                }}<br />
+                {{
+                  service?.serviceDetails?.time4 | date : "dd-MM-YYYY hh:mm a"
+                }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                {{
+                  service?.serviceDetails?.selectedtime
+                    | date : "dd-MM-YYYY hh:mm a"
+                }}
+              </td>
+              <td
+                class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+              >
+                <a
+                  [href]="service?.serviceDetails?.recordinURL"
+                  target="_blank"
+                  *ngIf="service?.serviceDetails?.recordinURL"
+                  class="px-3 py-2 rounded-lg bg-blue-700 text-white"
+                >
+                  View Recordings
+                </a>
+                <span *ngIf="!service?.serviceDetails?.recordinURL" class="">
+                  No Recordings
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          <ng-template #noData>
+            <tbody>
+              <tr>
+                <td colspan="12" class="text-center" style="font-size: 14px">
+                  No data available
+                </td>
+              </tr>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-paginator
+  [length]="paginationData?.totalPage"
+  [pageSize]="1"
+  hidePageSize="true"
+  (page)="pagination($event)"
+>
+</mat-paginator>

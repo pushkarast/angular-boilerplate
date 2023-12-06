@@ -1,0 +1,30 @@
+::ng-deep .ck-balloon-panel {
+    z-index: 654654654654654654654654654 !important;
+}
+::ng-deep #ckeditor{
+    position: relative;
+    z-index:1;
+}
+
+
+::ng-deep .ng-dropdown-panel{
+    z-index:999999999999999999999
+}
+
+
+::ng-deep .ck.ck-content ul,
+::ng-deep .ck.ck-content ul li {
+  list-style-type: inherit;
+}
+
+
+::ng-deep .ck.ck-content ol,
+::ng-deep .ck.ck-content ol li {
+  list-style-type: decimal;
+}
+::ng-deep .ck.ck-content ol {
+ 
+}
+::ng-deep .ck-editor__editable_inline {
+  padding: 0 20px !important;
+}

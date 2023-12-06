@@ -1,0 +1,411 @@
+<div class="mt-3 mb-5">
+    <form [formGroup]="callLogData">
+        <div class="rounded-xl border border-gray-200 bg-slate-100 p-6 shadow-lg">
+            <!-- <div class="flex">
+                <div class="flex-1  flex items-end text-sm font-medium text-red-600">Customer Name: {{callLogList.customerData.FullName}} | MobileNo: {{callLogList.customerData.MobileNo}}</div>
+                <div class="flex-1 text-left "><h2 class="text-stone-700 text-xl font-bold ">Apply filters</h2></div>
+            </div>  -->
+            <div class="flex">
+                <div class="flex-1 flex items-end text-sm font-medium text-red-600">
+                    <!-- Customer Name: {{feedbackList.customerData.FullName}} | MobileNo: {{feedbackList.customerData.MobileNo}} -->
+                    <a class="block rounded-lg bg-gradient-to-r from-orange-500 to-rose-500 p-0.5 " href="#">
+                        <div class="flex items-center rounded-md border border-gray-100 bg-white px-2 py-1 shadow-lg">
+                            <img class="h-10 w-10 rounded-full object-cover"
+                                [src]="callLogList?.customerData?.customerImg" alt="cusotmer Image" />
+                            <div class="ml-4 w-72">
+                                <p class="text-sm font-semibold">{{callLogList?.customerData?.FullName }}</p>
+                                <p class="text-sm text-gray-400 font-semibold">{{callLogList?.customerData?.MobileNo }}
+                                    | <span class="text-green-600">Balance: ₹ {{callLogList?.customerData?.balance
+                                        }}</span> /-</p>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="flex-1 text-left ">
+                    <h2 class="text-stone-700 text-xl font-bold mt-3">Apply filters</h2>
+                </div>
+            </div>
+
+            <!-- <p class="mt-1 text-sm">Use filters to further refine search</p> -->
+            <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+                <div class="flex flex-col">
+                    <label for="searchInput" class="text-stone-600 text-sm font-medium">Search</label>
+                    <input type="text" id="searchInput" name="searchInput" #mydiv (input)="search($event)"
+                        placeholder="name,id,mobileno..."
+                        class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                </div>
+
+                <!-- <div class="flex flex-col">
+            <label for="manufacturer" class="text-stone-600 text-sm font-medium">Manufacturer</label>
+            <input type="manufacturer" id="manufacturer" placeholder="cadbery" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+            </div> -->
+
+                <!-- <div class="flex flex-col">
+            <label for="date" class="text-stone-600 text-sm font-medium">Date of Entry</label>
+            <input type="date" id="date" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+            </div> -->
+
+                <div class="flex flex-col">
+                    <label for="paymentStatus" class="text-stone-600 text-sm font-medium">Call Status</label>
+
+                    <select id="status" formControlName="paymentStatus"
+                        class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                        (change)="getCallLogsData()">
+                        <option name="None" value="null">None</option>
+                        <option name="Completed" value="0">Completed</option>
+                        <option name="Not_Responded" value="1">Not Responded</option>
+                        <option name="Refunded" value="2">Refunded</option>
+                        <option name="Cancelled" value="3">Cancelled</option>
+                        <option name="Missed" value="4">Missed</option>
+                        <option name="InProgress" value="5">InProgress</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="status" class="text-stone-600 text-sm font-medium">Type(call/chat/video-call)</label>
+
+                    <select id="status" formControlName="filter"
+                        class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                        (change)="getCallLogsData()">
+                        <option name="None" value="null">None</option>
+                        <option name="call" value="0">Call</option>
+                        <option name="chat" value="1">Chat</option>
+                        <option name="video-call" value="2">Video Call</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
+                <button
+                    class="active:scale-95 rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90"
+                    (click)="resetFilterFn()">Reset</button>
+                <!-- <button class="active:scale-95 rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90">Search</button> -->
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<div class=" mx-auto">
+    <!-- <form [formGroup]="callLogData">
+        <div class="flex justify-center  w-full mt-3 mb-3">
+            <div class="grid grid-cols-4 items-center gap-3 w-full">
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2" placeholder="Search ..."
+                    (input)="search($event)" >
+                </div>
+                <div class="md:col-span-1  col-span-12">
+                    <ng-select [items]="callLogTypeFilter" placeholder="Filter By" bindLabel="name" bindValue="value"
+                        formControlName="filter" class="w-full" (change)="getCallLogsData()">
+                    </ng-select>
+                </div>
+
+
+            </div>
+        </div>
+    </form> -->
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden ">
+                    <table class="mt-3min-w-full divide-y divide-gray-200 table-fixed ">
+                        <thead class="bg-gray-100 ">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Date</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Time</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    ID</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Type</th>
+                                <!-- <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Customer Name</th> -->
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Mobile</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Astrologer Name</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Status</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Rate</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Duration</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Total Charges</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Company Share</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Astrologer Share</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    PG(%)</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    PG Amount</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    TDS(%)</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    TDS Amount</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Astrologer Net Share</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Remarks</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Recording URL</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="callLogList?.activityDetails?.length!==0;else noData"
+                            class=" bg-white divide-y divide-gray-200 ">
+                            <tr *ngFor="let item of callLogList?.activityDetails"
+                                class="hover:bg-gray-100 cursor-pointer">
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.startDate }}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.startTime }}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.id}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{
+                                    item?.type == "UCALL" ? "CALL" :
+                                    (item?.type == "UCHAT" ? "CHAT" : (item?.type == "DCALL"?"DCALL":"Video CALL"))
+                                    }}
+                                    <div *ngIf="item?.type=='UCALL'" [ngClass]="item?.isPromotional=='0' ? 'text-green-500'
+                                    : 'text-red-500'">
+                                        {{ item?.isPromotional == '0' ? "(Paid)" : "(Promotional)" }}
+                                    </div>
+                                </td>
+                                <!-- <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    customer Name
+                                </td> -->
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.astroProfileData?.astroMobileNo}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.astroProfileData?.astroName}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    <span [ngClass]="item?.callStatus=='Completed'?'text-green-500'
+                                   :item?.callStatus=='Cancelled'?'text-red-500':
+                                   item?.callStatus=='Refunded'?'text-blue-500':'text-yellow-500'">
+                                        {{item?.callStatus}}</span>
+                                    <div>({{item?.sessionType}})</div>
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.astroRate}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.duration * 1000 * 60| date:'HH:mm':'UTC'}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.totalCharges}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.compAmt}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.astroAmt}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.pgPer}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.pgAmt}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.TDSPer}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.TDSAmt}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.astroTotalAmt}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{item?.chargeDetails?.remarks ? item?.chargeDetails?.remarks:"No Remarks"}}
+                                </td>
+                                <td *ngIf="item?.type=='UCHAT'">
+                                    <button [routerLink]="'../../../chats/'+item?.chargeDetails?.orderId"
+                                        target="_blank"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-full rounded text-xs ">View
+                                        Chat</button>
+                                </td>
+                                <td *ngIf="item?.recordingUrlPresent==0 && item?.type!='UCHAT'">
+                                    <a href={{item?.recordingUrl}} target="_blank"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-2 rounded text-xs ">View
+                                        Recording</a>
+                                    <!-- <a *ngIf="item?.type=='VCALL'"
+                                        [href]={{item?.recordingUrl}}
+                                        target="_blank"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-2 rounded text-xs ">View
+                                        Recording</a> -->
+                                </td>
+                                <td *ngIf="item?.recordingUrlPresent==1 && item?.type!='UCHAT'">
+                                    N/A
+                                </td>
+                                <!-- <ng-template #other_content>N/A</ng-template> -->
+
+                            </tr>
+
+                        </tbody>
+                        <ng-template #noData>
+                            <tbody>
+                                <tr>
+                                    <td colspan="12" class="text-center" style="font-size: 14px">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- <mat-paginator [length]="callHistoryList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getData()"
+    (page)="onPaginateChange($event)">
+</mat-paginator> -->
+
+
+
+
+<!-- <ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Call ID: {{modalData?.order?.id}}</h4>
+    </div>
+    <div class="modal-content">
+        <div class="p-2">
+            <table class="table-auto text-center">
+                <tr>
+                    <th class="border-r-2">Call Date</th>
+                    <td> {{modalData?.order?.orderInitiate | date:"longDate"}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Time</th>
+                    <td>{{modalData?.order?.orderInitiate | date:"shortTime"}}</td>
+                </tr>
+
+                <tr>
+                    <th class="border-r-2">Customer Name</th>
+                    <td>{{modalData?.customerInfo?.firstname+" "+modalData?.customerInfo?.lastname}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Mobile</th>
+                    <td>{{modalData?.customerInfo?.mobileno}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Name</th>
+                    <td> {{modalData?.astroname}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Status</th>
+                    <td [ngClass]="modalData?.order?.orderStatus=='Completed'?'text-green-500'
+                    :modalData?.order?.orderStatus=='Cancelled'?'text-red-500':
+                    modalData?.order?.orderStatus=='Refunded'?'text-blue-500':'text-yellow-500'">
+                        {{modalData?.order?.orderStatus}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Rate</th>
+                    <td>{{modalData?.charges?.astroRate}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Duration</th>
+                    <td>{{modalData?.order?.orderDuration}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Total Charges</th>
+                    <td> {{modalData?.charges?.totalCharges}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Company Share</th>
+                    <td> {{modalData?.charges?.compAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Share</th>
+                    <td> {{modalData?.charges?.astroAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">PG(%)</th>
+                    <td>{{modalData?.charges?.pgPer}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">PG Amount</th>
+                    <td>{{modalData?.charges?.pgAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">TDS(%)</th>
+                    <td>{{modalData?.charges?.TDSPer}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">TDS Amount</th>
+                    <td>{{modalData?.charges?.TDSAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Net Share</th>
+                    <td>{{modalData?.charges?.astroTotalAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Remarks</th>
+                    <td>{{modalData?.order?.remarks ?modalData?.order?.remarks:"No Remarks"}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Recording URL</th>
+                    <td *ngIf="modalData?.order?.recordinURL;else noData">
+                        <a href={{modalData?.order?.recordinURL}} target="_blank"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-2 rounded text-xs ">View
+                            Recording</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</ng-template> -->
+
+<!-- <div class="md:col-span-1  col-span-12 mt-4">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-2 rounded" (click)="exportexcel()">Export
+        to
+        Excel</button>
+</div> -->
+
+
+<div class="flex justify-between p-2">
+    <div>
+        <input #titleInput class="border-gray-200 p-1 border-2 w-20" placeholder="Page No."
+            (keydown.enter)="handleGoto(titleInput.value)">
+        <button (click)="handleGoto(titleInput.value)"
+            class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+    </div>
+    <div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            (click)="exportexcel()">Export to
+            Excel</button>
+    </div>
+    <div>
+        <mat-paginator [length]="callLogList?.totalPage" [pageSize]="1" hidePageSize="true" pageIndex="{{pageRef}}"
+            (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+</div>

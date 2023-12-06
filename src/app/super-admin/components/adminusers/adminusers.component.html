@@ -1,0 +1,120 @@
+<div class="flex justify-between mb-5">
+    <h1>
+        Manage Master Data:
+    </h1>
+    <div>
+        <button (click)="openModal(template)"
+            class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">Add
+            New</button>
+    </div>
+</div>
+
+
+<table class="min-w-full divide-y divide-gray-200 table-fixed ">
+    <thead class="bg-gray-100 ">
+        <th scope="col" class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+            Name </th>
+        <th scope="col" class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+            Email </th>
+        <th scope="col" class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+            Actions</th>
+    </thead>
+    <tbody class=" bg-white divide-y divide-gray-200">
+        <tr *ngFor="let data of usersList" class="hover:cursor-pointer hover:bg-slate-100 p-1">
+            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">{{data?.name}}</td>
+            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">{{data?.email}}</td>
+            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                <div class="flex text-white text-center">
+                    <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                        (click)="openModal(template,data?.id)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1" (click)="deleteUser(data?.id)">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                    <button class="p-1 bg-gray-400  hover:bg-gray-500 rounded m-1" routerLink="usersPermission"
+                        [queryParams]="{uid:data?.id}">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<ng-template #template>
+    <div class="modal-header flex justify-between">
+        <div>Master Data Info</div>
+        <div class="float-right">
+            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="p-5">
+            <form [formGroup]="userData" (submit)="updateUser()">
+                <div class="relative z-0 w-full group">
+                    <label for="name" class="text-sm text-black">User's Name
+                    </label>
+                    <input type="text" id="name" placeholder="User's Name"
+                        class="block text-sm py-3 px-4 rounded-lg w-full border outline-none" formControlName="name" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="email" class="text-sm text-black">User's Email
+                    </label>
+                    <input type="email" placeholder="email" id="email" placeholder="User's Email"
+                        class=" block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                        formControlName="email" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="email" class="text-sm text-black">User's Password
+                    </label>
+                    <div class="flex text-sm p-3 rounded-lg w-full border outline-none">
+                        <div class=" w-full ">
+                            <input [type]="password" class="block text-sm rounded-lg w-full outline-none"
+                                formControlName="password">
+                        </div>
+                        <div class="">
+                            <button type="button" (click)="passwordShow()"
+                                class="block text-sm rounded-lg w-full outline-none">
+                                <mat-icon ria-hidden="true" *ngIf="!show">remove_red_eye</mat-icon>
+                                <mat-icon aria-hidden="true" *ngIf="show">visibility_off</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="mobile" class="text-sm text-black">User's MobileNo.
+                    </label>
+                    <div class="flex text-sm p-3 rounded-lg w-full border outline-none">
+                        <div class="w-full ">
+                            <input type="number" class="block text-sm rounded-lg w-full outline-none"
+                                formControlName="mobile">
+                        </div>
+                        <div class="">
+                            <button type="button" (click)="passwordShow()"
+                                class="block text-sm rounded-lg w-full outline-none">
+                                <mat-icon ria-hidden="true" *ngIf="!show">remove_red_eye</mat-icon>
+                                <mat-icon aria-hidden="true" *ngIf="show">visibility_off</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="email" class="text-sm text-black">Ip Adress Allowed
+                    </label>
+                    <div class="flex text-sm p-3 rounded-lg w-full border outline-none">
+                        <div class=" w-full ">
+                            <input type="text" class="block text-sm rounded-lg w-full outline-none"
+                                formControlName="allowedIp" placeholder="like 192.0.16.0 or 192.0.16">
+                        </div>
+                    </div>
+                </div>
+                <div class="relative z-0 w-full group">
+                    <button type="submit"
+                        class="m-2 text-white float-right bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>

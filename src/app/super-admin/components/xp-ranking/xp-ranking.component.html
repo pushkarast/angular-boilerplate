@@ -1,0 +1,104 @@
+<h1 class="mb-5">
+    Rank Astrolgers By: 
+</h1>
+
+<div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700" >
+    <form [formGroup]="getXpData">
+        <div class="flex justify-center w-full">
+          <div class="grid grid-cols-4 items-center gap-3 w-full">
+            <div class="md:col-auto col-span-12">
+              <input type="text" class="border-gray-200 py-1 px-2 w-full border-2" placeholder="Search ..."
+                (input)="search($event)" />
+            </div>
+          </div>
+        </div>
+      </form>
+
+    <div class="my-5 ">
+        <div class="flex flex-col">
+            <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="inline-block min-w-full align-middle">
+                    <div class="overflow-hidden " >
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed " >
+                            <thead class="bg-gray-100 ">
+                                <tr>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Rank </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Astrologer Name</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Mobile Number</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Email Id </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Total Xps</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="xpList?.length!==0;else noData" class=" bg-white divide-y divide-gray-200 ">
+                                <tr *ngFor="let item of xpList" class="hover:bg-gray-100">
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        <div>
+                                            {{item?.rank}}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        <!-- {{item?.astroDetail?.fullname}} -->
+                                        <a routerLink="../onBoardastro/astro-view/astro-profile"
+                                            [queryParams]="{astroid:item?.astroDetail?.astroid}" role="link" target="_blank"
+                                            class="hover:text-blue-400 hover:cursor-pointer"> 
+                                            {{item?.astroDetail?.fullname}}</a>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astroDetail?.MobileNo}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astroDetail?.EmailId}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.total_xp}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <ng-template #noData>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="12" class="text-center" style="font-size: 14px">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div *ngIf="TabOption==2;">
+    <mat-paginator [length]="resultListNewCustomer?.totalPage" [pageSize]="1" hidePageSize="true" 
+    (page)="onPaginateChange($event)">
+    </mat-paginator>
+</div>
+<div *ngIf="TabOption==3;">
+    <mat-paginator [length]="resultListBusyTime?.totalPage" [pageSize]="1" hidePageSize="true" 
+     (page)="onPaginateChange($event)">
+    </mat-paginator>
+</div> -->
+

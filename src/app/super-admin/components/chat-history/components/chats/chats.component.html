@@ -1,0 +1,76 @@
+<div class="flex h-screen antialiased text-gray-800">
+    <div class="flex flex-row h-full w-full overflow-x-hidden">
+        <div class="flex flex-col flex-auto h-full md:p-6  pt-6">
+            <div
+                class="drop-shadow-xl flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-[url('assets/images/chat-bg.webp')] h-full">
+                <div class="h-20 rounded-t-2xl border-2 bg-[#ededed]">
+                    <div class="flex justify-between items-center p-4">
+                        <div>
+                            <b>Astrologer Name: </b> {{chatData?.astroName}}
+                        </div>
+                        <div class="flex">
+                            <p class="text-lg font-bold ">Chat ID :</p>
+                            <p class="text-lg font-bold">{{chatId}}</p>
+                        </div>
+                        <div>
+                            <b>Customer Name: </b> {{chatData?.userName}}
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col h-full overflow-x-auto mb-4 scrollbar-hide">
+                    <div class="flex flex-col h-full " *ngFor="let chat of chatData?.chatData">
+
+                        <div class="grid grid-cols-12 gap-y-2">
+
+                            <div class="col-start-1 col-end-8 p-3 rounded-lg" *ngIf="chat?.senderType==1">
+                                <div class="flex flex-row items-center">
+                                    <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                                        <div>{{chat.body}}</div>
+                                        <small class="mr-1.5 mt-1 text-[10px] text-gray-500">
+                                            User
+                                        </small>
+                                        <small class="mr-1.5 mt-1 text-[10px] text-gray-500">
+                                            {{chat?.createdat | date:'shortTime'}}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-start-6 col-end-13 p-3 rounded-lg" *ngIf="chat?.senderType==2">
+                                <div class="flex items-center justify-start flex-row-reverse">
+                                    <div class="relative mr-3 text-sm bg-[#dbf8c6] py-2 px-4 shadow rounded-xl">
+                                        <div class="whitespace-pre-line">{{chat.body}}</div>
+                                        <small class="mr-1.5 mt-1 text-[10px] text-gray-500">
+                                            Astrologer
+                                        </small>
+                                        <small class="mr-1.5 mt-1 text-[10px] text-gray-500">
+                                            {{chat?.createdat | date:'shortTime'}}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full col-start-6  p-3 rounded-lg" *ngIf="chat?.senderType==3">
+                            <div class="flex items-center flex-col justify-center">
+                                <div
+                                    class='relative mr-3 text-sm bg-[#e1f2fa]  py-2 px-4 shadow rounded-xl flex items-center'>
+                                    <div class="text-black w-11/12" *ngIf="chat?.msgType=='1'">
+                                        {{chat.body}}
+                                    </div>
+                                    <div className=" w-11/12" *ngIf="chat?.msgType=='6' ">
+                                        {{chat?.createdat | date:'longDate'}}
+                                    </div>
+                                    <small className=" ml-1.5 text-xs " *ngIf="chat?.msgType!=='6' ">
+                                        {{chat.body}}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

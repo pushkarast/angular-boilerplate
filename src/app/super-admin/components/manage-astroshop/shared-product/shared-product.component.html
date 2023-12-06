@@ -1,0 +1,123 @@
+<div class="flex justify-between items-center mb-5">
+
+    <div class="flex justify-center mt-5 w-full">
+      <div class="grid grid-cols-3 items-center gap-3 w-full">
+        <div class="md:col-span-1 col-span-12 "><h1>Manage Shared Product:</h1></div>
+        <div class="md:col-span-1 col-span-12 ">
+            <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd
+            [showCustomRangeLabel]="true" [(ngModel)]="selected" [alwaysShowCalendars]="true"
+            [ranges]="ranges" [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+            [showClearButton]="true" placeholder="Select date range " (change)="choosedDate($event)"
+             />
+        </div>
+        <div class="md:col-span-1 col-span-12 ">
+          <input type="text" class=" border-gray-200 w-full py-1 px-2 border-2 rounded-lg" placeholder="Search ..."
+          (input)="searchProduct($event)">
+        </div>
+        
+        </div>
+        </div>
+  </div>
+  
+  <div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+      <div class="inline-block min-w-full align-middle">
+        <div class="overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200 table-fixed">
+            <thead class="bg-gray-100">
+              <tr>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Astrologer Name
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Customer Name
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Product Name
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Shared Date
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                Purchase Status
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              *ngIf="sharedList?.length !== 0; else noData"
+              class="bg-white divide-y divide-gray-200"
+            >
+              <tr
+                *ngFor="let shared of sharedList"
+                class="hover:bg-gray-100 cursor-pointer"
+              >
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  {{ shared?.FullName }}
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  {{ shared?.FirstName}} {{shared?.LastName}}
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  <p>{{ shared?.ProductName }}</p>
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  {{ shared?.EntryDate|date:'longDate' }}
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  {{ shared?.buyStatus }}
+                </td>
+                
+
+              </tr>
+            </tbody>
+            <ng-template #noData>
+              <tbody>
+                <tr>
+                  <td colspan="12" class="text-center" style="font-size: 14px">
+                    No data available
+                  </td>
+                </tr>
+              </tbody>
+            </ng-template>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-paginator
+    [length]="paginationData?.totalData"
+    [pageSize]="20"
+    hidePageSize="true"
+    (page)="pagination($event)"
+  >
+  </mat-paginator>
+  <!-- <mat-paginator [length]="blogList?.totalBlogs" [pageSize]="1" hidePageSize="true" (page)="pagination($event)">
+  </mat-paginator> -->
+  
+
+  

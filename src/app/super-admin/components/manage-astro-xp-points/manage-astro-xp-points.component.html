@@ -1,0 +1,192 @@
+<div class="flex justify-center mt-5 w-full">
+  <div class="grid grid-cols-3 items-center gap-3 w-full">
+      <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+
+      </div>
+      <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+          <p class="text-center font-extrabold text-2xl">Set Xp Point Values</p>
+      </div>
+  </div>
+</div>
+
+<div >
+  <div>
+      <form [formGroup]="xpData">
+          <div class="  mb-5 p-2 w-full border">
+              <div class="grid grid-cols-4 items-center m-1 gap-4 w-full">
+                  <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <p class="font-bold ">Feedbacks</p>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="number" name="positiveFeedback" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="positiveFeedback"  />
+                      <label for="positiveFeedback"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Positive Feedback 
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="number" name="negativeFeedback" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="negativeFeedback"  />
+                      <label for="negativeFeedback"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Negative Feedback
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="number" name="normalFeedback" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " maxlength="6" formControlName="normalFeedback"
+                           />
+                      <label for="normalFeedback"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Normal Feedback
+                      </label>
+                  </div>
+              </div>
+              <div class="grid grid-cols-4 items-center m-1 p-1 gap-4 w-full">
+                  <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <p class="font-bold "> Paid Orders</p>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="number" name="completedOrder" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="completedOrder"  />
+                      <label for="completedOrder"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Completed Orders 
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="number" name="missedOrder" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="missedOrder"  />
+                      <label for="missedOrder"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Missed Orders 
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="number" name="declinedOrder" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="declinedOrder"  />
+                      <label for="declinedOrder"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Declined Orders 
+                      </label>
+                  </div>
+              </div>
+              <div class="grid grid-cols-4 items-center m-1 p-1 gap-4 w-full">
+                  <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <p class="font-bold "> Free Orders</p>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="completedFree" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="completedFree"  />
+                      <label for="completedFree"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Completed Orders 
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="missedFree" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="missedFree"  />
+                      <label for="missedFree"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Missed Orders 
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="declinedFree" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="declinedFree"  />
+                      <label for="declinedFree"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Declined Orders 
+                      </label>
+                  </div>
+              </div>
+              <div class="grid grid-cols-4 items-center m-1 p-1 gap-4 w-full">
+                  <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <p class="font-bold "> Busy/Online Time (per minute) </p>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="busyTime" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="busyTime"  />
+                      <label for="busyTime"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Busy Time 
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="onlineTime" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="onlineTime"  />
+                      <label for="onlineTime"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Online Time 
+                      </label>
+                  </div>
+              </div>
+              <div class="grid grid-cols-4 items-center m-1 gap-4 w-full">
+                  <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <p class="font-bold ">Repeat Users</p>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="repeatUserCompleted" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="repeatUserCompleted"  />
+                      <label for="repeatUserCompleted"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Repeat Completed 
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="repeatUserMissed" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="repeatUserMissed"  />
+                      <label for="repeatUserMissed"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Repeat Missed  
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="repeatUserDeclined" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="repeatUserDeclined"  />
+                      <label for="repeatUserDeclined"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Repeat Declined  
+                      </label>
+                  </div>
+              </div>
+              <div class="grid grid-cols-4 items-center m-1 gap-4 w-full">
+                <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                    <p class="font-bold ">Daily Deductions</p>
+                </div>
+                <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                    <input type="text" name="dailyDeduction" 
+                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " formControlName="dailyDeduction"  />
+                    <label for="dailyDeduction"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Daily deduction
+                    </label>
+                </div>
+            </div>
+              <div class="md:col-span-2 flex justify-center col-span-12 my-6">
+                  <button type="submit" 
+                      (click)="updateXpData()"
+                      class="mx-1 w-1/6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      Update
+                  </button>
+              </div>
+          </div>
+        </form>
+  </div>
+</div>

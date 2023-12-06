@@ -1,0 +1,348 @@
+<h1 class="mb-5">Chat Hitory Report:</h1>
+<div class="mx-auto">
+    <form [formGroup]="getChatdata">
+        <div class="flex justify-center w-full">
+            <div class="grid grid-cols-4 items-center gap-3 w-full">
+                <div class="md:col-span-1 col-span-12">
+                    <ng-select [items]="option" placeholder="Sort By" bindLabel="name" bindValue="value"
+                        formControlName="status" class="w-full" (change)="getChatReport()">
+                    </ng-select>
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd
+                        [showCustomRangeLabel]="true" [(ngModel)]="selected" [alwaysShowCalendars]="true"
+                        [ranges]="ranges" [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+                        [showClearButton]="true" placeholder="Select date range " (change)="choosedDate($event)"
+                        formControlName="StartDate" />
+                </div>
+
+                <div class="md:col-span-1 col-span-12">
+                    <ng-select [items]="filter" placeholder="Filter By" bindLabel="name" bindValue="value"
+                        formControlName="sfilter" class="w-full" (change)="getChatReport()">
+                    </ng-select>
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class="border-gray-200 py-1 px-2 w-full border-2" placeholder="Search by name"
+                        (input)="search($event)" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Chat Date
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Chat Time
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Chat ID
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Customer Name
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Mobile
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Astrologer Name
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Chat Status
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Chat Rate
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Chat Duration
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Remarks
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Retry Counts
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Recording URL
+                                </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Chat Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="callHistoryList?.callchatData?.length !== 0; else noData"
+                            class="bg-white divide-y divide-gray-200">
+                        <tbody *ngIf="callHistoryList?.callchatData?.length !== 0; else noData"
+                            class="bg-white divide-y divide-gray-200">
+                            <tr *ngFor="let callHistory of callHistoryList?.callchatData"
+                                class="hover:bg-gray-100 cursor-pointer">
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{ callHistory?.order?.orderInitiate | date : "longDate" }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{ callHistory?.order?.orderInitiate | date : "shortTime" }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{ callHistory?.order?.id }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{
+                                    callHistory?.customerInfo?.firstname +
+                                    " " +
+                                    callHistory?.customerInfo?.lastname
+                                    }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{ hideNumber(callHistory?.customerInfo?.mobileno) }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{ callHistory?.astroname }}
+                                </td>
+                                <td class="py-4 px-6 text-xs font-medium text-gray-900 whitespace-nowrap">
+                                    <div class="whitespace-nowrap" [ngClass]="
+                    callHistory?.order?.orderStatus == 'Completed'
+                      ? 'text-green-500'
+                      : callHistory?.order?.orderStatus == 'Cancelled'
+                      ? 'text-red-500'
+                      : callHistory?.order?.orderStatus == 'Refunded'
+                      ? 'text-blue-500'
+                      : 'text-yellow-500'
+                  ">
+                                        {{ callHistory?.order?.orderStatus }}
+                                    </div>
+                                    (
+                                    {{
+                                    callHistory?.order?.sessionType
+                                    }}
+                                    )
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{ callHistory?.charges?.astroRate }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{ getTime(callHistory?.order?.orderDuration) }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{
+                                    callHistory?.order?.remarks
+                                    ? callHistory?.order?.remarks
+                                    : "No Remarks"
+                                    }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.order?.retry}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-white whitespace-nowrap">
+                                    <a type="button" class="bg-slate-500 p-3 w-full rounded-md hover:bg-slate-600"
+                                        href="{{ 'superAdmin/chats/' + callHistory?.order?.id }}">Show Chat</a>
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                                    <div class="p-2 bg-gray-400 rounded-sm hover:bg-gray-500"
+                                        (click)="openModal(template,callHistory?.order?.id)">
+                                        Take Action
+                                    </div>
+                                </td>
+                        </tbody>
+                        <ng-template #noData>
+                            <tbody>
+                                <tr>
+                                    <td colspan="12" class="text-center" style="font-size: 14px">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<mat-paginator [length]="callHistoryList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getData()"
+    (page)="onPaginateChange($event)">
+</mat-paginator>
+
+<ng-template #template let-c="close">
+    <div class="modal-header flex justify-between">
+        <div class="float-right">
+            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <form [formGroup]="feedbackData">.
+        <div class="modal-body">
+            <div class="relative w-full mb-4 p-1 border-b-2 flex justify-between">
+                <table class="w-full center">
+                    <tr>
+                        <td>
+                            <b> Customer Name: </b>
+                            {{modalData?.firstname}} {{modalData?.lastname}}
+                        </td>
+                        <td>
+                            <b> Mobile Number: </b>
+                            {{hideNumber(modalData?.mobileno)}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <b> Astrologer Name: </b>
+                            {{modalData?.fullname}}
+
+                        </td>
+                        <td>
+                            <b>Call Duration: </b>
+                            {{ getTime(modalData?.orderDuration) }}
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b> Call Status: </b>
+                            {{modalData?.orderStatus}}
+
+                        </td>
+                        <td>
+                            <b>Remarks: </b>
+                            {{modalData?.remarks}}
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b> Call Type: </b>
+                            {{modalData?.sessionType}}
+
+                        </td>
+                        <td>
+                            <b>Retry Time: </b>
+                            {{modalData?.retry}}
+
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <h3 class="font-bold"> FeedBack Call </h3>
+            <div class="relative w-full mb-4 p-3 border-b-2 flex justify-evenly">
+                <div class="relative">
+                    <button class="w-full" *ngIf="!connetCall" [disabled]="disableButton">
+                        <div class="bg-green-500 rounded-md w-full text-center hover:shadow-md p-3"
+                            (click)="startCall()">
+                            <mat-icon>call</mat-icon>
+                            <span>Call Now</span>
+                        </div>
+                    </button>
+                    <button class="w-full" *ngIf="connetCall">
+                        <div class="bg-red-500 rounded-sm w-full text-center hover:shadow-md p-3"
+                            (click)="disconnectCall()">
+                            <mat-icon>call_end</mat-icon>
+                            <span class="p-2">End Call</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="py-2">
+                    <a type="button" class="bg-slate-500 p-3 w-full rounded-md hover:bg-slate-600" target="_blank"
+                        href="{{ 'superAdmin/chats/' + feedbackData.get('orderId')?.value }}">Show Chat</a>
+                </div>
+            </div>
+            <div>
+                <form [formGroup]="feedbackData" (submit)="submitCallFeed()">
+                    <div class="relative mb-6 w-full group flex justify-evenly">
+                        <div class="w-full mx-1">
+                            <ng-select [items]="contactOption" placeholder="Call Status*" bindLabel="name"
+                                bindValue="value" formControlName="callStatus" (change)="callStatus($event)">
+                            </ng-select>
+                            <p class="text-danger text-sm"
+                                *ngIf="feedbackData.get('callStatus')?.invalid && feedbackData.controls['callStatus'].touched && feedbackData.controls['callStatus'].hasError('required')">
+                                Please Select this!</p>
+                        </div>
+                        <div class="w-full mx-1">
+                            <ng-select [items]="yesNo" placeholder="Is Welcome Note Given*" bindLabel="name"
+                                bindValue="value" formControlName="welcomeNote">
+                            </ng-select>
+                            <p class="text-danger  text-sm"
+                                *ngIf="feedbackData.get('welcomeNote')?.invalid &&  feedbackData.controls['welcomeNote'].touched && feedbackData.controls['welcomeNote'].hasError('required')">
+                                Please Select this!</p>
+                        </div>
+                    </div>
+                    <div class="relative w-full mb-3 flex" *ngIf="feedbackData?.get('callStatus')?.value=='0'">
+                        <p class="py-3 px-1">
+                            Costumer Concerns In Call*:
+                        </p>
+                        <mat-chip-listbox class="" aria-label="Color selection" [multiple]="true"
+                            formControlName="tags">
+                            <mat-chip-option *ngFor="let chip of tags" [color]="chip.color">
+                                {{chip.name}}
+                            </mat-chip-option>
+                            <p class="text-danger py-2 mx-2"
+                                *ngIf="feedbackData.get('tags')?.invalid && feedbackData.controls['tags'].touched && feedbackData.controls['tags'].hasError('required')">
+                                Please Select At-least one tag!</p>
+                        </mat-chip-listbox>
+                    </div>
+                    <div class="relative w-full mb-3 flex" *ngIf="feedbackData?.get('callStatus')?.value=='0'">
+                        <p class="py-3 px-1">
+                            Astrologer Review*:
+                        </p>
+                        <mat-chip-listbox class="" aria-label="Color selection" formControlName="orderFeed">
+                            <mat-chip-option *ngFor="let chip of orderReview" [color]="chip.color">
+                                {{chip.name}}
+                            </mat-chip-option>
+                        </mat-chip-listbox>
+                        <p class="text-danger py-2 mx-2"
+                            *ngIf="feedbackData.get('orderFeed')?.invalid &&  feedbackData.controls['orderFeed'].touched  && feedbackData.controls['orderFeed'].hasError('required')">
+                            Please Select At-least one tag!</p>
+                    </div>
+                    <div class="relative z-0 w-full mb-3">
+                        <input type="checkbox" formControlName="sendToAdmin" id="Admin" />
+                        <label for="Admin"
+                            class="mx-1 text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Chat
+                            Mark To Admin
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full mb-3">
+                        <textarea name="orderReview" id="orderReview"
+                            class="block py-2.5 px-0 w-full text-sm p-2 text-gray-900 bg-transparent border-0 border-b-2 border-gray-300   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="orderReview"></textarea>
+                        <label for="orderReview"
+                            class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Chat
+                            Feedback*
+                        </label>
+                        <p class="text-danger"
+                            *ngIf="feedbackData.get('orderReview')?.invalid &&  (feedbackData.get('orderReview')?.dirty || feedbackData.get('orderReview')?.touched)">
+                            Please enter the Feedback!</p>
+                    </div>
+                    <div class=" relative z-0 w-full mb-3">
+                        <input type="submit" [disabled]="disableButton"
+                            [value]="disableButton?'Submiting.....':'Submit'"
+                            class="m-2 text-white float-right bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </form>
+
+
+</ng-template>

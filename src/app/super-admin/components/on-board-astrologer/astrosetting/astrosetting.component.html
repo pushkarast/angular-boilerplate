@@ -1,0 +1,607 @@
+<div class="">
+    <div class="flex">
+        <div class="w-full max-w-sm bg-green-50 border border-gray-200 rounded-lg shadow m-1">
+            <div class="flex flex-col items-center p-4 b">
+                <div class="relative">
+                    <span class="absolute right-1 w-4 h-4 border-2 border-white rounded-full top-2 animate-pulse"
+                        [ngClass]="astroSettings.get('IsBusy')?.value==1 ? 'bg-yellow-400' : astroSettings.get('ChatEnable')?.value==1 || astroSettings.get('CallEnable')?.value==1  ? 'bg-green-600 ' :'bg-red-600'  "></span>
+                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src={{astroProf?.profileUrl}}
+                        alt="Bonnie image" />
+                </div>
+                <h5 class="mb-1 text-xl font-medium text-gray-900">{{astroProf?.fullname}}</h5>
+                <span class="text-sm text-gray-500">{{astroProf?.emailid}}</span>
+                <span class="text-sm text-gray-500">Mob: {{astroProf?.mobileno}}</span>
+                <div class="flex mt-4 space-x-3 md:mt-6">
+                    <a (click)="changeStatus('Online')"
+                        class="cursor-pointer animate-[wiggle_1s_ease-in-out_infinite] inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">Mark
+                        Online</a>
+                    <a (click)="changeStatus('Offline')"
+                        class="cursor-pointer inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-500 border border-gray-300 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-200 ">Mark
+                        Offline</a>
+                </div>
+                <!-- <form [formGroup]="tag" class="flex mt-4 space-x-3 md:mt-6 w-2/3 justify-center flex-col text-center">
+                    <div>
+                        <ng-select [items]="tags" placeholder="Tags" bindLabel="name" bindValue="value"
+                            formControlName="tagsArr" class="w-full" [multiple]="true"
+                            (change)="setValue('tags',$event)">
+                        </ng-select>
+                    </div>
+                    <div>
+                        <ng-select [items]="categories" placeholder="Categories" bindLabel="name" bindValue="value"
+                            formControlName="categories" class="w-full" [multiple]="true"
+                            (change)="setValue('categories',$event)">
+                        </ng-select>
+                    </div>
+                    <div>
+                        <a (click)="updateAstrosetting('tags')"
+                            class=" cursor-pointer inline-flex items-center  p-2 text-sm font-medium text-center text-white bg-red-500 border border-gray-300 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-200 ">
+                            Update Tags</a>
+                    </div>
+                </form> -->
+            </div>
+        </div>
+
+        <div class="w-full p-6 bg-amber-50 border border-gray-200 rounded-lg shadow m-1">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Bank Details</h5>
+            <form [formGroup]="bankDetails" (submit)="updateAstrosetting('bank')">
+                <div class="relative grid grid-cols-2">
+                    <div class="relative z-0 mb-6 w-full">
+                        <input type="text" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="BankName" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-amber-50  peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Bank
+                            Name<span class="text-red-400">*</span> </label>
+                    </div>
+                    <div class="relative z-0 mb-6 mx-1 w-full">
+                        <input type="text" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="AccountNo" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-amber-50  peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Bank
+                            Account No.<span class="text-red-400">*</span> </label>
+                    </div>
+                    <div class="relative z-0 mb-6 w-full">
+
+                        <input type="text" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="AccountName" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-amber-50  peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Bank
+                            Account Name<span class="text-red-400">*</span> </label>
+                    </div>
+                    <div class="relative z-0 mb-6 mx-1 w-full">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="IFSCCode" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-amber-50  peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IFSC
+                            Code
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="relative z-0 mb-6 mx-1 w-full">
+                    <input type="email" name="floating_email"
+                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " formControlName="AccountBranch" />
+                    <label for="floating_email"
+                        class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-amber-50  peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Branch
+                        <span class="text-red-400">*</span>
+                    </label>
+                </div>
+                <div class="flex mt-4 space-x-3 md:mt-6 justify-end">
+                    <button
+                        class="animate-[wiggle_1s_ease-in-out_infinite] inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Update</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="flex">
+        <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow m-1">
+            <form [formGroup]="astroSettings" (submit)="updateAstrosetting('settings')" class="relative">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Astrologer Settings</h5>
+                <div class="absolute top-1 right-0 m-1 my-2">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" [checked]="astroSettings.get('IsOnBoard')?.value"
+                            (change)="setValue('IsOnBoard',$event)">
+                        <div
+                            class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Is
+                            OnBoard</span><span class="text-red-400">*</span>
+                    </label>
+                </div>
+                <div class="relative grid grid-cols-4 my-5">
+                    <div class="relative mx-1  my-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer"
+                                [checked]="astroSettings.get('c_status')?.value=='P'"
+                                (change)="setValue('c_status',$event)">
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Is
+                                Promotional</span><span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="promotional_call_charges" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Promotional
+                            Call Charges
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="promotional_chat_charges" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Promotional
+                            Chat Charges
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="promotional_per_day" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Promotional
+                            Per Day Enabled
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="relative grid grid-cols-4 my-5">
+                    <div class="relative mx-1  my-2">
+
+                    </div>
+                    <div class="relative mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="second_promotional" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Repeat Promotional 1(Display Price)
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="third_promotional" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Repeat Promotional 2(Display Price)
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative mx-1">
+
+                    </div>
+
+                </div>
+                <div class="relative grid grid-cols-4 my-5">
+                    <div class="relative mx-1  my-2">
+
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer"
+                            [checked]="astroSettings.get('restrictRepeat')?.value"
+                            (change)="setValue('restrictRepeat',$event)">
+                        <div
+                            class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Stop Repeat
+                            Promotion? <span class="text-red-400">*</span></span>
+                    </label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer"
+                            [checked]="astroSettings.get('fixedPromoPrice')?.value"
+                            (change)="setValue('fixedPromoPrice',$event)">
+                        <div
+                            class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Is Fixed
+                            Price <span class="text-red-400">*</span></span>
+                    </label>
+
+                    <div class="relative mx-1">
+
+                    </div>
+
+                </div>
+                <!-- option to disable call/chat/vcall this uncomment when needed -->
+                <!-- <div class="relative flex my-5 w-full justify-evenly">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" [checked]="astroSettings.get('calloptDisable')?.value"
+                            (change)="setValue('calloptDisable',$event)">
+                        <div
+                            class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Disable Call
+                        </span>
+                    </label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" [checked]="astroSettings.get('vcalloptDisable')?.value"
+                            (change)="setValue('vcalloptDisable',$event)">
+                        <div
+                            class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Disable
+                            VCALL
+                        </span>
+                    </label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" [checked]="astroSettings.get('chatoptDisable')?.value"
+                            (change)="setValue('chatoptDisable',$event)">
+                        <div
+                            class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Disable Chat
+                        </span>
+                    </label>
+                </div> -->
+                <div *ngIf="astroSettings.get('fixedPromoPrice')?.value==1" class="relative grid grid-cols-4 my-5">
+                    <div class="relative mx-1  my-2">
+
+                    </div>
+                    <div class="relative mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="fixedPrice1" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Fixed Promotional Charges 1
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="fixedPrice2" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Fixed Promotional Charges 2
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative mx-1">
+
+                    </div>
+
+                </div>
+
+                <div class="relative grid grid-cols-4  my-5">
+                    <div class="relative z-0 mx-1  my-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer"
+                                [checked]="astroSettings.get('ChatEnable')?.value"
+                                (change)="setValue('ChatEnable',$event)">
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Is
+                                Chat Enable <span class="text-red-400">*</span></span>
+                        </label>
+                    </div>
+                    <!-- <div class="relative z-0 mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="ChatSlabF" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Charges
+                            From<span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative z-0  mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="ChatSlabT" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Charges
+                            To<span class="text-red-400">*</span> </label>
+                    </div> -->
+                    <div class="relative z-0  mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="ChatCharges" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Chat
+                            Charges
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="relative grid grid-cols-4  my-5">
+                    <div class="relative z-0  mx-1 w-full  my-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer"
+                                [checked]="astroSettings.get('CallEnable')?.value"
+                                (change)="setValue('CallEnable',$event)">
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Is
+                                Call Enabled <span class="text-red-400">*</span></span>
+                        </label>
+                    </div>
+
+                    <div class="relative z-0  mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="CallCharges" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Call
+                            Charges
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="relative grid grid-cols-4 my-5">
+                    <div class="relative z-0  mx-1  w-full  my-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer"
+                                [checked]="astroSettings.get('EmergencyChat')?.value"
+                                (change)="setValue('EmergencyChat',$event)">
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Is
+                                EChat Enabled<span class="text-red-400">*</span></span>
+                        </label>
+                    </div>
+                    <div class="relative z-0  mx-1 w-full">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="EChatCharges" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">EChat
+                            Charges
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="relative grid grid-cols-4  my-5">
+                    <div class="relative z-0  mx-1  my-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer"
+                                [checked]="astroSettings.get('EmergencyCall')?.value"
+                                (change)="setValue('EmergencyCall',$event)">
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Is
+                                ECall Enabled <span class="text-red-400">*</span></span>
+                        </label>
+                    </div>
+                    <div class="relative z-0  mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="ECallCharges" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">ECall
+                            Charges
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="relative grid grid-cols-4 my-5">
+                    <div class="relative z-0 my-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" [checked]="astroSettings.get('VCEnable')?.value"
+                                (change)="setValue('VCEnable',$event)">
+                            <div
+                                class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Is
+                                VCall Enabled <span class="text-red-400">*</span></span>
+                        </label>
+                    </div>
+                    <div class="relative z-0 mx-1">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="VCCharges" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Charges
+                            VCall Charges<span class="text-red-400">*</span> </label>
+                    </div>
+                </div>
+                <div class="flex mt-4 space-x-3 md:mt-6 justify-end">
+                    <button type="submit"
+                        class="animate-[wiggle_1s_ease-in-out_infinite] inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="flex">
+        <div class="w-full p-6 bg-blue-50 border border-gray-200 rounded-lg shadow m-1">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Promotional Slots</h5>
+            <form [formGroup]="promoSettings" (submit)="updatePromoSlots()">
+                <ng-container *ngFor="let item of [1,2,3,4];index as i">
+                    <div class="relative grid grid-cols-4  my-5">
+                        <div class="relative z-0 mx-1  my-2">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer"
+                                    [checked]="promoSettings.get('status'+i)?.value"
+                                    (change)="handlePromoOnOff($event,i)">
+                                <div
+                                    class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
+                                </div>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 break-words">Is
+                                    Free Slot {{i+1}} Enable <span class="text-red-400">*</span></span>
+                            </label>
+                        </div>
+
+                        <div class="relative z-0  mx-1">
+                            <input type="email" name="floating_email"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " [formControlName]="'slotPrice'+i" />
+                            <label for="floating_email"
+                                class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-blue-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Promotional
+                                Charges (Per Min)
+                                <span class="text-red-400">*</span>
+                            </label>
+                        </div>
+                        <div class="relative z-0  mx-1">
+                            <input type="email" name="floating_email"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " [formControlName]="'slotPromoCount'+i" />
+                            <label for="floating_email"
+                                class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-blue-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Promotional
+                                Count
+                                <span class="text-red-400">*</span>
+                            </label>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="flex mt-4 space-x-3 md:mt-6 justify-end">
+                    <button type="submit"
+                        class="animate-[wiggle_1s_ease-in-out_infinite] inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="flex">
+        <div class="w-full p-6 bg-green-50 border border-gray-200 rounded-lg shadow m-1">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Profile/Earning Setting</h5>
+            <form [formGroup]="earningSettings" (submit)="updateAstrosetting('earning')">
+                <div class="my-16">
+                    <div class="relative grid grid-cols-2 my-3">
+                        <div class="relative z-0  mx-1 w-full">
+                            <input type="email" name="floating_email"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="astroshareper" />
+                            <label for="floating_email"
+                                class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-green-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Astro
+                                Share (%)
+                                <span class="text-red-400">*</span>
+                            </label>
+                        </div>
+                        <div class="relative z-0  mx-1 w-full">
+                            <input type="email" name="floating_email"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="compshareper" />
+                            <label for="floating_email"
+                                class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-green-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Company
+                                Share (%)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="relative grid grid-cols-3 my-4">
+                        <div class="relative z-0  mx-1 w-full">
+                            <input type="email" name="floating_email"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="pg_per" />
+                            <label for="floating_email"
+                                class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-green-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">PG
+                                Charges (%)
+                                <span class="text-red-400">*</span>
+                            </label>
+                        </div>
+                        <div class="relative z-0  mx-1 w-full">
+                            <input type="email" name="floating_email"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="tds_per" />
+                            <label for="floating_email"
+                                class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-green-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">TDS
+                                Charges (%)
+                            </label>
+                        </div>
+                        <div class="relative z-0  mx-1 w-full">
+                            <input type="email" name="floating_email"
+                                class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="gstper" />
+                            <label for="floating_email"
+                                class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-green-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">GST
+                                (%)
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flex mt-4 space-x-3 md:mt-6 justify-end">
+                    <button type="submit"
+                        class="animate-[wiggle_1s_ease-in-out_infinite] inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Update</button>
+                </div>
+            </form>
+        </div>
+        <div class="w-full p-6 bg-amber-50 border border-gray-200 rounded-lg shadow m-1">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">SEO Settings</h5>
+            <form [formGroup]="seoSettings" (submit)="updateAstrosetting('seo')">
+                <div class="relative grid grid-cols-1 my-2">
+                    <div class="relative z-0  mx-1 my-2 w-full">
+                        <input type="email" name="floating_email"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="seo_title" />
+                        <label for="floating_email"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-amber-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Meta
+                            title
+                            <span class="text-red-400">*</span>
+                        </label>
+                    </div>
+                    <div class="relative z-0  my-2 mx-1 w-full">
+                        <textarea name="floating_phone" id="floating_phone"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="seo_description"></textarea>
+                        <label for="floating_phone"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-amber-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Meta
+                            Description
+                        </label>
+                    </div>
+                    <div class="relative z-0  mx-1 my-2 w-full">
+                        <textarea name="floating_phone" id="floating_phone"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="seo_keywords"></textarea>
+                        <label for="floating_phone"
+                            class="absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0  peer-placeholder-shown:-z-10 bg-amber-50 peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Meta
+                            Keywords
+                        </label>
+                    </div>
+                    <div class="flex mt-4 space-x-3 md:mt-6 justify-end">
+                        <button type="submit"
+                            class="animate-[wiggle_1s_ease-in-out_infinite] inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Update</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+
+    <div>
+        <div class="p-6 border border-gray-200 rounded-lg shadow m-1">
+            <form [formGroup]="sharePass" (submit)="updateAstrosetting('share')">
+                <div class="w-full">
+                    <div class="flex text-sm p-3 rounded-lg w-full border outline-none">
+                        <div class="w-full ">
+                            <input [type]="password" class="block text-sm w-full outline-none"
+                                formControlName="appPass">
+                        </div>
+                        <div class="">
+                            <button type="button" (click)="passwordShow()"
+                                class="block text-sm rounded-lg w-full outline-none">
+                                <mat-icon ria-hidden="true" *ngIf="!show">remove_red_eye</mat-icon>
+                                <mat-icon aria-hidden="true" *ngIf="show">visibility_off</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full">
+                    <button type="submit"
+                        class="mt-1 animate-[wiggle_1s_ease-in-out_infinite] inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Share
+                        App Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

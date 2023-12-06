@@ -1,0 +1,364 @@
+<h1 class="mb-5">
+    Manage Support Tickets:
+</h1>
+<div class=" mx-auto">
+    <form [formGroup]="getSupportTickets">
+        <div class="flex justify-center  w-full">
+            <div class="grid grid-cols-4 items-center gap-3 w-full">
+                <div class="md:col-span-2  col-span-12">
+
+                    <ng-select [items]="option" placeholder="Sort By" bindLabel="name" bindValue="value"
+                        formControlName="status" class="w-full" (change)="getAllTickets()">
+                    </ng-select>
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd
+                        [showCustomRangeLabel]="true" [(ngModel)]="selected" [alwaysShowCalendars]="true"
+                        [ranges]="ranges" [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+                        formControlName="StartDate" [showClearButton]="true" placeholder="Select date range "
+                        (change)="choosedDate($event)" />
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2" placeholder="Search by name"
+                        (input)="search($event)">
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden ">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                        <thead class="bg-gray-100 ">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Ticket Id</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Ticket Date</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Ticket Time</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Customer Name</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Customer MobileNo</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Problem Category</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Problem Sub-Category</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    TicketStatus</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Assigned To</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Messages</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-sm font-bold tracking-wider text-left text-gray-700 uppercase">
+                                    Edit Status</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="ticketsList?.ticketsList?.length!==0;else noData"
+                            class=" bg-white divide-y divide-gray-200 ">
+                            <tr *ngFor="let item of ticketsList?.ticketsList" class="hover:bg-gray-100 cursor-pointer">
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.id }}<br>
+                                    <div class="text-red-500 animate-pulse" *ngIf="item.isSeen==0">
+                                        New Message !
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.created_at | date:"longDate"}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.created_at | date:"shortTime"}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.customerName }}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.customerMobileNo }}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.catgegoryName }}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.subCategoryName }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                    [ngClass]="item?.ticketStatus=='0' ? 'text-green-500'  :item?.ticketStatus=='1' ? 'text-yellow-500' : 'text-red-500'">
+                                    {{ item?.ticketStatus=="0" ? "Open" : item?.ticketStatus=="1" ? "Resolved" :
+                                    "Closed" }} </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    <!-- assigned to  -->
+                                </td>
+                                <!-- <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    <div class="flex text-white">
+                                        <button class="p-1 bg-blue-400  hover:bg-blue-500"
+                                            (click)="openModal(template,item?.id)">
+                                            <mat-icon>chat</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex text-white">
+                                        <button class="p-1 bg-blue-400  hover:bg-blue-500"
+                                            (click)="openStatusModal(StatusTemplate,item?.id)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </div>
+                                </td> -->
+                                <td scope="row" class=" py-4 px-6 text-sm font-medium text-white break-words ">
+                                    <div class="">
+                                        <button class="p-1 bg-green-400  hover:bg-green-500 rounded m-1"
+                                            (click)="openModal(template,item?.id)">
+                                            <mat-icon>chat</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td scope="row" class=" py-4 px-6 text-sm font-medium text-white break-words ">
+                                    <div>
+                                        <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                            (click)="openStatusModal(StatusTemplate,item?.id)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <ng-template #noData>
+                            <tbody>
+                                <tr>
+                                    <td colspan="12" class="text-center" style="font-size: 14px">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<mat-paginator [length]="ticketsList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getAllTickets()"
+    (page)="onPaginateChange($event)">
+</mat-paginator>
+
+<ng-template #template let-c="close">
+    <div class="modal-header bg-[#ededed] h-20 rounded-t-2xl border-2 text-sm">
+        <h4 class="modal-title break-all tracking-wider" id="modal-basic-title">{{chatHeaderTicketId}}</h4>
+
+        <h4 class="modal-title break-all tracking-wider" id="modal-basic-title">
+            <a routerLink="../mng-customers/customer-view/customer-profile"
+            [queryParams]="{type:'profile',id:customerId}" role="link" target="_blank"
+            class="hover:text-blue-400 hover:cursor-pointer">
+            {{chatHeaderCustomerName}}
+          </a><br>
+            MobileNo: {{chatHeaderCustomerMobileNo}}
+        </h4>
+
+        <!-- <h4 class="modal-title break-all tracking-wider" id="modal-basic-title">MobileNo: {{chatHeaderCustomerMobileNo}}</h4> -->
+        <!-- <button type="button" class="btn-close" aria-label="Close" ></button> -->
+    </div>
+    <div class="">
+        <form [formGroup]="sendReply" (ngSubmit)="sendReplyFn()">
+            <div class="modal-body flex flex-col h-96 bg-gray-100 overflow-y-auto p-0 bg-[url('assets/images/chat-bg.webp')] "
+                #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                <!-- <div class="flex-grow p-4 space-y-4 " >
+                    <div class="flex ">
+                        <div class="ml-4 p-3 bg-white rounded-lg shadow whitespace-pre-line">
+                            <p class="text-sm tracking-wider break-all" >
+                                Category : {{supportTicketDetails?.categoryName}} <br>
+                                SubCategory: {{supportTicketDetails?.subCategoryName }} <br>
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="flex-grow p-4 space-y-4 ">
+                    <div class="flex ">
+                        <div class="ml-4 p-3 bg-white rounded-lg shadow whitespace-pre-line">
+                            <p class="text-sm tracking-wider break-all">
+                                Category : {{supportTicketDetails?.categoryName}} <br>
+                                SubCategory: {{supportTicketDetails?.subCategoryName }} <br>
+                            </p>
+                            <p class="text-sm tracking-wider break-all" *ngIf="supportOrderDetails.orderId ">
+                                OrderId: {{supportOrderDetails?.orderId}} <br>
+                                OrderType: {{supportOrderDetails?.orderType == "UCHAT" ? "CHAT" : "CALL"}} <br>
+                                OrderStatus: {{supportOrderDetails?.orderStatus}}<br>
+                                AstrologerName: {{supportOrderDetails?.astrologerName}}<br>
+                                AstrologerEmailId: {{supportOrderDetails?.astrologerEmailId}}<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let item of previousChatList;let i = index">
+                    <div class="flex-grow p-4 space-y-4 ">
+                        <div class="flex " *ngIf="item?.senderType==1;">
+                            <!-- <div class="w-10 h-10 ">
+                                <img src='/cust-default.webp' alt="Image description" class="mt-2 rounded-full">
+                            </div> -->
+                            <div class="ml-4 p-3 bg-white rounded-lg shadow whitespace-pre-line break-all">
+                                <p class="text-sm">{{item?.body}} </p>
+                                <small class="ml-1.5 mt-1 text-[10px] text-gray-500 ">
+                                    {{item?.createdat | date:"short" }}
+                                </small>
+                                <small class="mr-1.5 mt-1 text-[10px] text-red-500">
+                                    Customer
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- <div class="w-full col-start-6  p-3 rounded-lg" *ngIf="item?.senderType==2;">
+                            <div class="flex items-center flex-col justify-center">
+                                <div
+                                    class='relative mr-3 text-sm bg-[#e1f2fa]  py-2 px-4 shadow rounded-xl flex items-center'>
+                                    <small className=" ml-1.5 text-xs " >
+                                        {{item?.body }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="w-full col-start-6  p-3 rounded-lg" *ngIf="item?.senderType==2;">
+                            <div class="flex items-center flex-col justify-center">
+                                <div
+                                    class='relative mr-1 text-sm bg-[#e1f2fa]  py-2 px-4 shadow rounded-xl  items-center'>
+                                    <div class="text-black w-11/12">
+                                        {{item.body}}
+                                    </div>
+                                    <!-- <div className=" w-11/12" *ngIf="chat?.msgType=='6' ">
+                                        {{chat?.createdat | date:'longDate'}}
+                                    </div> -->
+
+                                    <small className=" ml-1.5 text-xs ">
+                                        {{item?.createdat | date:"short" }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="flex justify-end group" *ngIf="item?.senderType==3;">
+                            <!-- <div class="w-10 h-10">
+                                <img src='https://www.myastroguruji.com/_next/image?url=%2FAstroLogo.png&w=64&q=75' alt="Image description" class="mt-2 rounded-full">
+                            </div> -->
+
+                            <div class="hidden group-hover:block cursor-pointer" (click)="showEdit(i,item?.body)">
+                                <mat-icon>edit</mat-icon>
+                            </div>
+
+                            <div class="ml-4 p-3 bg-[#dbf8c6]  rounded-lg shadow whitespace-pre-line"
+                                *ngIf="item?.msgType==1">
+                                <p class="text-sm" *ngIf="editBoxno!=i">{{item?.body}}</p>
+                                <form *ngIf="editBoxno==i" (submit)="editMsg(item?.id)" [formGroup]="editMessage">
+                                    <input type="text" formControlName="message">
+                                    <button type="submit" class="text-green-500"> <mat-icon>check</mat-icon></button>
+                                    <button type="button" class="text-red-500" (click)="showEdit(-1,null)">
+                                        <mat-icon>disabled_by_default</mat-icon></button>
+                                </form>
+                                <small class="ml-1.5 mt-1 text-[10px] text-gray-500 ">
+                                    {{item?.createdat | date:"short" }}
+                                </small>
+                                <small class="ml-1.5 mt-1 text-[10px] text-red-500 ">
+                                    Admin
+                                </small>
+                            </div>
+
+                            <div class=" p-2 bg-[#dbf8c6]  rounded-lg shadow whitespace-pre-line"
+                                *ngIf="item?.msgType==2">
+                                <p class="text-sm">
+                                    <img src={{item?.body}} alt="sample" height="100" width="100">
+                                </p>
+
+                                <small class=" mt-1 text-[10px] text-gray-500 ">
+                                    {{item?.createdat | date:"short" }}
+                                </small>
+                                <small class="mt-1 text-[10px] text-red-500 ">
+                                    Admin
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" bg-gray-200 p-4">
+                <div class="flex ">
+                    <input class="flex-grow border rounded-l px-4 py-2" type="text" placeholder="Type your message"
+                        formControlName="message">
+                    <!-- <input class="flex-grow border rounded-l px-4 py-2" type="file" formControlName="imageUpload" (change)="handleFileInput($event.target.files)">  -->
+                    <input type="file" id="imageUpload" name="imageUpload" multiple (change)="fileupload($event)"
+                        class="hidden" />
+                    <a href="#" onclick="document.getElementById('imageUpload').click(); return false"
+                        class="inline-flex items-center px-4 py-2 ">
+                        <mat-icon>image</mat-icon></a>
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-600 text-green text-white font-bold py-2 px-4 rounded-r">Send</button>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</ng-template>
+
+<ng-template #StatusTemplate let-c="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Ticket Status</h4>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="updateTicket" (ngSubmit)="updateTicketStatus()">
+
+            <!-- <div class="relative z-0 mb-20 w-full group">
+                Messages:
+            </div> -->
+            <div class="relative z-0 mb-20 w-full group">
+                <ng-select [items]="updateStatus" placeholder="Status" bindLabel="name" bindValue="value" class="w-full"
+                    formControlName="newStatus">
+                </ng-select>
+            </div>
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        </form>
+    </div>
+
+</ng-template>
+
+<div class="flex justify-center  w-full">
+    <div class="grid grid-cols-8 items-center gap-1 w-full text-xs">
+        <div class="md:col-span-1 col-span-12 text-green-700">
+            <div class="font-extrabold text-lg">Total Open Tickets</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{ticketsSummary?.openTicketCount ? ticketsSummary?.openTicketCount : 0}}
+            </div>
+        </div>
+        <div class="md:col-span-1  col-span-12 text-yellow-700">
+            <div class="font-extrabold text-lg">Total Resolved Tickets</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{ticketsSummary?.closedTicketCount ? ticketsSummary?.closedTicketCount : 0}}
+            </div>
+        </div>
+        <div class="md:col-span-1  col-span-12 text-red-700">
+            <div class="font-extrabold text-lg">Total Closed Tickets</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600 ">
+                {{ticketsSummary?.resolvedTicketCount ? ticketsSummary?.resolvedTicketCount : 0}}
+            </div>
+        </div>
+        <div class="md:col-span-1  col-span-12 text-blue-700">
+            <div class="font-extrabold text-lg">Total New Messages</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{ticketsSummary?.newMessageTicketCount ? ticketsSummary?.newMessageTicketCount : 0}}
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,452 @@
+<!-- component -->
+<!-- This is an example component -->
+<div class="flex justify-center m-0">
+  <div class="rounded-xl border p-5 shadow-md w-full bg-white">
+    <div
+      class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700"
+    >
+      <ul class="flex flex-wrap -mb-px">
+        <li class="mr-2">
+          <p
+            href=""
+            (click)="setTabOption(1, 'Immediate')"
+            [ngClass]="
+              TabOption == 1 ? 'text-blue-600 border-b-2 border-blue-600' : ''
+            "
+            class="inline-block cursor-pointer p-4 rounded-t-lg active"
+          >
+            Immediate
+          </p>
+        </li>
+        <li class="mr-2">
+          <p
+            href=""
+            (click)="setTabOption(2, 'Once')"
+            class="inline-block cursor-pointer p-4 rounded-t-lg active"
+            [ngClass]="
+              TabOption == 2 ? 'text-blue-600 border-b-2 border-blue-600' : ''
+            "
+            aria-current="page"
+          >
+            Once
+          </p>
+        </li>
+        <li class="mr-2">
+          <p
+            href=""
+            (click)="setTabOption(3, 'Daily')"
+            class="inline-block cursor-pointer p-4 rounded-t-lg active"
+            [ngClass]="
+              TabOption == 3 ? 'text-blue-600 border-b-2 border-blue-600' : ''
+            "
+            aria-current="page"
+          >
+            Daily
+          </p>
+        </li>
+        <li class="mr-2">
+          <p
+            href=""
+            (click)="setTabOption(4, 'Weekly')"
+            class="inline-block cursor-pointer p-4 rounded-t-lg active"
+            [ngClass]="
+              TabOption == 4 ? 'text-blue-600 border-b-2 border-blue-600' : ''
+            "
+            aria-current="page"
+          >
+            Weekly
+          </p>
+        </li>
+        <li class="mr-2">
+          <p
+            href=""
+            (click)="setTabOption(5, 'Monthly')"
+            class="inline-block cursor-pointer p-4 rounded-t-lg active"
+            [ngClass]="
+              TabOption == 5 ? 'text-blue-600 border-b-2 border-blue-600' : ''
+            "
+            aria-current="page"
+          >
+            Monthly
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="mt-2 mb-6">
+      <!-- <div class="mb-3 text-xl font-bold">Send notifcations based on schedule</div> -->
+      <div class="text-sm text-neutral-600">
+        <!-- component -->
+        <!-- This is an example component -->
+        <div class="mx-auto">
+          <!--Notification sending form-->
+
+          <button
+            (click)="openModal(template, null)"
+            class="float-right inline-block rounded bg-primary mb-2 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+          >
+            Add {{ tabType }} Notification
+          </button>
+
+          <table class="min-w-full divide-y divide-gray-200 table-fixed">
+            <thead class="bg-gray-100">
+              <tr>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                  Title
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                  Date & Time
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                  Image
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                  Link
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                  Status
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                  Type
+                </th>
+                <th
+                  scope="col"
+                  class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase"
+                >
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              *ngIf="notificationList?.length !== 0; else noData"
+              class="bg-white divide-y divide-gray-200"
+            >
+              <tr
+                *ngFor="let notifcation of notificationList"
+                class="hover:bg-gray-100 cursor-pointer"
+              >
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  {{ notifcation?.title }}
+                  <div
+                    class="text-sm text-gray-500 truncate dark:text-gray-400 w-28 break-words"
+                  >
+                    {{ notifcation?.description }}
+                  </div>
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  {{ notifcation?.scheduled_at | date : "longDate" }}
+                  {{ notifcation?.scheduled_at | date : "shortTime" }}
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                <img *ngIf="notifcation?.image!=='No Image'" [src]="notifcation?.image"  [alt]="notifcation?.image" class="h-20">
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  <ng-container >
+                    <p *ngIf="notifcation?.link=='null'"></p>
+                    <p *ngIf="notifcation?.link=='1'">Calls</p>
+                    <p *ngIf="notifcation?.link=='2'">Chats</p>
+                    <p *ngIf="notifcation?.link=='3'">Astrologer</p>
+                    <p *ngIf="notifcation?.link=='9'">Recharge</p>
+                    <p *ngIf="notifcation?.link=='10'">Blog</p>
+                  </ng-container>
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  <span
+                    [ngClass]="
+                      notifcation?.stopped == 1
+                        ? 'text-amber-400'
+                        : notifcation?.stopped == 2
+                        ? 'text-red-400'
+                        : 'text-green-400'
+                    "
+                    >{{
+                      notifcation?.stopped == 1
+                        ? "Pending"
+                        : notifcation?.stopped == 2
+                        ? "Stopped"
+                        : "Success"
+                    }}</span
+                  >
+                </td>
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  <span
+                    class="inline-block whitespace-nowrap rounded-[0.27rem] bg-primary-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-700"
+                  >
+                    {{
+                      notifcation?.schedule_type == "Immediate" ||
+                      notifcation?.schedule_type == null
+                        ? "Immediate"
+                        : notifcation?.schedule_type
+                    }}
+                  </span>
+                </td>
+
+                <td
+                  class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
+                >
+                  <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="menu"
+                    aria-label="Example icon-button with a menu"
+                  >
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button
+                      mat-menu-item
+                      (click)="restartNoty(notifcation?.id)"
+                      *ngIf="
+                        notifcation?.schedule_type == 'Immediate' ||
+                        notifcation?.schedule_type == null
+                      "
+                    >
+                      <mat-icon>autorenew</mat-icon>
+                      <span>Restart</span>
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="openModal(template, notifcation?.id)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                      <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteNoty(notifcation?.id)">
+                      <mat-icon>delete_forever</mat-icon>
+                      <span>Delete</span>
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="stopNoty(notifcation?.id)"
+                      *ngIf="
+                        notifcation?.schedule_type == null ||
+                        notifcation?.schedule_type != 'Immediate'
+                      "
+                    >
+                      <mat-icon>privacy_tip</mat-icon>
+                      <span>Stop Notification</span>
+                    </button>
+                  </mat-menu>
+                </td>
+              </tr>
+            </tbody>
+            <ng-template #noData>
+              <tbody>
+                <tr>
+                  <td colspan="12" class="text-center" style="font-size: 14px">
+                    No data available
+                  </td>
+                </tr>
+              </tbody>
+            </ng-template>
+          </table>
+          <ul
+            class="divide-y divide-gray-200 overflow-auto"
+            *ngIf="TabOption == 2 && notificationList?.length !== 0"
+          ></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-paginator
+  [length]="paginationData?.totalData"
+  [pageSize]="20"
+  #paginator
+  hidePageSize="true"
+  (page)="pagination($event)"
+>
+</mat-paginator>
+
+<ng-template #template let-c="close">
+  <div class="modal-header flex justify-between p-0 m-0">
+    <div>
+      <p class="font-bold text-lg">Add Product</p>
+    </div>
+    <div class="float-right">
+      <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="getInfo" (submit)="getData()">
+      <div class="flex justify-center mt-5 w-full">
+        <div class="grid grid-cols-1 items-center gap-3 w-full">
+          <div class="md:col-span-1 col-span-12 relative -top-2 z-0 ">
+            <label for="formFile" class="mb-2 inline-block text-neutral-700 dark:text-neutral-200">
+                Category Image (Size:400px X 400px)</label>
+            <input
+                class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                type="file" id="formFile" (change)="fileupload($event,1)" />
+        </div>
+          <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 ">
+            <input
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="title"
+            />
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Title
+            </label>
+            <!-- <small
+                class="text-danger"
+                *ngIf="
+                getInfo.controls['categoryName'].invalid &&
+                  (isFormSubmitted ||
+                  getInfo.controls['categoryName'].touched)
+                "
+              >
+                Required</small
+              > -->
+          </div>
+          <div class="md:col-span-1 col-span-12 -bottom-2">
+            <ng-select
+              [items]="notificationLink"
+              placeholder="Link For"
+              bindLabel="name"
+              bindValue="value"
+              class="w-full"
+              formControlName="link"
+            >
+            </ng-select>
+          </div>
+          <div *ngIf="getInfo.get('link')?.value=='3'" class="md:col-span-1 col-span-12 -bottom-2">
+            <ng-select
+              [items]="astroList"
+              placeholder="Astrologer"
+              bindLabel="fullname"
+              bindValue="astroid"
+              class="w-full"
+              formControlName="astroid"
+            >
+            </ng-select>
+          </div>
+          <div class="md:col-span-1 col-span-12 -bottom-2">
+            <ng-select
+              [items]="notificationOptions.notificationType"
+              placeholder="Notification Type"
+              bindLabel="name"
+              bindValue="value"
+              class="w-full"
+              formControlName="notiType"
+            >
+            </ng-select>
+          </div>
+          <div class="md:col-span-1 col-span-12 -bottom-2">
+            <ng-select
+              [items]="notificationOptions.notificationFor"
+              placeholder="Notification For"
+              bindLabel="name"
+              bindValue="value"
+              formControlName="status"
+              class="w-full"
+              formControlName="notiFor"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div  class="flex justify-center mt-5 w-full">
+        <div class="grid grid-cols-2 items-center gap-3 w-full">
+
+          
+          <!-- <div class="md:col-span-1 col-span-12 -bottom-2">
+            <ng-select
+            [items]="notificationOptions.scheduleIt" placeholder="Scheduled It?" bindLabel="name"
+            bindValue="value" formControlName="scheduled" class="w-full" (change)="setType($event)"
+            >
+            </ng-select>
+          </div> -->
+          <div *ngIf="getInfo.controls['scheduled'].value=='Yes'" class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input type="date" name="floating_phone" id="floating_phone"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" " formControlName="scheduledDate" [min]="todayDate" />
+          <label for="floating_phone"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Scheduled
+            date</label>
+          </div>
+
+          <div *ngIf="getInfo.controls['scheduled'].value=='Yes'" class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <input type="time" name="floating_phone" id="floating_phone"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            placeholder=" " formControlName="scheduledTime"
+            value="{{ editNotificationList.scheduled_at | date : 'HH:mm:00' }}" />
+          <label for="floating_phone"
+            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Scheduled
+            Time</label>
+          </div>
+          <!-- <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+            <ng-select [items]="notificationOptions.scheduleType" placeholder="Scheduled Type" bindLabel="name"
+            bindValue="value" class="w-full" formControlName="scheduledType">
+          </ng-select>
+          </div> -->
+
+          <div class="md:col-span-2 col-span-12 -bottom-2 relative z-0 mb-6">
+            <textarea
+              type="text"
+              name="category_name"
+              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              formControlName="message"
+            ></textarea>
+            <label
+              for="category_name"
+              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Message
+            </label>
+            <!-- <small
+                class="text-danger"
+                *ngIf="
+                getInfo.controls['categoryName'].invalid &&
+                  (isFormSubmitted ||
+                  getInfo.controls['categoryName'].touched)
+                "
+              >
+                Required</small
+              > -->
+          </div>
+
+        </div>
+      </div>
+      <button [disabled]="submitForm" type="submit"
+        class="text-white float-right bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        {{submitForm?"...Submitting":"Submit"}}
+      </button>
+    </form>
+  </div>
+</ng-template>

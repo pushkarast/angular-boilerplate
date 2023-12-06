@@ -1,0 +1,600 @@
+<h1 class="mb-5">
+    Rank Astrolgers By: 
+</h1>
+
+<div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700" >
+    <ul class="flex flex-wrap -mb-px">
+        <li class="mr-2">
+            <p href="" (click)="setTabOption(0)"
+                [ngClass]="TabOption == 0 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                class="cursor-pointer inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                Feedbacks
+            </p>
+        </li>
+        <li class="mr-2">
+            <p href="" (click)="setTabOption(1)"
+                [ngClass]="TabOption == 1 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                class="inline-block cursor-pointer  p-4  rounded-t-lg active"
+                aria-current="page">
+                Number of New Customers</p>
+        </li>
+        <li class="mr-2">
+            <p href="" (click)="setTabOption(2)"
+                [ngClass]="TabOption == 2 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                class="inline-block cursor-pointer  p-4  rounded-t-lg active"
+                aria-current="page">
+                Number of Repeat Customers</p>
+        </li>
+        <li class="mr-2">
+            <p href="" (click)="setTabOption(3)"
+                [ngClass]="TabOption == 3 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                class="inline-block cursor-pointer  p-4  rounded-t-lg active"
+                aria-current="page">
+                Busy Time </p>
+        </li>
+        <li class="mr-2">
+            <p href="" (click)="setTabOption(4)"
+                [ngClass]="TabOption == 4 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                class="inline-block cursor-pointer  p-4  rounded-t-lg active"
+                aria-current="page">
+                Online Time</p>
+        </li>
+    </ul>
+
+    <div class="my-5 ">
+        <form [formGroup]="reportData" *ngIf="TabOption==0;">
+            <div class="flex justify-center  w-full">
+                <div class="grid grid-cols-6 items-center gap-3 w-full">
+                    <div class="md:col-span-2  col-span-12">
+    
+                        <ng-select [items]="option" placeholder="Sort By" bindLabel="name" bindValue="value"
+                            formControlName="status" class="w-full" (change)="fetchData()">
+                        </ng-select>
+    
+                    </div>
+
+                    <div class="md:col-span-2  col-span-12">
+                        <ng-select [items]="date_filter" placeholder="Sort by Date" bindLabel="name" bindValue="value"
+                            formControlName="dateStatus" class="w-full" (change)="fetchData()">
+                        </ng-select>
+                    </div>
+    
+                    <div class="md:col-span-2 col-span-12">
+                        <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2 font-bold" placeholder="Search by name, emailId, mobileNo"
+                        (input)="search($event)">
+                    </div>
+    
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="reportDataByNewCustomer" *ngIf="TabOption==1;">
+            <div class="flex justify-center  w-full">
+                <div class="grid grid-cols-4 items-center gap-3 w-full">
+                    <div class="md:col-span-2  col-span-12">
+    
+                        <ng-select [items]="optionRank" placeholder="Sort By" bindLabel="name" bindValue="value"
+                            formControlName="status" class="w-full" (change)="fetchData()">
+                        </ng-select>
+    
+                    </div>
+
+                    <!-- <div class="md:col-auto col-span-12">
+                        <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd
+                            [showCustomRangeLabel]="true" [(ngModel)]="selected" [alwaysShowCalendars]="true"
+                            [ranges]="ranges" [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+                            formControlName="StartDate" [showClearButton]="true" placeholder="Select date range "
+                            (change)="choosedDate($event)" />
+                    </div> -->
+
+                    <div class="md:col-auto  col-span-12">
+                        <ng-select [items]="date_filter" placeholder="Sort by Date" bindLabel="name" bindValue="value"
+                            formControlName="dateStatus" class="w-full" (change)="fetchData()">
+                        </ng-select>
+                    </div>
+    
+                    <div class="md:col-auto col-span-12">
+                        <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2 font-bold" placeholder="Search by name, emailId, mobileNo"
+                        (input)="search($event)">
+                    </div>
+    
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="reportDataByRepeatCustomer" *ngIf="TabOption==2;">
+            <div class="flex justify-center  w-full">
+                <div class="grid grid-cols-4 items-center gap-3 w-full">
+                    <div class="md:col-span-2  col-span-12">
+    
+                        <ng-select [items]="optionRepeat" placeholder="Sort By" bindLabel="name" bindValue="value"
+                            formControlName="status" class="w-full" (change)="fetchData()">
+                        </ng-select>
+    
+                    </div>
+
+                    <div class="md:col-auto  col-span-12">
+                        <ng-select [items]="date_filter" placeholder="Sort by Date" bindLabel="name" bindValue="value"
+                            formControlName="dateStatus" class="w-full" (change)="fetchData()">
+                        </ng-select>
+                    </div>
+    
+                    <div class="md:col-auto col-span-12">
+                        <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2 font-bold" placeholder="Search by name, emailId, mobileNo"
+                        (input)="search($event)">
+                    </div>
+    
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="reportDataByBusyTime" *ngIf="TabOption==3;">
+            <div class="flex justify-center  w-full">
+                <div class="grid grid-cols-8 items-center gap-3 w-full">
+                    <div class="md:col-span-2  col-span-12">
+    
+                        <ng-select [items]="optionBusy" placeholder="Sort By Rank" bindLabel="name" bindValue="value"
+                            formControlName="status" class="w-full" (change)="fetchData()">
+                        </ng-select>
+    
+                    </div>
+                    <div class="md:col-span-2  col-span-12">
+    
+                        <ng-select [items]="orderType" placeholder="Sort By Call/Chat online time" bindLabel="name" bindValue="value"
+                            formControlName="orderTypeStatus" class="w-full" (change)="fetchData()">
+                        </ng-select>
+    
+                    </div>
+                    
+                    <div class="md:col-span-2  col-span-12">
+                        <ng-select [items]="date_filter" placeholder="Sort by Date" bindLabel="name" bindValue="value"
+                            formControlName="dateStatus" class="w-full" (change)="fetchData()">
+                        </ng-select>
+                    </div>
+    
+                    <div class="md:col-span-2 col-span-12">
+                        <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2" placeholder="Search "
+                        (input)="search($event)" >
+                    </div>
+    
+                </div>
+            </div>
+        </form>    
+        <form [formGroup]="reportDataByOnlineTime" *ngIf="TabOption==4;">
+            <div class="flex justify-center  w-full">
+                <div class="grid grid-cols-8 items-center gap-3 w-full">
+                    <div class="md:col-span-2  col-span-12">
+    
+                        <ng-select [items]="optionBusy" placeholder="Sort By Rank" bindLabel="name" bindValue="value"
+                            formControlName="status" class="w-full " (change)="fetchData()">
+                        </ng-select>
+    
+                    </div>
+
+                    <div class="md:col-span-2  col-span-12">
+    
+                        <ng-select [items]="orderType" placeholder="Sort By Call/Chat online time" bindLabel="name" bindValue="value"
+                            formControlName="orderTypeStatus" class="w-full" (change)="fetchData()">
+                        </ng-select>
+    
+                    </div>
+
+                    <div class="md:col-span-2  col-span-12">
+                        <ng-select [items]="date_filter" placeholder="Sort by Date" bindLabel="name" bindValue="value"
+                            formControlName="dateStatus" class="w-full" (change)="fetchData()">
+                        </ng-select>
+                    </div>
+    
+                    <div class="md:col-span-2 col-span-12">
+                        <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2" placeholder="Search "
+                        (input)="search($event)" >
+                    </div>
+    
+                </div>
+            </div>
+        </form>  
+        <div class="flex flex-col">
+            <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="inline-block min-w-full align-middle">
+                    <div class="overflow-hidden " *ngIf="TabOption==0;">
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed " >
+                            <thead class="bg-gray-100 ">
+                                <tr>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Rank </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Astrologer Name</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Mobile Number</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Email Id </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Total No of Feedbacks</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Average Feedback</th>
+                                    <!-- <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        5-star </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        4-star </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        3-star </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        2-star </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        1-star </th> -->
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="resultList?.resultData?.length!==0;else noData" class=" bg-white divide-y divide-gray-200 ">
+                                <tr *ngFor="let item of resultList?.resultData;let i = index" [attr.data-index]="i" class="hover:bg-gray-100">
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        <div>
+                                            {{item?.rank}}
+                                        </div>
+                                        <!-- <ng-template #noTrophy>
+                                            <div>
+                                                {{i}}
+                                            </div>
+                                        </ng-template> -->
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerName}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerMobileNo}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerEmail}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.total_noOf_feedbacks}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.average_rating}}
+                                    </td>
+                                    <!-- <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.fiveStar}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.fourStar}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.threeStar}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.twoStar}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.oneStar}}
+                                    </td> -->
+                                </tr>
+    
+                            </tbody>
+                            <ng-template #noData>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="12" class="text-center" style="font-size: 14px">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+                        </table>
+                    </div>
+
+                    <div class="overflow-hidden " *ngIf="TabOption==1;">
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed " >
+                            <thead class="bg-gray-100 ">
+                                <tr>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Rank </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Astrologer Name</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Mobile Number</th> 
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Email Id </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Total Number of New Customers</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="resultListNewCustomer?.resultData?.length!==0;else noData" class=" bg-white divide-y divide-gray-200 ">
+                                <tr *ngFor="let item of resultListNewCustomer?.resultData;let i = index" [attr.data-index]="i" class="hover:bg-gray-100">
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        <div>
+                                            {{item?.rank}}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerName}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerEmail}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerMobileNo}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.newCustomersCount}}
+                                    </td>
+                                </tr>
+    
+                            </tbody>
+                            <ng-template #noData>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="12" class="text-center" style="font-size: 14px">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+                        </table>
+                    </div>
+
+                    <div class="overflow-hidden " *ngIf="TabOption==2;">
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed " >
+                            <thead class="bg-gray-100 ">
+                                <tr>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Rank </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Astrologer Name</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Mobile Number</th> 
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Email Id </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Total Number of Repeat Customers</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="resultListNewCustomer?.resultData?.length!==0;else noData" class=" bg-white divide-y divide-gray-200 ">
+                                <tr *ngFor="let item of resultListNewCustomer?.resultData;let i = index" [attr.data-index]="i" class="hover:bg-gray-100">
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        <div>
+                                            {{item?.rank}}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerName}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerEmail}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerMobileNo}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.newCustomersCount}}
+                                    </td>
+                                </tr>
+    
+                            </tbody>
+                            <ng-template #noData>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="12" class="text-center" style="font-size: 14px">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+                        </table>
+                    </div>
+
+                    <div class="overflow-hidden " *ngIf="TabOption==3;">
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed " >
+                            <thead class="bg-gray-100 ">
+                                <tr>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Rank </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Astrologer Name</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Mobile Number</th> 
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Email Id </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Total Busy Time <div class="font-bold tracking-wider text-black">(HH:MM:SS)</div></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="resultListBusyTime?.resultData?.length!==0;else noData" class=" bg-white divide-y divide-gray-200 ">
+                                <tr *ngFor="let item of resultListBusyTime?.resultData;let i = index" [attr.data-index]="i" class="hover:bg-gray-100">
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        <div>
+                                            {{item?.rank}}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerName}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerEmail}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerMobileNo}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.busyTimeCount}}
+                                    </td>
+                                </tr>
+    
+                            </tbody>
+                            <ng-template #noData>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="12" class="text-center" style="font-size: 14px">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+                        </table>
+                    </div>
+
+                    <div class="overflow-hidden " *ngIf="TabOption==4;">
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed " >
+                            <thead class="bg-gray-100 ">
+                                <tr>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Rank </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Astrologer Name</th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Email Id</th> 
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Mobile Number </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                        Total Online Time</th>
+                                </tr>
+
+                            </thead>
+                            <tbody *ngIf="resultListOnlineTime?.resultData?.length!==0;else noData" class=" bg-white divide-y divide-gray-200 ">
+                                <tr *ngFor="let item of resultListOnlineTime?.resultData;let i = index" [attr.data-index]="i" class="hover:bg-gray-100">
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        <div>
+                                            {{item?.rank}}
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerName}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerEmail}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.astrologerMobileNo}}
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap text-left">
+                                        {{item?.onlineTimeCount}}
+                                    </td>
+                                </tr>
+    
+                            </tbody>
+                            <ng-template #noData>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="12" class="text-center" style="font-size: 14px">
+                                            No data available
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-template>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    
+    </div>
+</div>
+
+
+
+
+
+
+<div class="flex justify-between p-2" *ngIf="TabOption==0;">
+    <div>
+        <input #titleInput class="border-gray-200 p-1 border-2 w-20" placeholder="Page No." (keydown.enter)="handleGoto(titleInput.value)">
+        <button (click)="handleGoto(titleInput.value)"
+            class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+    </div>
+    <div>
+        <mat-paginator [length]="resultList?.totalPage" [pageSize]="1" hidePageSize="true" pageIndex={{pageRef}}
+        (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+</div>
+
+<div class="flex justify-between p-2" *ngIf="TabOption==1;">
+    <div>
+        <input #titleInput class="border-gray-200 p-1 border-2 w-20" placeholder="Page No.">
+        <button (click)="handleGoto(titleInput.value)"
+            class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+    </div>
+    <div >
+        <mat-paginator [length]="resultListNewCustomer?.totalPage" [pageSize]="1" hidePageSize="true" pageIndex={{pageRef}}
+        (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+</div>
+<div class="flex justify-between p-2" *ngIf="TabOption==2;">
+    <div>
+        <input #titleInput class="border-gray-200 p-1 border-2 w-20" placeholder="Page No.">
+        <button (click)="handleGoto(titleInput.value)"
+            class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+    </div>
+    <div >
+        <mat-paginator [length]="resultListNewCustomer?.totalPage" [pageSize]="1" hidePageSize="true" 
+        (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+</div>
+<div class="flex justify-between p-2" *ngIf="TabOption==3;">
+    <div>
+        <input #titleInput class="border-gray-200 p-1 border-2 w-20" placeholder="Page No.">
+        <button (click)="handleGoto(titleInput.value)"
+            class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+    </div>
+    <div >
+        <mat-paginator [length]="resultListBusyTime?.totalPage" [pageSize]="1" hidePageSize="true" pageIndex={{pageRef}}
+        (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+</div>
+<div class="flex justify-between p-2" *ngIf="TabOption==4;">
+    <div>
+        <input #titleInput class="border-gray-200 p-1 border-2 w-20" placeholder="Page No.">
+        <button (click)="handleGoto(titleInput.value)"
+            class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+    </div>
+    <div >
+        <mat-paginator [length]="resultListBusyTime?.totalPage" [pageSize]="1" hidePageSize="true" pageIndex={{pageRef}}
+        (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+
+</div>
+
+
+<!-- <div *ngIf="TabOption==2;">
+    <mat-paginator [length]="resultListNewCustomer?.totalPage" [pageSize]="1" hidePageSize="true" 
+    (page)="onPaginateChange($event)">
+    </mat-paginator>
+</div>
+<div *ngIf="TabOption==3;">
+    <mat-paginator [length]="resultListBusyTime?.totalPage" [pageSize]="1" hidePageSize="true" 
+     (page)="onPaginateChange($event)">
+    </mat-paginator>
+</div> -->
+

@@ -1,0 +1,265 @@
+<div class="w-full p-4 sm:p-6 md:p-8 flex xs:grid-cols-1">
+    <div class="col-span-5">
+        <div class="flex justify-end px-4 pt-4">
+            <div class="flex flex-col items-center pb-10">
+                <img class="w-24 h-24 mb-3 rounded-full shadow-lg" [src]="astroData.controls['profileImg'].value"
+                    alt="Bonnie image" />
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white text-center">
+                    {{astroData.controls['FullName'].value}}</h5>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Astrologer</span>
+                <div class="flex mt-4 space-x-3 md:mt-6" *ngIf="!isAdmin()">
+                    <input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px"
+                        multiple (change)="fileupload($event)" />
+                    <a href="#" onclick="document.getElementById('upload').click(); return false"
+                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Change
+                        Profile Image</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="p-5 w-full col-span-7">
+        <form class="space-y-1" action="#" [formGroup]="astroData" (submit)="setData()">
+            <div class="grid md:grid-cols-3 xs:grid-cols-1">
+                <div class="m-1">
+                    <label for="fullname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Display
+                        Name
+                    </label>
+                    <input type="text" name="fullname" id="fullname"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="name@company.com" required formControlName="FullName">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['FullName'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['FullName'].touched)
+                        "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="displayName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Real
+                        Name
+                    </label>
+                    <input type="text" name="displayName" id="displayName"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="name@company.com" required formControlName="DisplayName">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['DisplayName'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['DisplayName'].touched)
+                        "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
+                        Id</label>
+                    <input type="email" name="email" id="email" placeholder="Email goes here."
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required formControlName="EmailId">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['EmailId'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['EmailId'].touched)
+                        "> Required</small>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-4 xs:grid-cols-1 p-2 align-baseline">
+                <div class="">
+                    <label for="country"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                    <ng-select [items]="country" bindValue="value" formControlName="CountryId" bindLabel="name"
+                        class="select" name="country" id="country">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                    astroData.controls['CountryId'].invalid &&
+                      (isFormSubmitted ||
+                      astroData.controls['CountryId'].touched)
+                    "> Required</small>
+                </div>
+                <div class="m-1" *ngIf="!isAdmin()">
+                    <label for="mobile" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile No
+                    </label>
+                    <input type="text" name="mobile" id="mobile" placeholder="Mobile Number" maxlength="10" max="10"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-llg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        pattern="\d*" formControlName="MobileNo">
+                    <small class="text-danger" *ngIf="
+                    astroData.controls['MobileNo'].invalid &&
+                      (isFormSubmitted ||
+                      astroData.controls['MobileNo'].touched)
+                    "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="email"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                    <ng-select [items]="gender" bindValue="value" formControlName="Gender" bindLabel="name"
+                        class="select">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['Gender'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['Gender'].touched)
+                        "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="DOB" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date Of
+                        Birth</label>
+                    <input type="date" name="DOB" id="DOB"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        formControlName="DOB" required>
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['DOB'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['DOB'].touched)
+                        "> Required</small>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 xs:grid-cols-1 p-2 align-baseline">
+                <div class="m-1">
+                    <label for="Experience" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                        Experience</label>
+                    <input type="number" name="Experience" id="Experience" placeholder="Experience"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required formControlName="Experience">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['Experience'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['Experience'].touched)
+                        "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="Hours" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No of Hrs
+                        Contributed On Platform</label>
+                    <input type="number" name="Hours" id="Hours" placeholder="Hours"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required formControlName="HrsContribute">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['HrsContribute'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['HrsContribute'].touched)
+                        "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="isWorking"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Working</label>
+                    <ng-select [items]="isWorking" bindValue="value" formControlName="IsWorking" bindLabel="name"
+                        class="select" name="isWorking">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                    astroData.controls['IsWorking'].invalid &&
+                      (isFormSubmitted ||
+                      astroData.controls['IsWorking'].touched)
+                    "> Required</small>
+                </div>
+
+            </div>
+            <div class="grid md:grid-cols-2 xs:grid-cols-1 p-2 align-baseline">
+                <div class="m-1">
+                    <label for="language"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Language</label>
+                    <ng-select [items]="languages" bindValue="value" formControlName="Language" bindLabel="name"
+                        class="select" name="language" id="language" [multiple]="true">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                    astroData.controls['Language'].invalid &&
+                      (isFormSubmitted ||
+                      astroData.controls['Language'].touched)
+                    "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="skills" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Primary
+                        Skills</label>
+                    <ng-select [items]="skills" bindValue="value" formControlName="Skills" bindLabel="name"
+                        class="select" name="skills" id="skills" [multiple]="true">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                    astroData.controls['Skills'].invalid &&
+                      (isFormSubmitted ||
+                      astroData.controls['Skills'].touched)
+                    "> Required</small>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 xs:grid-cols-1 p-2 align-baseline">
+                <div class="m-1">
+                    <label for="platformName"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Platform Name</label>
+                    <input type="text" name="platformName" id="platformName" placeholder="Platform Name"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        formControlName="PlatformName">
+                </div>
+                <div class="m-1">
+                    <label for="MonthlyIncome"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Monthly
+                        Income(in INR)
+                    </label>
+                    <input type="number" name="MonthlyIncome" id="MonthlyIncome" placeholder="Monthly Income"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required formControlName="MonthlyIncome">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['MonthlyIncome'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['MonthlyIncome'].touched)
+                        "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="OnBoardDescP" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">On
+                        Board Description</label>
+                    <input type="text" name="OnBoardDescP" id="OnBoardDescP" placeholder="On Board Description"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required formControlName="OnBoardDescP">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['OnBoardDescP'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['OnBoardDescP'].touched)
+                        "> Required</small>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 xs:grid-cols-1 p-2 align-baseline">
+                <div class="m-1">
+                    <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City
+                        Lived In</label>
+                    <input type="text" name="city" id="city" placeholder="City Name"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required formControlName="CityLiveIn">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['CityLiveIn'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['CityLiveIn'].touched)
+                        "> Required</small>
+                </div>
+                <div class="m-1">
+                    <label for="business" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Source of
+                        Business (Other than Astrology)</label>
+                    <input type="text" name="business" id="business" placeholder="Business(other than astrology)"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required formControlName="SourceOfBusiness">
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['SourceOfBusiness'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['SourceOfBusiness'].touched)
+                        "> Required</small>
+                </div>
+
+            </div>
+            <div class="grid md:grid-cols-1 xs:grid-cols-1 p-2 align-baseline">
+                <div class="m-1">
+                    <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bio
+                        Description</label>
+                    <textarea name="desc" id="desc" placeholder="Bio Description" formControlName="BioDescP"
+                        class="resize-y bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"></textarea>
+                    <small class="text-danger" *ngIf="
+                        astroData.controls['BioDescP'].invalid &&
+                          (isFormSubmitted ||
+                          astroData.controls['BioDescP'].touched)
+                        "> Required</small>
+                </div>
+            </div>
+            <div class="flex justify-end w-full">
+                <button type="button" *ngIf="type && getPermisson('write')" (click)="onBoardastro()"
+                    class="m-1 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">On
+                    Board Astrologer</button>
+                <button type="submit" *ngIf="getPermisson('write')"
+                    class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>

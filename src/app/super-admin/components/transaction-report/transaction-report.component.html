@@ -1,0 +1,252 @@
+<h1 class="mb-5">
+    Payment Transaction Report:
+</h1>
+<div class=" mx-auto">
+    <form [formGroup]="getTxnReport">
+        <div class="flex justify-center  w-full">
+            <div class="grid grid-cols-4 items-center gap-3 w-full">
+                <div class="md:col-span-2  col-span-12">
+
+                    <ng-select [items]="option" placeholder="Sort By" bindLabel="name" bindValue="value"
+                        formControlName="status" class="w-full" (change)="TxnReports()">
+                    </ng-select>
+
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd
+                        [showCustomRangeLabel]="true" [(ngModel)]="selected" [alwaysShowCalendars]="true"
+                        [ranges]="ranges" [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+                        formControlName="StartDate" [showClearButton]="true" placeholder="Select date range "
+                        (change)="choosedDate($event)" />
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2" placeholder="Search "
+                        (input)="search($event)">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden ">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                        <thead class="bg-gray-100 ">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    TxnId</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    TxnType</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    TxnDateTime</th>
+
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Customer Name</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Mobile No</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Amount</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Disc Per</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Disc Amount</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Net Amount</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    GSTPer</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    GST Amount</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Total Amount</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Payment Status</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Payment Id</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    CouponNo</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    CouponType</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="TxnList?.report?.length>0;else noData"
+                            class=" bg-white divide-y divide-gray-200 ">
+                            <tr *ngFor="let item of TxnList?.report" class="hover:bg-gray-100 cursor-pointer">
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.TxnId}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.TxnType}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.TxnRefNo | date:"short"}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.CustomerName}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.MobileNo}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.Amount}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.DiscPer}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.DiscAmt}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.NetAmt}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.GSTPer}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.GSTAmt}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.TotalAmount}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                    [ngClass]="item?.PaymentStatus=='Success'?'text-green-500':'text-red-500'">
+                                    {{item?.PaymentStatus}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.PaymentId}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.CouponNo}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.CouponType}}</td>
+                            </tr>
+                        </tbody>
+                        <ng-template #noData>
+                            <tbody>
+                                <tr>
+                                    <td colspan="12" class="text-center" style="font-size: 14px;"
+                                        [ngClass]="'text-red-500'">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="flex justify-between p-2">
+    <div>
+        <input #titleInput class="border-gray-200 p-1 border-2 w-20" placeholder="Page No.">
+        <button (click)="handleGoto(titleInput.value)"
+            class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+    </div>
+    <div>
+        <mat-paginator [length]="TxnList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getData()"
+            pageIndex={{pageRef}} (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+</div>
+
+
+
+<div class="flex justify-center  w-full" *ngIf="accountSummary?.totalEntry > 0 ;else other_content">
+    <div class="grid grid-cols-8 items-center gap-1 w-full text-xs">
+        <div class="md:col-span-1 col-span-12">
+            <div>Total Entry</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{accountSummary?.totalEntry}}
+            </div>
+        </div>
+        <div class="md:col-span-1  col-span-12">
+            <div>Total Amount</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{accountSummary?.totalAmount}}
+            </div>
+        </div>
+        <div class="md:col-span-1  col-span-12">
+            <div>Total DiscAmt</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{accountSummary?.totalDiscount}}
+            </div>
+        </div>
+        <div class="md:col-span-1  col-span-12">
+            <div>Total Net Amount</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{accountSummary?.netAmtWithoutGST}}
+            </div>
+        </div>
+        <div class="md:col-span-1  col-span-12">
+            <div>Total GSTAmt</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{accountSummary?.totalGSTAmt}}
+            </div>
+        </div>
+        <div class="md:col-span-1  col-span-12">
+            <div>Total Net Amount</div>
+            <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                {{accountSummary?.netAmtWithGST}}
+            </div>
+        </div>
+
+        <div class="md:col-span-1  col-span-12 mt-4">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-2 rounded"
+                (click)="exportexcel()">Export to
+                Excel</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #other_content>
+    <div class="flex justify-center  w-full">
+        <div class="grid grid-cols-8 items-center gap-1 w-full text-xs">
+            <div class="md:col-span-1 col-span-12">
+                <div>Total Entry</div>
+                <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                    0
+                </div>
+            </div>
+            <div class="md:col-span-1  col-span-12">
+                <div>Total Amount</div>
+                <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                    0
+                </div>
+            </div>
+            <div class="md:col-span-1  col-span-12">
+                <div>Total DiscAmt</div>
+                <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                    0
+                </div>
+            </div>
+            <div class="md:col-span-1  col-span-12">
+                <div>Total Net Amount</div>
+                <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                    0
+                </div>
+            </div>
+            <div class="md:col-span-1  col-span-12">
+                <div>Total GSTAmt</div>
+                <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                    0
+                </div>
+            </div>
+            <div class="md:col-span-1  col-span-12">
+                <div>Total Net Amount</div>
+                <div class="bg-gray-50 border text-gray-900 text-sm rounded-lg  block p-2 border-gray-600">
+                    0
+                </div>
+            </div>
+
+            <div class="md:col-span-1  col-span-12 mt-4">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-2 rounded">Export to
+                    Excel</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

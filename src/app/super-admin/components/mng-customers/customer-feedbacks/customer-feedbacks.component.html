@@ -1,0 +1,275 @@
+<div class="mt-3 mb-5">
+    <form [formGroup]="feedbackData">
+        <div class="rounded-xl border border-gray-200 bg-slate-100 p-6 shadow-lg">
+
+            <div class="flex">
+                <div class="flex-1 flex items-end text-sm font-medium text-red-600">
+                    <!-- Customer Name: {{feedbackList.customerData.FullName}} | MobileNo: {{feedbackList.customerData.MobileNo}} -->
+                    <a class="block rounded-lg bg-gradient-to-r from-orange-500 to-rose-500 p-0.5 " href="#">
+                        <div class="flex items-center rounded-md border border-gray-100 bg-white px-2 py-1 shadow-lg"> 
+                          <img class="h-10 w-10 rounded-full object-cover" [src]="feedbackList?.customerData?.customerImg" alt="cusotmer Image"/>
+                          <div class="ml-4 w-72">
+                            <p class="text-sm font-semibold">{{feedbackList?.customerData?.FullName }}</p>
+                            <p class="text-sm text-gray-400 font-semibold">{{feedbackList?.customerData?.MobileNo }} | <span class="text-green-600">Balance: ₹ {{feedbackList?.customerData?.balance }}</span> /-</p> 
+                          </div>
+                        </div>
+                      </a>
+                      
+                </div>
+                <div class="flex-1 text-left "><h2 class="text-stone-700 text-xl font-bold mt-3">Apply filters</h2></div>
+            </div>
+            <!-- <div class="flex py-0">
+                <div class="flex-1 flex items-end">
+                    <button type="button" class="flex-1 flex items-end w-full justify-between rounded-lg bg-gray-100 px-4 py-3 text-center text-sm font-medium text-gray-600 transition-all duration-200 ease-in-out hover:bg-gray-200">
+                        <img class="mr-3 h-6 w-6 max-w-full rounded-full object-cover" src="https://new-myastroguruji.s3.ap-south-1.amazonaws.com/astro-profile/1690444175345-Sidharth.webp" alt="" />
+                        Jacob Jones
+                        <svg class="ml-auto h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" class=""></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-1 text-left "><h2 class="text-stone-700 text-xl font-bold ">Apply filters</h2></div>
+            </div> -->
+            <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
+                <div class="flex flex-col">
+                <label for="name" class="text-stone-600 text-sm font-medium" >Search</label>
+                <input type="text" id="name" (input)="search($event)" placeholder="search ..." class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                </div>
+        
+                <!-- <div class="flex flex-col">
+                <label for="manufacturer" class="text-stone-600 text-sm font-medium">Manufacturer</label>
+                <input type="manufacturer" id="manufacturer" placeholder="cadbery" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                </div> -->
+        
+                <!-- <div class="flex flex-col">
+                <label for="date" class="text-stone-600 text-sm font-medium">Date of Entry</label>
+                <input type="date" id="date" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                </div> -->
+
+                <div class="flex flex-col">
+                    <label for="feedbackStatus" class="text-stone-600 text-sm font-medium">Feedback Status</label>
+            
+                    <select id="status" formControlName="feedbackStatus" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                        (change)="getFeedbackData()"
+                        >
+                        <option name="None" value="null">None</option>
+                        <option name="Approved" value="1">Approved</option>
+                        <option name="Not Approved" value="0">Not Approved</option>
+                        <option name="Not Approved" value="3">Negative</option>
+                        <option name="Not Approved" value="4">Astrologer Reply Approved</option>
+                        <option name="Not Approved" value="5">Astrologer Reply Pending</option>
+                        <option name="Not Approved" value="6">Astrologer Reply Not Approved</option>
+
+                    </select>
+                </div>
+            </div>
+        
+            <div class="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
+                <button class="active:scale-95 rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90" (click)="resetFilterFn()">Reset</button>
+                <!-- <button class="active:scale-95 rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90">Search</button> -->
+            </div>
+        </div>
+    </form>
+</div>
+  
+
+
+<div class=" mx-auto">
+    <!-- <form [formGroup]="callLogData">
+        <div class="flex justify-center  w-full mt-3 mb-3">
+            <div class="grid grid-cols-4 items-center gap-3 w-full">
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2" placeholder="Search ..."
+                    (input)="search($event)" >
+                </div>
+                <div class="md:col-span-1  col-span-12">
+                    <ng-select [items]="callLogTypeFilter" placeholder="Filter By" bindLabel="name" bindValue="value"
+                        formControlName="filter" class="w-full" (change)="getCallLogsData()">
+                    </ng-select>
+                </div>
+
+
+            </div>
+        </div>
+    </form> -->
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden ">
+                    <table class="mt-3 min-w-full divide-y divide-gray-200 table-fixed ">
+                        <thead class="bg-gray-100 ">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Feedback Id</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    ASTROLOGER NAME</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    ASTROLOGER MOBILE</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    RATING</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    REVIEW</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    FEEDBACK STATUS </th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    ASTROLOGER REPLY</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    ASTROLOGER REPLY STATUS</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    FEEDBACK SUBMITTED</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="feedbackList?.feedbackData?.length!==0;else noData"
+                            class=" bg-white divide-y divide-gray-200 ">
+                            <tr *ngFor="let item of feedbackList?.feedbackData"
+                                class="hover:bg-gray-100 cursor-pointer">
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.id }}
+                                </td>
+                                <td 
+                                    class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.FullName }}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.MobileNo }}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.rating}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.message ? item?.message : "N/A"}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-black break-words text-left"
+                                    [ngClass]="item?.approved==0 ? 'text-red-500' : item?.approved==3 ? 'text-blue-500' :'text-green-500' ">
+                                    {{item?.approved==0?"Not Approved": item?.approved==3 ? "Negative" : "Approved"}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.reply ? item?.reply : "N/A"}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-black break-words text-left"
+                                    [ngClass]="item?.reply ? item?.replyIsApproved==2 ? 'text-yellow-500' : item?.replyIsApproved==1 ? 'text-green-500':'text-red-500': 'text-black-500'">
+                                    {{item?.reply ? item?.replyIsApproved==2 ? "Pending" : item?.replyIsApproved==1 ? "Approved" : "Not Approved" : "N/A"}}
+                                </td>
+
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{item?.created_at | date:"short"}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap break-words">
+                                    <div class="flex text-white">
+                                        <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                            (click)="openModal(template,item?.id)" >
+                                            <mat-icon class="">edit</mat-icon>
+                                        </button>
+                                        <button class="p-1 bg-green-400  hover:bg-green-500 rounded m-1"
+                                            *ngIf="item?.approved==0 || item?.approved==3"
+                                            (click)="feedbackEdit('approve',item?.id)"
+                                            >
+                                            <mat-icon>thumb_up</mat-icon>
+                                        </button>
+                                        <button class="p-1 bg-yellow-400  hover:bg-yellow-500 rounded m-1"
+                                            *ngIf="item?.approved==1"
+                                            (click)="feedbackEdit('disapprove',item?.id)"
+                                            >
+                                            <mat-icon>remove_circle</mat-icon>
+                                        </button>
+
+                                        <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                            (click)="feedbackEdit('delete',item?.id)" >
+                                            <mat-icon>delete_outline</mat-icon>
+                                        </button>
+                                        <button class="p-1 bg-orange-400  hover:bg-orange-500 rounded m-1"
+                                            (click)="feedbackEdit('negative',item?.id)">
+                                            Show only to  Astrologer
+                                        </button>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                        <ng-template #noData>
+                            <tbody>
+                                <tr>
+                                    <td colspan="12" class="text-center" style="font-size: 14px">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- <mat-paginator [length]="callHistoryList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getData()"
+    (page)="onPaginateChange($event)">
+</mat-paginator> -->
+<div class="flex justify-between p-2">
+    <div>
+        <input #titleInput class="border-gray-200 p-1 border-2 w-20" placeholder="Page No." (keydown.enter)="handleGoto(titleInput.value)">
+        <button (click)="handleGoto(titleInput.value)"
+            class="border-gray-200 p-1 border-2 bg-slate-300 hover:bg-slate-500">Go</button>
+    </div>
+    <div >
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            (click)="exportexcel()">Export to
+            Excel</button>
+    </div>
+    <div>
+        <mat-paginator [length]="feedbackList?.totalPage" [pageSize]="1" hidePageSize="true" pageIndex={{pageRef}}
+            (page)="onPaginateChange($event)">
+        </mat-paginator>
+    </div>
+</div>
+
+<ng-template #template let-c="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Feedbacks!</h4>
+        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button> -->
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="updateData"  (ngSubmit)="updateFeed()" >
+            <div class="relative z-0 my-6 w-full">
+                <ng-select [items]="option" placeholder="Rating" bindLabel="name" bindValue="value"
+                    formControlName="rating" class="w-full">
+                </ng-select>
+                <div class="relative z-0 my-6 w-full group">
+                    <textarea name="floating_phone" id="floating_phone"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " formControlName="review"></textarea>
+                    <label for="floating_phone"
+                        class="absolute text-sm text-gray-300 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer's
+                        Review
+                    </label>
+                </div>
+                <div class="relative z-0 my-6 w-full group">
+                    <textarea name="floating_phone" id="floating_phone"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " formControlName="astroReply"></textarea>
+                    <label for=" floating_phone"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Astrologer's
+                        Reply</label>
+                </div>
+            </div> <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+        </form>
+    </div>
+
+</ng-template>
+
+
+  
+

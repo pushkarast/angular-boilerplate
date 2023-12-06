@@ -1,0 +1,79 @@
+<div class="flex justify-between mb-5">
+    <h1>
+        Manage Master Data:
+    </h1>
+    <div>
+        <button (click)="openModal(template)"
+            class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">Add
+            New</button>
+    </div>
+</div>
+
+
+<table class="min-w-full divide-y divide-gray-200 table-fixed ">
+    <thead class="bg-gray-100 ">
+        <th scope="col" class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+            Master Detail Name </th>
+        <th scope="col" class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+            Description</th>
+        <th scope="col" class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+            Actions</th>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let data of masterList" class="hover:cursor-pointer hover:bg-slate-100">
+            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap" > {{data?.masterName}}</td>
+            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap capitalize">{{data?.description}}
+            </td>
+            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                <div class="flex text-white text-center">
+                    <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                        (click)="openModal(template,data?.id)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                    <button class="p-1 bg-gray-400  hover:bg-gray-500 rounded m-1" routerLink="masterDetail"
+                        [queryParams]="{mid:data?.id}">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<ng-template #template>
+    <div class="modal-header flex justify-between">
+        <div>Master Data Info</div>
+        <div class="float-right">
+            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="p-5">
+            <form [formGroup]="masterData" (submit)="updateMaster()">
+                <div class="relative z-0 w-full group">
+                    <label for="masterName" class="text-sm text-black">Master Data Name
+                    </label>
+                    <input type="text" id="masterName" placeholder="Master Data Name"
+                        class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                        formControlName="masterName" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <label for="description" class="text-sm text-black">Master Description
+                    </label>
+                    <input type="text" placeholder="Description" id="description"
+                        class=" block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+                        formControlName="description" />
+                </div>
+                <div class="relative z-0 w-full group">
+                    <button type="submit"
+                        class="m-2 text-white float-right bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>

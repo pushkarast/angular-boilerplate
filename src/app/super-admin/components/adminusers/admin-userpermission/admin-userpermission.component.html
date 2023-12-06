@@ -1,0 +1,56 @@
+<div class="flex justify-between mb-5">
+    <h1>
+        Manage Permissions for : <u>{{userName}}</u>:
+    </h1>
+    <button class="p-1 px-3 bg-gray-300  hover:bg-gray-400 rounded m-1" onclick="history.back()">
+        Back
+    </button>
+</div>
+<div [formGroup]="orderForm">
+    <div class="flex relative justify-between mb-5 w-full border">
+        <div class="w-full m-3">
+            <ng-select formControlName="role" [items]="optionsObj?.role" bindValue="value" bindLabel="name"
+                class="select" placeholder="Select Role">
+            </ng-select>
+            <small class="text-danger" *ngIf="
+                    ( isFormSubmitted && !this.orderForm.get('role').touched )
+                        ">This Field Requireds</small>
+        </div>
+    </div>
+    <div formArrayName="items" *ngFor="let item of orderForm.get('items').controls; let i = index;">
+        <div [formGroupName]="i">
+            <div class="flex relative justify-between mb-5 w-full border">
+                <div class="w-full m-3">
+                    <ng-select formControlName="permissionfor" [items]="optionsObj?.permission_name" bindValue="value"
+                        bindLabel="name" class="select" placeholder="Permission For">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                    ( isFormSubmitted || this.items.at(i).get('permissionfor').touched )
+                        ">This Field Required</small>
+                </div>
+                <div class="w-full m-3">
+                    <ng-select formControlName="permissions" [items]="optionsObj?.permissions" bindValue="value"
+                        placeholder="Select Permission" bindLabel="name" class="select" [multiple]="true"
+                        (change)="handlePermission($event,i)">
+                    </ng-select>
+                    <small class="text-danger" *ngIf="
+                    ( isFormSubmitted || this.items.at(i).get('permissions').touched)
+                        ">This Field Required</small>
+                </div>
+                <div class="absolute top-[-10px] right-[-8px] cursor-pointer" (click)="removeItem(i)">
+                    <mat-icon>close</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-between">
+        <div
+            class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button (click)="addItem()">Add Permission</button>
+        </div>
+        <div
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button type="submit" (click)="submit()">Submit</button>
+        </div>
+    </div>
+</div>

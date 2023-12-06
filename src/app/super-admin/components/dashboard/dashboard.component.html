@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans" *ngIf="userType=='admin'">
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-semibold">Dashboard</h1>
+            <div class="text-gray-500">Welcome, Admin</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-6 p-4">
+
+        <!-- Grid Layout -->
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+            <!-- Card 1 -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer" routerLink="../mng-customers/customer-list">
+                <h2 class="text-lg font-semibold mb-2">Total Customers</h2>
+                <p class="text-3xl font-bold">{{dashData?.customerCount}}</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer" routerLink="../onBoardastro/astro-list">
+                <h2 class="text-lg font-semibold mb-2">Total Astrologers</h2>
+                <p class="text-3xl font-bold">{{dashData?.astroCount}}</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer" routerLink="../manage-order-history">
+                <h2 class="text-lg font-semibold mb-2">Astromall Orders</h2>
+                <p class="text-3xl font-bold">{{dashData?.mallCount}}</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer" routerLink="../onBoardastro/astro-list"
+                [queryParams]="{type:'napproved'}">
+                <h2 class="text-lg font-semibold mb-2">Image Approval Pending</h2>
+                <p class="text-3xl font-bold">{{dashData?.pendingastroImage}}</p>
+            </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="bg-white rounded-lg shadow-md p-6 my-6">
+            <div class="w-52">
+                <input [(ngModel)]="modelDate" class="border-2 border-slate-300 py-1 px-2 w-full mb-1"
+                    autocomplete="off" name="date" bsDatepicker [bsConfig]="{dateInputFormat: 'MMMM/YYYY'}"
+                    (onShown)="onOpenCalendar($event)" placeholder="Select Month and Year"
+                    (bsValueChange)="getDate($event)">
+            </div>
+            <!-- Replace with your chart or graph component -->
+            <div class="flex justify-between mt-3">
+                <div class="mx-1">
+                    <!-- <img src="https://via.placeholder.com/500x300" alt="Chart" class="w-30"> -->
+                    <div echarts style="width:35vw;" [options]="charts" class="w-30 h-30 chart"></div>
+                </div>
+                <div class=" mx-1">
+                    <div echarts style="width:35vw;" [options]="chartsCallchat" class="w-30 h-30 chart"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+            <!-- Card 1 -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer" routerLink="../feedback">
+                <h2 class="text-lg font-semibold mb-2">Not Approved feed</h2>
+                <p class="text-3xl font-bold">{{dashData?.feedCount}}</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer" routerLink="../astrologer-promo-videos"
+                [queryParams]="{astroid:155}">
+                <h2 class="text-lg font-semibold mb-2">Youtube Playlist</h2>
+                <p class="text-3xl font-bold">{{dashData?.playlistCount}}</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer" routerLink="../mng-customers/customer-list">
+                <h2 class="text-lg font-semibold mb-2">AstroProfile Comments</h2>
+                <p class="text-3xl font-bold">{{dashData?.astroProfilevid}}</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 cursor-pointer" routerLink="../support-tickets">
+                <h2 class="text-lg font-semibold mb-2">Pending Tickets</h2>
+                <p class="text-3xl font-bold">{{dashData?.pendingTickets}}</p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+<body *ngIf="userType!='admin'">
+    <div class="container p-8 mx-auto shadow-md">
+        <h1 class="welcome-text text-center mb-4">Welcome, Admin</h1>
+        <p class="message text-center mb-6">You have access to the admin panel.</p>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<div class="flex justify-between mb-5">
+    <h1>
+        Manage OfferPopups:
+    </h1>
+    <div>
+        <button (click)="openModal(template)"
+            class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">Add
+            New Popup</button>
+    </div>
+</div>
+
+<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Popup Image</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Popup Title</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Priorty Number</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Status</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="popupList?.length!==0;else noData" class=" bg-white divide-y divide-gray-200 ">
+                        <tr *ngFor="let popupData of popupList" class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                <img [src]="popupData?.imgUrl" alt="No Image" class="h-20"/>
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{popupData?.title}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{popupData?.priority}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{popupData?.status==1?"Active":"In-Active"}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                <div class="flex text-white">
+                                    <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                        (click)="openModal(template,popupData?.id)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                        (click)="deletePopup(popupData?.id)" *ngIf="getPermisson('delete')">
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <mat-paginator [length]="blogList?.totalBlogs" [pageSize]="1" hidePageSize="true" (page)="pagination($event)">
+</mat-paginator> -->
+<ng-template #template>
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>Offer Popup</div>
+        <div class="float-right">
+            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="p-5">
+            <form [formGroup]="popupData" (submit)="onSubmit()" novalidate>
+                <div class="grid grid-cols-2 items-center gap-3 w-full">
+                    <div class="relative z-0 w-full">
+                        <input type="text" name="soulMates"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="title" accept=".webp" />
+                        <label for="soulMates"
+                            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Title
+                        </label>
+                        <span
+                            *ngIf="popupData.get('title')?.invalid && (popupData.get('title')?.dirty || popupData.get('title')?.touched)"
+                            class="absolute text-danger text-xs">
+                            Required
+                        </span>
+                    </div>
+                    <div class="relative z-0 w-full">
+                        <input type="file" name="soulMates"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            (change)="fileupload($event)" placeholder=" " />
+                        <label for="soulMates"
+                            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Popup
+                            Image
+                        </label>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 items-center gap-3 w-full">
+                    <div class="relative mb-6 w-full">
+                        <ng-select [items]="type" formControlName="type" placeholder="Type" bindLabel="name"
+                            bindValue="value"
+                            class="block py-2.5 px-0 text-md text-gray-900 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                        </ng-select>
+                        <span
+                            *ngIf="popupData.get('type')?.invalid && (popupData.get('type')?.dirty || popupData.get('type')?.touched)"
+                            class="absolute text-danger text-xs">
+                            Required
+                        </span>
+
+                    </div>
+                    <div class="relative mb-6 w-full">
+                        <ng-select [items]="status" formControlName="status" placeholder="Status" bindLabel="name"
+                            bindValue="value"
+                            class="block py-2.5 px-0 text-md text-gray-900 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                        </ng-select>
+                        <span
+                            *ngIf="popupData.get('status')?.invalid && (popupData.get('status')?.dirty || popupData.get('status')?.touched)"
+                            class="absolute text-danger text-xs">
+                            Required
+                        </span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 items-center gap-3 w-full">
+                    <div class="relative mb-6 w-full">
+                        <ng-select [items]="redirection" formControlName="redirection" placeholder="Redirection"
+                            bindLabel="name" bindValue="value"
+                            class="block py-2.5 px-0 text-md text-gray-900 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                        </ng-select>
+                        <span
+                            *ngIf="popupData.get('redirection')?.invalid && (popupData.get('redirection')?.dirty || popupData.get('redirection')?.touched)"
+                            class="absolute text-danger text-xs">
+                            Required
+                        </span>
+                    </div>
+                    <div class="col-span-1 relative z-0 mb-6 w-full">
+                        <input type="number" name="priority"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="priority" />
+                        <label for="priority"
+                            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Priority
+                        </label>
+                        <span
+                            *ngIf="popupData.get('priority')?.invalid && (popupData.get('priority')?.dirty || popupData.get('priority')?.touched)"
+                            class="absolute text-danger text-xs">
+                            Required
+                        </span>
+                    </div>
+                </div>
+                <div class="grid items-center gap-3 w-full"
+                    [ngClass]="popupData.get('redirection_type')?.value>3?'grid-cols-1':'grid-cols-2'"
+                    *ngIf="popupData.get('redirection')?.value==1">
+                    <div class="col-span-1 relative mb-6 w-full">
+                        <ng-select [items]="redirectTo" formControlName="redirection_type" placeholder="Redirect to"
+                            bindLabel="name" bindValue="value"
+                            class="block py-2.5 px-0 text-md text-gray-900 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                        </ng-select>
+                    </div>
+                    <div class="relative z-0 w-full" *ngIf="popupData.get('redirection_type')?.value==1">
+                        <input type="text" name="link"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="link" />
+                        <label for="soulMates"
+                            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Custom Link
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full" *ngIf="popupData.get('redirection_type')?.value==2">
+                        <input type="number" name="blog_id"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="blog_id" />
+                        <label for="blog_id"
+                            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Blog Id
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full" *ngIf="popupData.get('redirection_type')?.value==3">
+                        <input type="number" name="astro_id"
+                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="astro_id" />
+                        <label for="astro_id"
+                            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Astrologer Id
+                        </label>
+                    </div>
+                </div>
+
+                <div class="float-right p-3">
+                    <button type="submit" data-te-ripple-init data-te-ripple-color="light" *ngIf="getPermisson('write')"
+                        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>

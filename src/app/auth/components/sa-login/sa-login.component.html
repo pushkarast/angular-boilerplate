@@ -1,0 +1,40 @@
+<div class="min-h-screen bg-main flex justify-center items-center">
+  <div class="py-12 px-12 bg-white rounded-2xl shadow-xl z-20">
+    <div>
+      <h1 class="text-3xl w-80 font-bold text-center mb-6 cursor-pointer">
+        My AstroGuruji
+      </h1>
+    </div>
+    <div class="space-y-4">
+      <input
+        *ngIf="!isOTP"
+        type="text"
+        placeholder="Mobile"
+        [(ngModel)]="mobile"
+        maxlength="10"
+        class="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
+      />
+      <ng-otp-input
+        *ngIf="isOTP"
+        (onInputChange)="onOtpChange($event)"
+        [config]="{ length: 6 }"
+      ></ng-otp-input>
+    </div>
+    <div class="text-center mt-6">
+      <button
+        (click)="submitMobile()"
+        *ngIf="!isOTP"
+        class="py-3 w-full text-xl text-white bg-main rounded-2xl"
+      >
+        Send OTP
+      </button>
+      <button
+        (click)="submitOTP()"
+        *ngIf="isOTP"
+        class="py-3 w-full text-xl text-white bg-main rounded-2xl"
+      >
+        Submit OTP
+      </button>
+    </div>
+  </div>
+</div>

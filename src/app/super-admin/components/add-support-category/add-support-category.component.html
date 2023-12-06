@@ -1,0 +1,275 @@
+<!-- component -->
+<!-- This is an example component -->
+<div class='flex justify-center m-0'>
+    <div class="rounded-xl border p-5 shadow-md w-full bg-white">
+        <div
+            class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+            <ul class="flex flex-wrap -mb-px">
+                <li class="mr-2">
+                    <p href="" (click)="setTabOption(0)"
+                        [ngClass]="TabOption == 0 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                        class="cursor-pointer inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                        Create New Category
+                    </p>
+                </li>
+                <li class="mr-2">
+                    <p href="" (click)="setTabOption(1)"
+                        [ngClass]="TabOption == 1 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                        class="inline-block cursor-pointer  p-4  rounded-t-lg active" aria-current="page">
+                        Create New SubCategory</p>
+                </li>
+                <li class="mr-2">
+                    <p href="" (click)="setTabOption(2)"
+                        [ngClass]="TabOption == 2 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                        class="inline-block cursor-pointer  p-4  rounded-t-lg active" aria-current="page">
+                        Edit Category</p>
+                </li>
+                <li class="mr-2">
+                    <p href="" (click)="setTabOption(3)"
+                        [ngClass]="TabOption == 3 ? 'text-blue-600 border-b-2 border-blue-600' : ''"
+                        class="inline-block cursor-pointer  p-4  rounded-t-lg active" aria-current="page">
+                        Edit Subcategory</p>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="mt-9 mb-6">
+            <!-- <div class="mb-3 text-xl font-bold">Send notifcations based on schedule</div> -->
+            <div class="text-sm text-neutral-600">
+                <!-- component -->
+                <!-- This is an example component -->
+                <div class="mx-auto">
+
+                    <form [formGroup]="getInfo" (submit)="getData()" *ngIf="TabOption==0;">
+                        <div class="col-span-12 relative z-0 mb-6 w-full">
+                            <input type="text" name="category_name"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="categoryName" />
+                            <label for="category_name"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Category Name
+                            </label>
+                        </div>
+                        <div class="relative z-0 mb-6 w-full group">
+                            <ng-select [items]="relatedTags" placeholder="Select Tags" bindLabel="name" bindValue="name"
+                                [multiple]="true" formControlName="relatedTags" class="w-full"
+                                (click)="getTags($event)">
+                            </ng-select>
+                        </div>
+
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                    </form>
+
+                    <form [formGroup]="getSubCatInfo" (submit)="getData()" *ngIf="TabOption==1;">
+                        <div class="col-span-12 relative z-0 mb-6 w-full">
+                            <input type="text" name="sub_category_name"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="SubcategoryName" />
+                            <label for="sub_category_name"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Subcategory Name
+                            </label>
+                        </div>
+                        <div class="col-span-12 relative z-0 mb-6 w-full">
+                            <input type="text" name="sub_category_desc"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" " formControlName="SubcategoryDescp" />
+                            <label for="sub_category_desc"
+                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                Subcategory Description
+                            </label>
+                            <!-- <div class="col-span-12 relative z-0 mb-6 w-full">
+                                <h4>Long Description</h4>
+                                <ckeditor [editor]="Editor" id="long" 
+                                     >
+                                </ckeditor>
+                            </div> -->
+                        </div>
+
+                        <div class="relative z-0 mb-6 w-full group">
+                            <ng-select [items]="categoryList" placeholder="Select Category" bindLabel="name"
+                                bindValue="value" formControlName="categoryList" class="w-full"
+                                (click)="getCategoryData()">
+                            </ng-select>
+                        </div>
+
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                    </form>
+
+                    <form *ngIf="TabOption==2;">
+                        <div class="flex flex-col">
+                            <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                                <div class="inline-block min-w-full align-middle">
+                                    <div class="overflow-hidden ">
+                                        <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                                            <thead class="bg-gray-100 ">
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+                                                    Category Name </th>
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+                                                    Actions</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of allCategogryData?.categoryDetail"
+                                                    class=" dark:bg-gray-900  ">
+                                                    <td scope="row"
+                                                        class=" py-4 px-6 text-sm font-medium text-gray-700 break-words m-2">
+                                                        {{item?.categoryName}}
+                                                    </td>
+                                                    <td scope="row"
+                                                        class="flex py-4 px-6 text-sm font-medium text-white break-words ">
+                                                        <div class="">
+                                                            <button
+                                                                class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                                                (click)="openModal(template,item?.id,item?.categoryName,item?.relatedTags)">
+                                                                <mat-icon>edit</mat-icon>
+                                                            </button>
+                                                        </div>
+                                                        <div>
+                                                            <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                                                (click)="openDeleteCatModal(template,item?.id)"
+                                                                *ngIf="getPermisson('delete')">
+                                                                <mat-icon>delete</mat-icon>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form *ngIf="TabOption==3;">
+                        <div class="flex flex-col">
+                            <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                                <div class="inline-block min-w-full align-middle">
+                                    <div class="overflow-hidden ">
+                                        <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                                            <thead class="bg-gray-100 ">
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+                                                    Subcategory Name </th>
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+                                                    category Name </th>
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+                                                    Description </th>
+                                                <th scope="col"
+                                                    class="py-3 px-6 text-base font-extrabold tracking-wider text-left text-gray-700 uppercase">
+                                                    Actions</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of subcategoryDetails?.subcategoryDetail"
+                                                    class=" dark:bg-gray-900  ">
+                                                    <td scope="row"
+                                                        class=" py-4 px-6 text-sm font-medium text-gray-700 break-words m-2">
+                                                        {{item?.subCategoryName}}
+                                                    </td>
+                                                    <td scope="row"
+                                                        class=" py-4 px-6 text-sm font-medium text-gray-700 break-words m-2">
+                                                        {{item?.categoryName}}
+                                                    </td>
+                                                    <td scope="row"
+                                                        class=" py-4 px-6 text-sm font-medium text-gray-700 break-words m-2">
+                                                        {{item?.description}}
+                                                    </td>
+                                                    <td scope="row"
+                                                        class="flex py-4 px-6 text-sm font-medium text-gray-200 break-words m-2">
+                                                        <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                                            (click)="openModalSubCategory(templateSubCat,item?.id, item?.subCategoryName,item?.description)"
+                                                            *ngIf="getPermisson('write')">
+                                                            <mat-icon>edit</mat-icon>
+                                                        </button>
+                                                        <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                                            (click)="openDeleteSubCatModal(templateSubCat,item?.id)"
+                                                            *ngIf="getPermisson('delete')">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<ng-template #template let-c="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button> -->
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="singleData" (ngSubmit)="updateData()">
+            <div class="relative z-0 my-6 w-full">
+                <div class="col-span-12 relative z-0 mb-6 w-full">
+                    <input type="text" name="floating_phone"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " formControlName="updatedCategoryName" value={{singleCategoryDetail[0]?.name}} />
+                    <label for="floating_phone"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Category Name
+                    </label>
+                </div>
+                <div class="relative z-0 mb-6 w-full group">
+                    <ng-select [items]="relatedTags" placeholder="Select Tags" bindLabel="name" bindValue="name"
+                        [multiple]="true" formControlName="newRelatedTags" class="w-full" (click)="getTags($event)">
+                    </ng-select>
+                </div>
+            </div> <button type="submit" *ngIf="getPermisson('write')"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #templateSubCat let-c="close">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Subcategory</h4>
+        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button> -->
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="singleSubCat" (ngSubmit)="updateSubCat()">
+            <div class="relative z-0 my-6 w-full">
+                <div class="col-span-12 relative z-0 mb-6 w-full">
+                    <input type="text" name="floating_phone"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " formControlName="updatedSubCategoryName"
+                        value={{singleSubcategoryDetails[0]?.subCategoryName}} />
+                    <label for="floating_phone"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Subcategory Name
+                    </label>
+                </div>
+                <div class="col-span-12 relative z-0 mb-6 w-full">
+                    <input type="text" name="floating_phone"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " formControlName="updatedSubCategoryDescp"
+                        value={{singleSubcategoryDetails[0]?.description}} />
+                    <label for="floating_phone"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Subcategory Description
+                    </label>
+                </div>
+            </div> <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        </form>
+    </div>
+
+</ng-template>

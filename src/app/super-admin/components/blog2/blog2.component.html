@@ -1,0 +1,187 @@
+<div class="flex justify-between mb-5">
+    <h1>
+        Manage Blogs:
+    </h1>
+    <div>
+        <button (click)="openModal(template)"
+            class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">Add
+            new Blog</button>
+    </div>
+</div>
+
+<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Blog Name</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Posted By</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Entry Date</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Status</th>
+                            <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="blogList?.blogs?.callchatData?.length!==0;else noData"
+                        class=" bg-white divide-y divide-gray-200 ">
+                        <tr *ngFor="let blogData of blogList?.blogs" class="hover:bg-gray-100 cursor-pointer">
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 break-words">
+                                {{blogData?.Name}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{blogData?.PostedBy}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{blogData?.EntryDate}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                {{blogData?.Status?"Active":"In-Active"}}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                <div class="flex text-white">
+                                    <button class="p-1 bg-blue-400  hover:bg-blue-500 rounded m-1"
+                                        (click)="openModal(template,blogData?.BlogId)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button class="p-1 bg-red-400  hover:bg-red-500 rounded m-1"
+                                        (click)="deleteBlog(blogData?.BlogId)" *ngIf="getPermisson('delete')">
+                                        <mat-icon>delete_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <ng-template #noData>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center" style="font-size: 14px">
+                                    No data available
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-paginator [length]="blogList?.totalBlogs" [pageSize]="1" hidePageSize="true" (page)="pagination($event)">
+</mat-paginator>
+<ng-template #template>
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div></div>
+        <div class="float-right">
+            <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="p-5">
+            <form [formGroup]="blogData" (submit)="onSubmit()" novalidate>
+                <div class="grid grid-cols-1 items-center gap-3 w-full">
+
+                    <div class="col-span-12 relative z-0 mb-6 w-full">
+                        <label for="formFile" class="mb-2 inline-block text-neutral-700 dark:text-neutral-200">Blog
+                            Image in .webp
+                            (Size:500px X
+                            281px)</label>
+                        <input
+                            class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                            type="file" id="formFile" (change)="fileupload($event)" accept=".webp" />
+                    </div>
+                    <div class="col-span-12 relative z-0 mb-6 w-full">
+                        <input type="text" name="name"
+                            class="block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="Name" />
+                        <label for="name"
+                            class="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Blog
+                            Name
+                        </label>
+
+                    </div>
+                    <div class="col-span-12 relative z-0 mb-6 w-full">
+                        <input type="text" name="keywords"
+                            class="block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="meta_keywords" />
+                        <label for="keywords"
+                            class="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Blog
+                            Meta Keywords
+                        </label>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 items-center gap-3 w-full">
+                    <div class="col-span-1 relative z-0 mb-6 w-full">
+                        <input type="text" name="description"
+                            class="block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="meta_description" />
+                        <label for="description"
+                            class="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Blog
+                            Meta
+                            Description
+                        </label>
+                    </div>
+
+                    <div class="col-span-1 relative z-0 mb-6 w-full">
+                        <input type="text" name="slug"
+                            class="block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder="" formControlName="Slug" />
+                        <label for="slug"
+                            class="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Blog
+                            Slug
+                        </label>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 items-center gap-3 w-full">
+                    <div class="col-span-1 relative z-0 mb-6 w-full">
+                        <input type="text" name="description"
+                            class="block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " formControlName="PostedBy" />
+                        <label for="description"
+                            class="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Posted
+                            By
+                        </label>
+                    </div>
+                    <div class="col-span-1 relative z-0 mb-7 w-full">
+                        <ng-select [items]="option" formControlName="Status" placeholder="Status" bindLabel="name"
+                            bindValue="value"
+                            class="block py-2.5 px-0 text-md text-gray-900 border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 items-center gap-3 w-full z-1">
+                    <div class="col-span-12 relative z-0 mb-6 w-full">
+                        <h4>Short Description</h4>
+                        <editor formControlName="Description"
+                            apiKey="begnna8r9a7fbs9rvbqbo6q8klj3f5b9a53d5vpkzw7v1ngq" [(ngModel)]="desc"
+                            [init]="config">
+                        </editor>
+
+                        <!-- <ckeditor [editor]="Editor" (change)="setDescr($event,'desc')" id='ckeditor'
+                            [data]="blogData.get('Description')?.value" (ready)="" [config]="config">
+                        </ckeditor> -->
+                    </div>
+                    <div class="col-span-12 relative z-0 mb-6 w-full">
+                        <h4>Long Description</h4>
+                        <editor [init]="config" formControlName="Description2"
+                            apiKey="begnna8r9a7fbs9rvbqbo6q8klj3f5b9a53d5vpkzw7v1ngq" [init]="config" [(ngModel)]="desc2"></editor>
+                        <!-- <ckeditor [editor]="Editor" id="long" [data]="blogData.get('Description2')?.value"
+                            (ready)="onReady($event)" (change)="setDescr($event,'desc2')">
+                        </ckeditor> -->
+                    </div>
+                </div>
+                <div class="float-right p-3">
+                    <button type="submit" data-te-ripple-init data-te-ripple-color="light" *ngIf="getPermisson('write')"
+                        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>

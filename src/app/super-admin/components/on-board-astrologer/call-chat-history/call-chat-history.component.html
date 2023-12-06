@@ -1,0 +1,316 @@
+<h1 class="m-5">
+    Call/Chat Hitory Report:
+</h1>
+<div class=" mx-auto">
+    <form [formGroup]="getCallData">
+        <div class="flex justify-center  w-full">
+            <div class="grid grid-cols-4 items-center gap-3 w-full">
+                <div class="md:col-span-1  col-span-12">
+
+                    <ng-select [items]="option" placeholder="Sort By" bindLabel="name" bindValue="value"
+                        formControlName="status" class="w-full" (change)="getCallReport()">
+                    </ng-select>
+
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class="border-2 py-1 px-2 w-full" ngxDaterangepickerMd
+                        [showCustomRangeLabel]="true" [(ngModel)]="selected" [alwaysShowCalendars]="true"
+                        [ranges]="ranges" [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+                        formControlName="StartDate" [showClearButton]="true" placeholder="Select date range "
+                        (change)="choosedDate($event)" />
+                </div>
+                <div class="md:col-span-1  col-span-12">
+
+                    <ng-select [items]="filter" placeholder="Filter By" bindLabel="name" bindValue="value"
+                        formControlName="sfilter" class="w-full" (change)="getCallReport()">
+                    </ng-select>
+
+                </div>
+                <div class="md:col-auto col-span-12">
+                    <input type="text" class=" border-gray-200 py-1 px-2 w-full border-2" placeholder="Search ..."
+                        (input)="search($event)">
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden ">
+                    <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                        <thead class="bg-gray-100 ">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Call/Chat Date</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Call/Chat Time</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Call/Chat ID</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Type</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Customer Name</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Mobile</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Astrologer Name</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Call/Chat Status</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Call/Chat Rate</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Call/Chat Duration</th>
+                                <th *ngIf="!isAdmin()" scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Total Charges</th>
+                                <th *ngIf="!isAdmin()" scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Company Share</th>
+                                <th *ngIf="!isAdmin()" scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Astrologer Share</th>
+                                <th *ngIf="!isAdmin()" scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    PG(%)</th>
+                                <th *ngIf="!isAdmin()" scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    PG Amount</th>
+                                <th *ngIf="!isAdmin()" scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    TDS(%)</th>
+                                <th *ngIf="!isAdmin()" scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    TDS Amount</th>
+                                <th *ngIf="!isAdmin()" scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Astrologer Net Share</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Remarks</th>
+                                <th scope="col"
+                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                    Recording URL</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="callHistoryList?.callchatData?.length!==0;else noData"
+                            class=" bg-white divide-y divide-gray-200 ">
+                            <tr *ngFor="let callHistory of callHistoryList?.callchatData"
+                                class="hover:bg-gray-100 cursor-pointer">
+                                <td (contextmenu)="onRightClick(template,callHistory?.order?.id)"
+                                    class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{callHistory?.order?.orderInitiate | date:"longDate"}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{callHistory?.order?.orderInitiate | date:"shortTime"}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{callHistory?.order?.id}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
+                                    {{callHistory?.order?.orderType}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.customerInfo?.firstname+" "+callHistory?.customerInfo?.lastname}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{hideNumber(callHistory?.customerInfo?.mobileno)}}</td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.astroname}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    <span
+                                        [ngClass]="callHistory?.order?.orderStatus=='Completed'?'text-green-500'
+                                    :callHistory?.order?.orderStatus=='Cancelled'?'text-red-500':
+                                    callHistory?.order?.orderStatus=='Refunded'?'text-blue-500':'text-yellow-500'">{{callHistory?.order?.orderStatus}}</span>
+                                    <div>
+                                        ({{callHistory?.order?.sessionType}})
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.astroRate}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.order?.orderDuration * 1000 * 60| date:'HH:mm':'UTC'}}
+                                </td>
+                                <td *ngIf="!isAdmin()" class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.totalCharges}}
+                                </td>
+                                <td *ngIf="!isAdmin()"
+                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.compAmt}}
+                                </td>
+                                <td *ngIf="!isAdmin()"
+                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.astroAmt}}
+                                </td>
+                                <td *ngIf="!isAdmin()"
+                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.pgPer}}
+                                </td>
+                                <td *ngIf="!isAdmin()"
+                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.pgAmt}}
+                                </td>
+                                <td *ngIf="!isAdmin()"
+                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.TDSPer}}
+                                </td>
+                                <td *ngIf="!isAdmin()"
+                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.TDSAmt}}
+                                </td>
+                                <td *ngIf="!isAdmin()"
+                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.charges?.astroTotalAmt}}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                    {{callHistory?.order?.remarks ?callHistory?.order?.remarks:"No Remarks"}}
+                                </td>
+                                <td *ngIf="callHistory?.order?.orderType=='UCHAT'">
+                                    <button [routerLink]="'../../../chats/'+callHistory?.order?.id" target="_blank"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-full rounded text-xs ">View
+                                        Chat</button>
+                                </td>
+                                <td *ngIf="callHistory?.order?.recordinURL && callHistory?.order?.orderType!='UCHAT'">
+                                    <a *ngIf="callHistory?.order?.orderType=='UCALL'"
+                                        href={{callHistory?.order?.recordinURL}} target="_blank"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-2 rounded text-xs ">View
+                                        Recording</a>
+                                    <a *ngIf="callHistory?.order?.orderType=='VCALL' || callHistory?.order?.orderType=='DCALL'"
+                                        [href]="'https://new-myastroguruji.s3.ap-south-1.amazonaws.com/'+callHistory?.order?.recordinURL"
+                                        target="_blank"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-2 rounded text-xs ">View
+                                        Recording</a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <ng-template #noData>
+                            <tbody>
+                                <tr>
+                                    <td colspan="12" class="text-center" style="font-size: 14px">
+                                        No data available
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<mat-paginator [length]="callHistoryList?.totalPage" [pageSize]="1" hidePageSize="true" onchange="getData()"
+    (page)="onPaginateChange($event)">
+</mat-paginator>
+
+
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Call ID: {{modalData?.order?.id}}</h4>
+    </div>
+    <div class="modal-content">
+        <div class="p-2">
+            <table class="table-auto text-center">
+                <tr>
+                    <th class="border-r-2">Call Date</th>
+                    <td> {{modalData?.order?.orderInitiate | date:"longDate"}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Time</th>
+                    <td>{{modalData?.order?.orderInitiate | date:"shortTime"}}</td>
+                </tr>
+
+                <tr>
+                    <th class="border-r-2">Customer Name</th>
+                    <td>{{modalData?.customerInfo?.firstname+" "+modalData?.customerInfo?.lastname}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Mobile</th>
+                    <td>{{modalData?.customerInfo?.mobileno}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Name</th>
+                    <td> {{modalData?.astroname}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Status</th>
+                    <td [ngClass]="modalData?.order?.orderStatus=='Completed'?'text-green-500'
+                    :modalData?.order?.orderStatus=='Cancelled'?'text-red-500':
+                    modalData?.order?.orderStatus=='Refunded'?'text-blue-500':'text-yellow-500'">
+                        {{modalData?.order?.orderStatus}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Rate</th>
+                    <td>{{modalData?.charges?.astroRate}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Call Duration</th>
+                    <td>{{modalData?.order?.orderDuration}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Total Charges</th>
+                    <td> {{modalData?.charges?.totalCharges}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Company Share</th>
+                    <td> {{modalData?.charges?.compAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Share</th>
+                    <td> {{modalData?.charges?.astroAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">PG(%)</th>
+                    <td>{{modalData?.charges?.pgPer}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">PG Amount</th>
+                    <td>{{modalData?.charges?.pgAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">TDS(%)</th>
+                    <td>{{modalData?.charges?.TDSPer}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">TDS Amount</th>
+                    <td>{{modalData?.charges?.TDSAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Astrologer Net Share</th>
+                    <td>{{modalData?.charges?.astroTotalAmt}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Remarks</th>
+                    <td>{{modalData?.order?.remarks ?modalData?.order?.remarks:"No Remarks"}}</td>
+                </tr>
+                <tr>
+                    <th class="border-r-2">Recording URL</th>
+                    <td *ngIf="modalData?.order?.recordinURL;else noData">
+                        <a href={{modalData?.order?.recordinURL}} target="_blank"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-2 rounded text-xs ">View
+                            Recording</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</ng-template>
+
+<div class="md:col-span-1  col-span-12 mt-4">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-2 rounded" (click)="exportexcel()">Export
+        to
+        Excel</button>
+</div>

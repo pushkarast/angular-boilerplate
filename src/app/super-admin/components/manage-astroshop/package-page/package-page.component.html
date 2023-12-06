@@ -1,0 +1,258 @@
+<div class="flex justify-center mt-2 w-full">
+  <div class="grid grid-cols-4 items-center gap-3 w-full">
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <button
+        [routerLink]="['../manage-shop-service']"
+        class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+      >
+        Go Back
+      </button>
+    </div>
+    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+      <h1>Active Astrologer List:</h1>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngFor="let item of activeAstroList">
+  <div class="flex relative justify-between mb-5 p-2 w-full border">
+    <div class="grid grid-cols-3 items-center gap-3 w-full">
+      <div class="md:col-span-1 col-span-12">
+        <img
+          [src]="item?.image"
+          [alt]="item?.image"
+          class="h-20 rounded-full"
+        />
+        <p class="font-bold">
+          {{ item?.name }}
+        </p>
+      </div>
+      <div class="md:col-span-1 col-span-12">
+        <p class="text-xl">{{ item?.scheduledOn | date : "medium" }}</p>
+      </div>
+      <div class="md:col-span-1 col-span-12">
+        <button
+          (click)="getPackageDetails(template, {id:item?.id,astroid:item?.astroid})"
+          class="bg-blue-600 p-2 text-white rounded-lg"
+        >
+          Add/Edit Packages
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #template>
+  <div class="modal-header flex justify-between p-0 m-0">
+    <div>
+      <p class="font-bold text-lg">Add Service</p>
+    </div>
+    <div class="float-right">
+      <button (click)="closeModal('Close')"><mat-icon>close</mat-icon></button>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="p-5">
+      <form [formGroup]="addPackage" (submit)="submitPrice()">
+        <div class="flex justify-center mt-5 w-full">
+          <div class="grid grid-cols-4 items-center gap-3 w-full">
+
+            <ng-container *ngFor="let item of [1,2,3,4];index as i">
+                
+                <div class="md:col-span-1 col-span-12">
+                    <p class="mb-2 font-bold text-lg">Package {{i+1}}</p>
+                    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input
+                        type="text"
+                        name="category_name"
+                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" "
+                        [formControlName]="'packagePrice'+i"
+                      />
+                      <label
+                        for="category_name"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >
+                        Package Price
+                      </label>
+                    </div>
+                    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                        <input
+                          type="text"
+                          name="category_name"
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" "
+                          [formControlName]="'packageTitle'+i"
+                        />
+                        <label
+                          for="category_name"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Package Title
+                        </label>
+                    </div>
+                    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-2">
+                      <input
+                        type="text"
+                        name="category_name"
+                        class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" "
+                        [formControlName]="'familyCount'+i"
+                      />
+                      <label
+                        for="category_name"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >
+                        Family Members
+                      </label>
+                  </div>
+                  <div class="md:col-span-1 col-span-12  mb-4">
+                  <mat-checkbox [formControlName]="'prasad'+i" class="example-margin">Prasad Included!</mat-checkbox>
+                </div>
+
+                    <hr/><hr/><hr/>
+                    <hr/><hr/>
+                    <hr/><hr/>
+
+                    <ng-container >
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input
+                              type="text"
+                              name="category_name"
+                              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                              [formControlName]="'desc1'+i"
+                            />
+                            <label
+                              for="category_name"
+                              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Description 1
+                            </label>
+                        </div>
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input
+                              type="text"
+                              name="category_name"
+                              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                              [formControlName]="'desc2'+i"
+                            />
+                            <label
+                              for="category_name"
+                              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Description 2
+                            </label>
+                        </div>
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input
+                              type="text"
+                              name="category_name"
+                              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                              [formControlName]="'desc3'+i"
+                            />
+                            <label
+                              for="category_name"
+                              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Description 3
+                            </label>
+                        </div>
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input
+                              type="text"
+                              name="category_name"
+                              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                              [formControlName]="'desc4'+i"
+                            />
+                            <label
+                              for="category_name"
+                              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Description 4
+                            </label>
+                        </div>
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input
+                              type="text"
+                              name="category_name"
+                              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                              [formControlName]="'desc5'+i"
+                            />
+                            <label
+                              for="category_name"
+                              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Description 5
+                            </label>
+                        </div>
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input
+                              type="text"
+                              name="category_name"
+                              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                              [formControlName]="'desc6'+i"
+                            />
+                            <label
+                              for="category_name"
+                              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Description 6
+                            </label>
+                        </div>
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input
+                              type="text"
+                              name="category_name"
+                              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                              [formControlName]="'desc7'+i"
+                            />
+                            <label
+                              for="category_name"
+                              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Description 7
+                            </label>
+                        </div>
+                        <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                            <input
+                              type="text"
+                              name="category_name"
+                              class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                              [formControlName]="'desc8'+i"
+                            />
+                            <label
+                              for="category_name"
+                              class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Description 8
+                            </label>
+                        </div>
+                    </ng-container>
+
+                </div>
+            </ng-container>
+
+            
+          </div>
+        </div>
+
+        <div class="flex justify-end w-full">
+          <button
+            type="submit"
+            class="m-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            {{ "Upload" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
