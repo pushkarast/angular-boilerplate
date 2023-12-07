@@ -57,12 +57,12 @@ export class FeedbackComponent {
       post_id: null
 
     })
-    
+
     this.getFeedbackData = this._FormBuilder.group({
-      start: null, 
-      p_type: null, 
-      feedId: null, 
-      filter: null, 
+      start: null,
+      p_type: null,
+      feedId: null,
+      filter: null,
       search: '',
       // StartDate: [new Date(), Validators.required],
       // from: [this.startDate.setUTCHours(0, 0, 0, 0).valueOf()],
@@ -78,10 +78,9 @@ export class FeedbackComponent {
   }
   getFeedbacks(page = 1, feedId = null, filter = "None") {
     this._SpinnerService.setState(true)
-    this._AdminService.fetchFeedbacks({ ...this.getFeedbackData.value,start: page, p_type: "3,4", feedId: feedId, filter: this.filter }).then((data) => {
+    this._AdminService.fetchFeedbacks({ ...this.getFeedbackData.value, start: page, p_type: "3,4", feedId: feedId, filter: this.filter }).then((data) => {
       this.page = page;
-      if (data?.status ) {
-        this._SpinnerService.setState(false)
+      if (data?.status) {
         if (data?.data) {
           if (!feedId) {
             this.feedbackLists = data?.data;
@@ -96,7 +95,10 @@ export class FeedbackComponent {
           this.feedbackLists = [];
         }
       }
+      else
+        this._NotifierService.showError("Some Error Occurred");
     });
+    this._SpinnerService.setState(false)
   }
 
   feedbackEdit(type: any, feedId: any) {
@@ -163,15 +165,15 @@ export class FeedbackComponent {
         for (let item of data?.data?.feedbacks) {
           exceldata.push({
             CUSTOMER_NAME: item?.userInfo?.fullname,
-            CUSTOMER_MOBILE	: item?.userInfo?.mobile,
+            CUSTOMER_MOBILE: item?.userInfo?.mobile,
             REVIEW: item?.feed?.message,
-            RATING: item?.feed?.rating ,
+            RATING: item?.feed?.rating,
             ASTROLOGER_NAME: item?.astroInfo?.fullname,
             ASTROLOGER_MOBILE: item?.astroInfo?.mobileno,
-            ASTROLOGER_REPLY	: item?.feed?.reply,
-            FEEDBACK_STATUS	: item?.feed?.approved,
-            ASTROLOGER_REPLY_STATUS	: item?.feed?.replyIsApproved,
-            FEEDBACK_UpdateAt	: moment(item?.feed?.updated_at).format('DD-MM-YYYY'),
+            ASTROLOGER_REPLY: item?.feed?.reply,
+            FEEDBACK_STATUS: item?.feed?.approved,
+            ASTROLOGER_REPLY_STATUS: item?.feed?.replyIsApproved,
+            FEEDBACK_UpdateAt: moment(item?.feed?.updated_at).format('DD-MM-YYYY'),
           })
         }
         const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exceldata);
