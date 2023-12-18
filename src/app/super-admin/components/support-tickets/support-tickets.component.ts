@@ -150,7 +150,7 @@ export class SupportTicketsComponent {
         this.supportOrderDetails = data?.data?.orderDetails
         this.supportTicketDetails = data?.data?.ticketDetails
         this.chatHeaderTicketId = data?.data?.id
-
+        this.customerId = data?.data?.customerId;
       }
       else
         this._NotifierService.showError("Some Error Occurred");
