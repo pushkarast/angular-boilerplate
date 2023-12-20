@@ -1,114 +1,98 @@
 <section class=" bg-white mt-10">
-    <div class="mx-3 w-full py-2 ">
-      <div class="flex items-center">
-        <div class="w-full">
-          <div class="flex justify-center md:pb-8 lg:pb-8">
-            <div class="md:w-5/6 w-full text-center lg:w-5/6">
-              <h3 class="pb-4 text-3xl font-bold leading-9 md:text-4xl md:leading-10 lg:text-4xl lg:leading-10 font-serif">Total XPs ( {{result?.xpData?.totalXp}} )</h3>
-              <!-- <p class="  mb-4 font-sans text-base font-light leading-7 text-gray-500 md:text-xl md:leading-7 lg:text-xl lg:leading-7">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis recusandae rem sunt consequatur omnis hic perspiciatis consectetur ab pariatur. Distinctio maiores id laborum optio eaque.</p> -->
-            </div>
-            <div>
-              <button type="button" (click)="openModel(template11)"
-              class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Edit Xp</button>
-            </div>
+  <div class="mx-3 w-full py-2 ">
+    <div class="flex items-center">
+      <div class="w-full">
+        <div class="flex justify-center md:pb-8 lg:pb-8">
+          <div class="md:w-5/6 w-full text-center lg:w-5/6">
+            <h3 class="pb-4 text-3xl font-bold leading-9 md:text-4xl md:leading-10 lg:text-4xl lg:leading-10 font-serif">Total XPs ( {{result}} )</h3>
           </div>
-          <div class="flex flex-wrap items-start justify-center px-2">
-            <div class="w-full divide-y divide-gray-300">
-              <div  class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined">
-                <div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-                  <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                    <h3 class="text-sm font-serif leading-7">Feedback XPs  </h3>
-                  </div>
-                  <div class="" >
-                    <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.feedbackXp}}</span>
-                  </div>
-                  <div class="" (click)="openModel(template1)">
-                    <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
-                      <!-- hero:chevron-right --> 
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5 ">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                      </svg>
-                    </div>
-                  </div></div>
-                </div>
-              <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-                ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-                  <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                    <h3 class="text-sm font-serif leading-7">Busy Time XPs</h3>
-                  </div>
-                  <div class="">
-                    <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.busy_timeXp}}</span>
-                  </div>
-                  <div class="" >
-                    <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
-                      <!-- hero:chevron-right -->
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                      </svg>
-                    </div>
-                  </div></div></div
-              ><div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-                ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-                  <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                    <h3 class="text-sm font-serif leading-7">Online Time Xps</h3>
-                  </div>
-                  <div class="">
-                    <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.online_timeXp}}</span>
-                  </div>
-                  <div class="" >
-                    <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
-                      <!-- hero:chevron-right -->
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                      </svg>
-                    </div>
-                  </div></div></div
-              ><div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-                ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-                  <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                    <h3 class="text-sm font-serif leading-7">Paid Completed Orders Xps</h3>
-                  </div>
-                  <div class="">
-                    <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.paid_completed_callXp}}</span>
-                  </div>
-                  <div class="" >
-                    <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
-                      <!-- hero:chevron-right -->
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                      </svg>
-                    </div>
-                  </div></div></div
-              >
-              <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-                ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-                  <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                    <h3 class="text-sm font-serif leading-7">Paid Missed Orders Xps</h3>
-                  </div>
-                  <div class="">
-                    <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.paid_missed_callXp}}</span>
-                  </div>
-                  <div class="" >
-                    <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
-                      <!-- hero:chevron-right -->
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                      </svg>
-                    </div>
-                  </div></div
-              ></div>
-              <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-              ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+          <div>
+            <button type="button" (click)="openModel(template11)"
+            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Edit Xp</button>
+          </div>
+          <!-- <div>
+            <button type="button" (click)="openModel(template12)"
+            class="w-1/10 text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Update Rank</button>
+          </div> -->
+        </div>
+        <!-- <div>
+          <button type="button" (click)="openModel(template12)"
+          class="w-1/10 text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Update Rank</button>
+        </div> -->
+        <!-- <div class="flex flex-wrap items-start justify-center px-2">
+          <div class="w-full divide-y divide-gray-300">
+            <div  class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined">
+              <div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
                 <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                  <h3 class="text-sm font-serif leading-7">Paid Declined Orders Xps</h3>
-                </div>
-                <div class="">
-                  <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.paid_declined_callXp}}</span>
+                  <h3 class="text-sm font-serif leading-7">Feedback XPs  </h3>
                 </div>
                 <div class="" >
-                  <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
-                  >
-                    <!-- hero:chevron-right -->
+                  <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.feedbackXp}}</span>
+                </div>
+                <div class="" (click)="openModel(template1)">
+                  <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5 ">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                    </svg>
+                  </div>
+                </div></div>
+              </div>
+            <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+              ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+                <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+                  <h3 class="text-sm font-serif leading-7">Busy Time XPs</h3>
+                </div>
+                <div class="">
+                  <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.busy_timeXp}}</span>
+                </div>
+                <div class="" >
+                  <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                    </svg>
+                  </div>
+                </div></div></div
+            ><div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+              ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+                <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+                  <h3 class="text-sm font-serif leading-7">Online Time Xps</h3>
+                </div>
+                <div class="">
+                  <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.online_timeXp}}</span>
+                </div>
+                <div class="" >
+                  <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                    </svg>
+                  </div>
+                </div></div></div
+            ><div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+              ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+                <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+                  <h3 class="text-sm font-serif leading-7">Paid Completed Orders Xps</h3>
+                </div>
+                <div class="">
+                  <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.paid_completed_callXp}}</span>
+                </div>
+                <div class="" >
+                  <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                    </svg>
+                  </div>
+                </div></div></div
+            >
+            <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+              ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+                <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+                  <h3 class="text-sm font-serif leading-7">Paid Missed Orders Xps</h3>
+                </div>
+                <div class="">
+                  <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.paid_missed_callXp}}</span>
+                </div>
+                <div class="" >
+                  <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
                       <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
                     </svg>
@@ -118,607 +102,685 @@
             <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
             ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
               <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                <h3 class="text-sm font-serif leading-7">Free Completed Orders Xps</h3>
+                <h3 class="text-sm font-serif leading-7">Paid Declined Orders Xps</h3>
               </div>
               <div class="">
-                <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.free_completed_callXp}}</span>
+                <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.paid_declined_callXp}}</span>
               </div>
               <div class="" >
                 <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
                 >
-                  <!-- hero:chevron-right -->
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
                   </svg>
                 </div>
               </div></div
-            ></div>
-            <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-            ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-              <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                <h3 class="text-sm font-serif leading-7">Free Missed Orders Xps</h3>
+          ></div>
+          <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+          ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+            <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+              <h3 class="text-sm font-serif leading-7">Free Completed Orders Xps</h3>
+            </div>
+            <div class="">
+              <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.free_completed_callXp}}</span>
+            </div>
+            <div class="" >
+              <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                </svg>
               </div>
-              <div class="">
-                <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.free_missed_callXp}}</span>
+            </div></div
+          ></div>
+          <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+          ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+            <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+              <h3 class="text-sm font-serif leading-7">Free Missed Orders Xps</h3>
+            </div>
+            <div class="">
+              <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.free_missed_callXp}}</span>
+            </div>
+            <div class="" >
+              <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                </svg>
               </div>
-              <div class="" >
-                <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
-                >
-                  <!-- hero:chevron-right -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                  </svg>
-                </div>
-              </div></div
-            ></div>
-            <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-            ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-              <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                <h3 class="text-sm font-serif leading-7">Free Declined Orders Xps</h3>
-              </div>
-              <div class="">
-                <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.free_declined_callXp}}</span>
-              </div>
-              <div class="" >
-                <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
-                >
+            </div></div
+          ></div>
+          <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+          ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+            <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+              <h3 class="text-sm font-serif leading-7">Free Declined Orders Xps</h3>
+            </div>
+            <div class="">
+              <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.free_declined_callXp}}</span>
+            </div>
+            <div class="" >
+              <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
+              >
 
-                  <!-- hero:chevron-right -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                  </svg>
-                </div>
-              </div></div
-            ></div>
-            <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-            ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-              <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                <h3 class="text-sm font-serif leading-7">Repeat Users Xp</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                </svg>
               </div>
-              <div class="">
-                <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.repeat_user_xp}}</span>
-              </div>
-              <div class="" >
-                <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
-                >
-                  <!-- hero:chevron-right -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                  </svg>
-                </div>
-              </div></div
-            ></div>
-            <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
-            ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
-              <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
-                <h3 class="text-sm font-serif leading-7">Admin Xp</h3>
-              </div>
-              <div class="">
-                <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.admin_xp}}</span>
-              </div>
-              <div class="" >
-                <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
-                >
-                  <!-- hero:chevron-right -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
-                  </svg>
-                </div>
-              </div></div
-            ></div>
+            </div></div
+          ></div>
+          <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+          ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+            <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+              <h3 class="text-sm font-serif leading-7">Repeat Users Xp</h3>
             </div>
+            <div class="">
+              <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.repeat_user_xp}}</span>
+            </div>
+            <div class="" >
+              <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                </svg>
+              </div>
+            </div></div
+          ></div>
+          <div class="block w-full cursor-pointer py-4 font-sans duration-300 ease-in-out hover:bg-purple-50 md:py-6 lg:py-6" data-blok-c="undefined" data-blok-uid="undefined"
+          ><div class="flex flex-wrap items-center justify-between px-0 md:px-4 lg:px-4">
+            <div class="md:w-1/4 mr-0 w-5/6 pl-4 md:mr-4 md:pl-0 lg:mr-4 lg:w-1/4 lg:pl-0">
+              <h3 class="text-sm font-serif leading-7">Admin Xp</h3>
+            </div>
+            <div class="">
+              <span class="text-base font-bold text-gray-500 md:text-base md:leading-6 lg:text-base lg:leading-6 xl:text-base xl:leading-6">{{result?.xpData?.admin_xp}}</span>
+            </div>
+            <div class="" >
+              <div class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-solid border-current font-normal text-blue-600 duration-150 ease-in-out"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="block h-5 w-5">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" class=" "></path>
+                </svg>
+              </div>
+            </div></div
+          ></div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- busy time modal -->
-  <ng-template #template2>
-    <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-    tabindex="-1"  aria-hidden="true">
-    <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-      <div
-        class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-        <div class="modal-header flex justify-between p-0 m-0">
-            <div>
-              <p class="font-bold text-xl">Busy Time Xps</p>
-            </div>
-            <div class="float-right">
-              <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-            </div>
-          </div>
-        <div class="flex-auto overflow-y-auto relative p-4">
-          <div class="flex flex-col">
-            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                <div class="overflow-hidden">
-                  <table class="min-w-full text-center text-sm font-light">
-                    <thead
-                      class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                      <tr>
-                        <th scope="col" class=" px-6 py-4">Total Busy Time</th>
-                        <th scope="col" class=" px-6 py-4">Busy Time Xp (per min)</th>
-                        <th scope="col" class=" px-6 py-4">Total Xp</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="border-b dark:border-neutral-500">
-                        <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_busyTime}}</td>
-                        <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_min_busyTimeXp}}</td>
-                        <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.busy_timeXp}}</td>  
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-          <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-          <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
-        </div>
-        <div
-          class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-          <button type="button"
-            class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-            data-bs-dismiss="modal" (click)="closeModal()">
-            Close
-          </button>
-          <!-- <button type="button"
-            class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-            Save changes
-          </button> -->
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
-  </ng-template>
+</section>
 
-  <!-- online time modal -->
-  <ng-template #template3>
-    <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-    tabindex="-1"  aria-hidden="true">
-    <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-      <div
-        class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-        <div class="modal-header flex justify-between p-0 m-0">
-            <div>
-              <p class="font-bold text-xl">Online Time Xps</p>
-            </div>
-            <div class="float-right">
-              <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-            </div>
+<!-- busy time modal -->
+<!-- <ng-template #template2>
+  <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+  tabindex="-1"  aria-hidden="true">
+  <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+    <div
+      class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+      <div class="modal-header flex justify-between p-0 m-0">
+          <div>
+            <p class="font-bold text-xl">Busy Time Xps</p>
           </div>
-        <div class="flex-auto overflow-y-auto relative p-4">
-          <div class="flex flex-col">
-            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                <div class="overflow-hidden">
-                  <table class="min-w-full text-center text-sm font-light">
-                    <thead
-                      class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                      <tr>
-                        <th scope="col" class=" px-6 py-4">Total Online Duration(minutes)</th>
-                        <th scope="col" class=" px-6 py-4">Online Time Xp (per min)</th>
-                        <th scope="col" class=" px-6 py-4">Total Xp</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="border-b dark:border-neutral-500">
-                        <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.toal_onlineTime}}</td>
-                        <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_min_onlineTimeXp}}</td>
-                        <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.online_timeXp}}</td>  
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+          <div class="float-right">
+            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+          </div>
+        </div>
+      <div class="flex-auto overflow-y-auto relative p-4">
+        <div class="flex flex-col">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full text-center text-sm font-light">
+                  <thead
+                    class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                    <tr>
+                      <th scope="col" class=" px-6 py-4">Total Busy Time</th>
+                      <th scope="col" class=" px-6 py-4">Busy Time Xp (per min)</th>
+                      <th scope="col" class=" px-6 py-4">Total Xp</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b dark:border-neutral-500">
+                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_busyTime}}</td>
+                      <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_min_busyTimeXp}}</td>
+                      <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.busy_timeXp}}</td>  
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-          <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-          <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
-        </div>
-        <div
-          class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-          <button type="button"
-            class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-            data-bs-dismiss="modal" (click)="closeModal()">
-            Close
-          </button>
-          <!-- <button type="button"
-            class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-            Save changes
-          </button> -->
-        </div>
+      </div>
+      <div
+        class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+        <button type="button"
+          class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+          data-bs-dismiss="modal" (click)="closeModal()">
+          Close
+        </button>
+
       </div>
     </div>
   </div>
-  </ng-template>
+</div>
+</ng-template> -->
+
+<!-- online time modal -->
+<!-- <ng-template #template3>
+  <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+  tabindex="-1"  aria-hidden="true">
+  <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+    <div
+      class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+      <div class="modal-header flex justify-between p-0 m-0">
+          <div>
+            <p class="font-bold text-xl">Online Time Xps</p>
+          </div>
+          <div class="float-right">
+            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+          </div>
+        </div>
+      <div class="flex-auto overflow-y-auto relative p-4">
+        <div class="flex flex-col">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full text-center text-sm font-light">
+                  <thead
+                    class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                    <tr>
+                      <th scope="col" class=" px-6 py-4">Total Online Duration(minutes)</th>
+                      <th scope="col" class=" px-6 py-4">Online Time Xp (per min)</th>
+                      <th scope="col" class=" px-6 py-4">Total Xp</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b dark:border-neutral-500">
+                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.toal_onlineTime}}</td>
+                      <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_min_onlineTimeXp}}</td>
+                      <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.online_timeXp}}</td>  
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div
+        class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+        <button type="button"
+          class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+          data-bs-dismiss="modal" (click)="closeModal()">
+          Close
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template> -->
 
 <!-- completed paid orders modal -->
-<ng-template #template4>
-  <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-  tabindex="-1"  aria-hidden="true">
-  <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-    <div
-      class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-      <div class="modal-header flex justify-between p-0 m-0">
-          <div>
-            <p class="font-bold text-xl">Paid Completed Orders Xps</p>
-          </div>
-          <div class="float-right">
-            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-          </div>
+<!-- <ng-template #template4>
+<div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+tabindex="-1"  aria-hidden="true">
+<div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+  <div
+    class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+          <p class="font-bold text-xl">Paid Completed Orders Xps</p>
         </div>
-      <div class="flex-auto overflow-y-auto relative p-4">
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead
-                    class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                    <tr>
-                      <th scope="col" class=" px-6 py-4">Total Orders </th>
-                      <th scope="col" class=" px-6 py-4">Per Order Xp</th>
-                      <th scope="col" class=" px-6 py-4">Total Xp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_completed_paid_orders}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_paid_completed_order_Xp}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.paid_completed_callXp}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        <div class="float-right">
+          <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+    <div class="flex-auto overflow-y-auto relative p-4">
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead
+                  class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                  <tr>
+                    <th scope="col" class=" px-6 py-4">Total Orders </th>
+                    <th scope="col" class=" px-6 py-4">Per Order Xp</th>
+                    <th scope="col" class=" px-6 py-4">Total Xp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b dark:border-neutral-500">
+                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_completed_paid_orders}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_paid_completed_order_Xp}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.paid_completed_callXp}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
-      </div>
-      <div
-        class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-        <button type="button"
-          class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-          data-bs-dismiss="modal" (click)="closeModal()">
-          Close
-        </button>
-        <!-- <button type="button"
-          class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-          Save changes
-        </button> -->
-      </div>
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+      <button type="button"
+        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-dismiss="modal" (click)="closeModal()">
+        Close
+      </button>
+
     </div>
   </div>
 </div>
-</ng-template>
+</div>
+</ng-template> -->
 
 <!-- missed paid orders modal -->
-<ng-template #template5>
-  <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-  tabindex="-1"  aria-hidden="true">
-  <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-    <div
-      class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-      <div class="modal-header flex justify-between p-0 m-0">
-          <div>
-            <p class="font-bold text-xl">Paid Missed Orders Xps</p>
-          </div>
-          <div class="float-right">
-            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-          </div>
+<!-- <ng-template #template5>
+<div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+tabindex="-1"  aria-hidden="true">
+<div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+  <div
+    class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+          <p class="font-bold text-xl">Paid Missed Orders Xps</p>
         </div>
-      <div class="flex-auto overflow-y-auto relative p-4">
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead
-                    class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                    <tr>
-                      <th scope="col" class=" px-6 py-4">Total Orders</th>
-                      <th scope="col" class=" px-6 py-4">Per Order Xp</th>
-                      <th scope="col" class=" px-6 py-4">Total Xp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_missed_paid_orders}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_paid_missed_order_Xp}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.paid_missed_callXp}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        <div class="float-right">
+          <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+    <div class="flex-auto overflow-y-auto relative p-4">
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead
+                  class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                  <tr>
+                    <th scope="col" class=" px-6 py-4">Total Orders</th>
+                    <th scope="col" class=" px-6 py-4">Per Order Xp</th>
+                    <th scope="col" class=" px-6 py-4">Total Xp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b dark:border-neutral-500">
+                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_missed_paid_orders}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_paid_missed_order_Xp}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.paid_missed_callXp}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
-      </div>
-      <div
-        class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-        <button type="button"
-          class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-          data-bs-dismiss="modal" (click)="closeModal()">
-          Close
-        </button>
-        <!-- <button type="button"
-          class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-          Save changes
-        </button> -->
-      </div>
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+      <button type="button"
+        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-dismiss="modal" (click)="closeModal()">
+        Close
+      </button>
+
     </div>
   </div>
 </div>
-</ng-template>
+</div>
+</ng-template> -->
 
 <!-- declined paid orders modal -->
-<ng-template #template6>
-  <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-  tabindex="-1"  aria-hidden="true">
-  <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-    <div
-      class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-      <div class="modal-header flex justify-between p-0 m-0">
-          <div>
-            <p class="font-bold text-xl">Declined Paid Orders Xps</p>
-          </div>
-          <div class="float-right">
-            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-          </div>
+<!-- <ng-template #template6>
+<div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+tabindex="-1"  aria-hidden="true">
+<div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+  <div
+    class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+          <p class="font-bold text-xl">Declined Paid Orders Xps</p>
         </div>
-      <div class="flex-auto overflow-y-auto relative p-4">
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead
-                    class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                    <tr>
-                      <th scope="col" class=" px-6 py-4">Total Orders</th>
-                      <th scope="col" class=" px-6 py-4">Per Order Xp</th>
-                      <th scope="col" class=" px-6 py-4">Total Xp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_declined_paid_orders}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_paid_declined_order_Xp}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.paid_declined_callXp}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        <div class="float-right">
+          <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+    <div class="flex-auto overflow-y-auto relative p-4">
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead
+                  class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                  <tr>
+                    <th scope="col" class=" px-6 py-4">Total Orders</th>
+                    <th scope="col" class=" px-6 py-4">Per Order Xp</th>
+                    <th scope="col" class=" px-6 py-4">Total Xp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b dark:border-neutral-500">
+                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_declined_paid_orders}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_paid_declined_order_Xp}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.paid_declined_callXp}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
-      </div>
-      <div
-        class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-        <button type="button"
-          class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-          data-bs-dismiss="modal" (click)="closeModal()">
-          Close
-        </button>
-        <!-- <button type="button"
-          class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-          Save changes
-        </button> -->
-      </div>
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+      <button type="button"
+        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-dismiss="modal" (click)="closeModal()">
+        Close
+      </button>
+
     </div>
   </div>
 </div>
-</ng-template>
+</div>
+</ng-template> -->
 
 <!-- completed free orders modal -->
-<ng-template #template7>
-  <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-  tabindex="-1"  aria-hidden="true">
-  <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-    <div
-      class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-      <div class="modal-header flex justify-between p-0 m-0">
-          <div>
-            <p class="font-bold text-xl">Completed Free Orders Xps</p>
-          </div>
-          <div class="float-right">
-            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-          </div>
+<!-- <ng-template #template7>
+<div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+tabindex="-1"  aria-hidden="true">
+<div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+  <div
+    class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+          <p class="font-bold text-xl">Completed Free Orders Xps</p>
         </div>
-      <div class="flex-auto overflow-y-auto relative p-4">
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead
-                    class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                    <tr>
-                      <th scope="col" class=" px-6 py-4">Total Orders</th>
-                      <th scope="col" class=" px-6 py-4">Per Order Xp</th>
-                      <th scope="col" class=" px-6 py-4">Total Xp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_completed_free_orders}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_free_completed_order_Xp}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.free_completed_callXp}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        <div class="float-right">
+          <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+    <div class="flex-auto overflow-y-auto relative p-4">
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead
+                  class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                  <tr>
+                    <th scope="col" class=" px-6 py-4">Total Orders</th>
+                    <th scope="col" class=" px-6 py-4">Per Order Xp</th>
+                    <th scope="col" class=" px-6 py-4">Total Xp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b dark:border-neutral-500">
+                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_completed_free_orders}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_free_completed_order_Xp}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.free_completed_callXp}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
-      </div>
-      <div
-        class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-        <button type="button"
-          class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-          data-bs-dismiss="modal" (click)="closeModal()">
-          Close
-        </button>
-        <!-- <button type="button"
-          class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-          Save changes
-        </button> -->
-      </div>
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+      <button type="button"
+        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-dismiss="modal" (click)="closeModal()">
+        Close
+      </button>
+
     </div>
   </div>
 </div>
-</ng-template>
+</div>
+</ng-template> -->
 
 <!-- missed free orders modal -->
-<ng-template #template8>
-  <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-  tabindex="-1"  aria-hidden="true">
-  <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-    <div
-      class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-      <div class="modal-header flex justify-between p-0 m-0">
-          <div>
-            <p class="font-bold text-xl">Missed Free Orders Xps</p>
-          </div>
-          <div class="float-right">
-            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-          </div>
+<!-- <ng-template #template8>
+<div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+tabindex="-1"  aria-hidden="true">
+<div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+  <div
+    class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+          <p class="font-bold text-xl">Missed Free Orders Xps</p>
         </div>
-      <div class="flex-auto overflow-y-auto relative p-4">
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead
-                    class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                    <tr>
-                      <th scope="col" class=" px-6 py-4">Total Orders</th>
-                      <th scope="col" class=" px-6 py-4">Per Order Xp</th>
-                      <th scope="col" class=" px-6 py-4">Total Xp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_missed_free_orders}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_free_missed_order_Xp}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.free_missed_callXp}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        <div class="float-right">
+          <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+    <div class="flex-auto overflow-y-auto relative p-4">
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead
+                  class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                  <tr>
+                    <th scope="col" class=" px-6 py-4">Total Orders</th>
+                    <th scope="col" class=" px-6 py-4">Per Order Xp</th>
+                    <th scope="col" class=" px-6 py-4">Total Xp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b dark:border-neutral-500">
+                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_missed_free_orders}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_free_missed_order_Xp}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.free_missed_callXp}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
-      </div>
-      <div
-        class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-        <button type="button"
-          class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-          data-bs-dismiss="modal" (click)="closeModal()">
-          Close
-        </button>
-        <!-- <button type="button"
-          class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-          Save changes
-        </button> -->
-      </div>
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+      <button type="button"
+        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-dismiss="modal" (click)="closeModal()">
+        Close
+      </button>
+
     </div>
   </div>
 </div>
-</ng-template>
+</div>
+</ng-template> -->
 
 <!-- declined free orders modal -->
-<ng-template #template9>
-  <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-  tabindex="-1"  aria-hidden="true">
-  <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-    <div
-      class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-      <div class="modal-header flex justify-between p-0 m-0">
-          <div>
-            <p class="font-bold text-xl">Free Declined Orders Xps</p>
-          </div>
-          <div class="float-right">
-            <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-          </div>
+<!-- <ng-template #template9>
+<div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+tabindex="-1"  aria-hidden="true">
+<div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+  <div
+    class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+          <p class="font-bold text-xl">Free Declined Orders Xps</p>
         </div>
-      <div class="flex-auto overflow-y-auto relative p-4">
-        <div class="flex flex-col">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-center text-sm font-light">
-                  <thead
-                    class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                    <tr>
-                      <th scope="col" class=" px-6 py-4">Total Orders</th>
-                      <th scope="col" class=" px-6 py-4">Per Order Xp</th>
-                      <th scope="col" class=" px-6 py-4">Total Xp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_declined_free_orders}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_free_declined_order_Xp}}</td>
-                      <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.free_declined_callXp}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        <div class="float-right">
+          <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+    <div class="flex-auto overflow-y-auto relative p-4">
+      <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center text-sm font-light">
+                <thead
+                  class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                  <tr>
+                    <th scope="col" class=" px-6 py-4">Total Orders</th>
+                    <th scope="col" class=" px-6 py-4">Per Order Xp</th>
+                    <th scope="col" class=" px-6 py-4">Total Xp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b dark:border-neutral-500">
+                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_declined_free_orders}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_free_declined_order_Xp}}</td>
+                    <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.free_declined_callXp}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
-      </div>
-      <div
-        class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-        <button type="button"
-          class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-          data-bs-dismiss="modal" (click)="closeModal()">
-          Close
-        </button>
-        <!-- <button type="button"
-          class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-          Save changes
-        </button> -->
-      </div>
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+      <button type="button"
+        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-dismiss="modal" (click)="closeModal()">
+        Close
+      </button>
+
     </div>
   </div>
 </div>
-</ng-template>
+</div>
+</ng-template> -->
 
 <!-- edit xp -->
 <ng-template #template11>
+<div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+tabindex="-1"  aria-hidden="true">
+<div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+  <div
+    class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+        </div>
+        <div class="float-right">
+          <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+    <div class="flex-auto  relative p-4">
+      <div class="flex flex-col">
+        <div class="sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="">
+              <div [formGroup]="modifyXp">
+                <div class="grid grid-cols-1 items-center m-1 p-1 gap-0 w-full">
+                  <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                    <p class="font-bold ">Enter Xp Point</p>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                      <input type="text" name="xp" 
+                          class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          placeholder=" " formControlName="xp"  />
+                      <label for="xp"
+                          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                          Xp Point....
+                      </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+      <button type="button"
+        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-dismiss="modal" (click)="closeModal()">
+        Close
+      </button>
+      <button type="submit" 
+          (click)="updateXp()"
+          class="mx-1 w-1/6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Update
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+</ng-template>
+
+<!-- update Rank xp -->
+<!-- <ng-template #template12>
+<div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+tabindex="-1"  aria-hidden="true">
+<div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
+  <div
+    class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div class="modal-header flex justify-between p-0 m-0">
+        <div>
+        </div>
+        <div class="float-right">
+          <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
+        </div>
+      </div>
+    <div class="flex-auto  relative p-4">
+      <div class="flex flex-col">
+        <div class="sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="">
+              <div [formGroup]="updateRankAstro">
+                <div class="grid grid-cols-1 items-center m-1 p-1 gap-4 w-full">
+                  <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
+                    <p class="font-bold ">Select Rank</p>
+                  </div>
+                  <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-28">
+                    <ng-select [items]="rankOptions" bindValue="value" formControlName="rank" bindLabel="name"
+                        class="select" name="rank" id="rank" placeholder="select rank...">
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div
+      class="flex flex-shrink-0 flex-wrap items-center justify-end p-4  border-t border-gray-200 rounded-b-md">
+      <button type="button"
+        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+        data-bs-dismiss="modal" (click)="closeModal()">
+        Close
+      </button>
+      <button type="submit" 
+          (click)="updateRank()"
+          class="mx-1 w-1/6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Update
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+</ng-template> -->
+
+<!-- 
+<ng-template #template1>
   <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
   tabindex="-1"  aria-hidden="true">
   <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
@@ -726,41 +788,131 @@
       class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
       <div class="modal-header flex justify-between p-0 m-0">
           <div>
-            <!-- <p class="font-bold text-xl">Edit Xp</p> -->
+            <p class="font-bold text-xl">Feedback Xps</p>
           </div>
           <div class="float-right">
             <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
           </div>
         </div>
-      <div class="flex-auto  relative p-4">
-        <div class="flex flex-col">
-          <div class="sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="">
-                <div [formGroup]="modifyXp">
-                  <div class="grid grid-cols-1 items-center m-1 p-1 gap-4 w-full">
-                    <div class=" text-center md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
-                      <p class="font-bold ">Enter Xp Point</p>
+      <div class="flex-auto overflow-y-auto relative p-4">
+        <div class=" bg-gray-50">
+          <div class="my-0  px-10 py-5">
+            <div class="flex w-full flex-col">
+              <div class="flex flex-col sm:flex-row">
+                <div class="my-4 rounded-xl bg-white py-2 px-4 shadow sm:my-0 sm:ml-auto">
+                  <div class="flex h-16 items-center text-2xl font-bold text-blue-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    {{result?.xpData?.feedbackXp}}
+                  </div>
+                  <p class="text-sm text-gray-500">Total Xps</p>
+                </div>
+              </div>
+              <div class="text-gray-700">
+                <p class="font-medium">Reviews</p>
+                <ul class="mb-6 mt-2 space-y-2">
+                  <li class="flex items-center text-sm font-medium">
+                    <span class="w-3">5</span
+                    >
+                    <span class="mr-4 text-yellow-400"
+                      ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
+                    ></span>
+                    <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
+                      <div class="h-full w-10/12 bg-yellow-400"></div>
                     </div>
-                    <div class="md:col-span-1 col-span-12 -bottom-2 relative z-0 mb-6">
-                        <input type="text" name="xp" 
-                            class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent border-2 rounded-md border-gray-300 dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " formControlName="xp"  />
-                        <label for="xp"
-                            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 z-0 peer-focus:z-0 px-2 peer-placeholder-shown:-z-10 bg-white peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                            Xp Point....
-                        </label>
+                    <span class="w-3">{{result?.feedbackRating?.total_fiveStars}}</span>
+                  </li>
+                  <li class="flex items-center text-sm font-medium">
+                    <span class="w-3">4</span
+                    ><span class="mr-4 text-yellow-400"
+                      ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
+                    ></span>
+                    <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
+                      <div class="h-full w-8/12 bg-yellow-400"></div>
+                    </div>
+                    <span class="w-3">{{result?.feedbackRating?.total_fourStars}}</span>
+                  </li>
+                  <li class="flex items-center text-sm font-medium">
+                    <span class="w-3">3</span
+                    ><span class="mr-4 text-yellow-400"
+                      ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
+                    ></span>
+                    <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
+                      <div class="h-full w-6/12 bg-yellow-400"></div>
+                    </div>
+                    <span class="w-3">{{result?.feedbackRating?.total_threeStars}}</span>
+                  </li>
+                  <li class="flex items-center text-sm font-medium">
+                    <span class="w-3">2</span
+                    ><span class="mr-4 text-yellow-400"
+                      ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
+                    ></span>
+                    <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
+                      <div class="h-full w-4/12 bg-yellow-400"></div>
+                    </div>
+                    <span class="w-3">{{result?.feedbackRating?.total_twoStars}}</span>
+                  </li>
+                  <li class="flex items-center text-sm font-medium">
+                    <span class="w-3">1</span
+                    ><span class="mr-4 text-yellow-400"
+                      ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
+                    ></span>
+                    <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
+                      <div class="h-full w-2/12 bg-yellow-400"></div>
+                    </div>
+                    <span class="w-3">{{result?.feedbackRating?.total_oneStars}}</span>
+                  </li>
+                </ul>
+
+                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
+                      <table class="min-w-full text-center text-sm font-light border-separate border border-slate-400 ">
+                        <thead
+                          class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                          <tr>
+                            <th scope="col" class=" px-6 py-4">Feedback Type</th>
+                            <th scope="col" class=" px-6 py-4">Count</th>
+                            <th scope="col" class=" px-6 py-4">Per Feedback Point</th> 
+                            <th scope="col" class=" px-6 py-4">Total Xp</th> 
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="border-b dark:border-neutral-500">
+                            <td class="whitespace-nowrap  px-6 py-4 font-medium">Positive</td>
+                            <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_positive_feedback}}</td>
+                            <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_positive_feedbackXp}}</td>
+                            <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.total_positive_feedbackXp}}</td>
+                          </tr>
+                          <tr class="border-b dark:border-neutral-500">
+                            <td class="whitespace-nowrap  px-6 py-4 font-medium">Negative</td>
+                            <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_negative_feedback}}</td>
+                            <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_negative_feedbackXp}}</td>
+                            <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.total_negative_feedbackXp}}</td>
+                          </tr>
+                          <tr class="border-b dark:border-neutral-500">
+                            <td class="whitespace-nowrap  px-6 py-4 font-medium">Neutral</td>
+                            <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_neutral_feedback}}</td>
+                            <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_neutral_feedbackXp}}</td>
+                            <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.total_neutral_feedbackXp}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        
         </div>
-
-        <!-- <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Busy Time</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Busy Time Xp(per min)</p>
-        <p class="font-semibold text-gray-500 text-base no-underline hover:underline ...">Total Xp</p> -->
+        
       </div>
       <div
         class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
@@ -769,168 +921,10 @@
           data-bs-dismiss="modal" (click)="closeModal()">
           Close
         </button>
-        <button type="submit" 
-            (click)="updateXp()"
-            class="mx-1 w-1/6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Update
-        </button>
+
       </div>
     </div>
   </div>
 </div>
-</ng-template>
-
-  <ng-template #template1>
-    <div class="z-40 fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-    tabindex="-1"  aria-hidden="true">
-    <div class="sm:h-[calc(100%-3rem)] max-w-lg my-6 mx-auto relative w-auto pointer-events-none">
-      <div
-        class="max-h-full overflow-hidden border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-        <div class="modal-header flex justify-between p-0 m-0">
-            <div>
-              <p class="font-bold text-xl">Feedback Xps</p>
-            </div>
-            <div class="float-right">
-              <button (click)="closeModal()"><mat-icon>close</mat-icon></button>
-            </div>
-          </div>
-        <div class="flex-auto overflow-y-auto relative p-4">
-          <div class=" bg-gray-50">
-            <!-- Reviews -->
-            <div class="my-0  px-10 py-5">
-              <div class="flex w-full flex-col">
-                <div class="flex flex-col sm:flex-row">
-                  <div class="my-4 rounded-xl bg-white py-2 px-4 shadow sm:my-0 sm:ml-auto">
-                    <div class="flex h-16 items-center text-2xl font-bold text-blue-900">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                      {{result?.xpData?.feedbackXp}}
-                    </div>
-                    <p class="text-sm text-gray-500">Total Xps</p>
-                  </div>
-                </div>
-                <div class="text-gray-700">
-                  <p class="font-medium">Reviews</p>
-                  <ul class="mb-6 mt-2 space-y-2">
-                    <li class="flex items-center text-sm font-medium">
-                      <span class="w-3">5</span
-                      >
-                      <span class="mr-4 text-yellow-400"
-                        ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
-                      ></span>
-                      <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
-                        <div class="h-full w-10/12 bg-yellow-400"></div>
-                      </div>
-                      <span class="w-3">{{result?.feedbackRating?.total_fiveStars}}</span>
-                    </li>
-                    <li class="flex items-center text-sm font-medium">
-                      <span class="w-3">4</span
-                      ><span class="mr-4 text-yellow-400"
-                        ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
-                      ></span>
-                      <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
-                        <div class="h-full w-8/12 bg-yellow-400"></div>
-                      </div>
-                      <span class="w-3">{{result?.feedbackRating?.total_fourStars}}</span>
-                    </li>
-                    <li class="flex items-center text-sm font-medium">
-                      <span class="w-3">3</span
-                      ><span class="mr-4 text-yellow-400"
-                        ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
-                      ></span>
-                      <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
-                        <div class="h-full w-6/12 bg-yellow-400"></div>
-                      </div>
-                      <span class="w-3">{{result?.feedbackRating?.total_threeStars}}</span>
-                    </li>
-                    <li class="flex items-center text-sm font-medium">
-                      <span class="w-3">2</span
-                      ><span class="mr-4 text-yellow-400"
-                        ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
-                      ></span>
-                      <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
-                        <div class="h-full w-4/12 bg-yellow-400"></div>
-                      </div>
-                      <span class="w-3">{{result?.feedbackRating?.total_twoStars}}</span>
-                    </li>
-                    <li class="flex items-center text-sm font-medium">
-                      <span class="w-3">1</span
-                      ><span class="mr-4 text-yellow-400"
-                        ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg
-                      ></span>
-                      <div class="mr-4 h-2 w-96 overflow-hidden rounded-full bg-gray-300">
-                        <div class="h-full w-2/12 bg-yellow-400"></div>
-                      </div>
-                      <span class="w-3">{{result?.feedbackRating?.total_oneStars}}</span>
-                    </li>
-                  </ul>
-
-                  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                      <div class="overflow-hidden">
-                        <table class="min-w-full text-center text-sm font-light border-separate border border-slate-400 ">
-                          <thead
-                            class="border-b bg-neutral-50 font-medium dark:border-neutral-500 dark:text-neutral-800">
-                            <tr>
-                              <th scope="col" class=" px-6 py-4">Feedback Type</th>
-                              <th scope="col" class=" px-6 py-4">Count</th>
-                              <th scope="col" class=" px-6 py-4">Per Feedback Point</th> 
-                              <th scope="col" class=" px-6 py-4">Total Xp</th> 
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr class="border-b dark:border-neutral-500">
-                              <td class="whitespace-nowrap  px-6 py-4 font-medium">Positive</td>
-                              <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_positive_feedback}}</td>
-                              <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_positive_feedbackXp}}</td>
-                              <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.total_positive_feedbackXp}}</td>
-                            </tr>
-                            <tr class="border-b dark:border-neutral-500">
-                              <td class="whitespace-nowrap  px-6 py-4 font-medium">Negative</td>
-                              <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_negative_feedback}}</td>
-                              <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_negative_feedbackXp}}</td>
-                              <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.total_negative_feedbackXp}}</td>
-                            </tr>
-                            <tr class="border-b dark:border-neutral-500">
-                              <td class="whitespace-nowrap  px-6 py-4 font-medium">Neutral</td>
-                              <td class="whitespace-nowrap  px-6 py-4 font-medium">{{result?.totalOrdersInfo?.total_neutral_feedback}}</td>
-                              <td class="whitespace-nowrap  px-6 py-4">{{result?.perUnitXp?.per_neutral_feedbackXp}}</td>
-                              <td class="whitespace-nowrap  px-6 py-4">{{result?.xpData?.total_neutral_feedbackXp}}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- <button class="w-36 rounded-full bg-blue-900 py-3 text-white font-medium">Write a review</button> -->
-              </div>
-            </div>
-          
-            <!-- /Reviews -->
-          </div>
-          
-        </div>
-        <div
-          class="flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-          <button type="button"
-            class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-            data-bs-dismiss="modal" (click)="closeModal()">
-            Close
-          </button>
-          <!-- <button type="button"
-            class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
-            Save changes
-          </button> -->
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
+</ng-template> -->
 
